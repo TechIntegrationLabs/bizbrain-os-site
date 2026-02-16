@@ -1,0 +1,26 @@
+{
+  "name": "bizbrain-os-site",
+  "version": "1.0.0",
+  "description": "BizBrain OS - Your AI-Powered Business Operating System",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve .",
+    "build": "echo 'Static site - no build step required'"
+  },
+  "keywords": [
+    "bizbrain",
+    "ai",
+    "business",
+    "operating-system",
+    "claude-code",
+    "terminal",
+    "automation"
+  ],
+  "author": "Tech Integration Labs LLC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bizbrain-os/bizbrain-site"
+  }
+}
