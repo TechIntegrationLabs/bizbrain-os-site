@@ -1145,4 +1145,113 @@ img {
     justify-content: center;
     max-width: 280px;
   }
+
+  .quick-start-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ---- Quick Start Section ---- */
+.quick-start-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.prereqs-card,
+.commands-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.prereqs-title,
+.commands-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.prereqs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.prereq-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.prereq-name {
+  font-weight: 600;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.prereq-version {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  text-align: right;
+}
+
+.prereq-why {
+  grid-column: 1 / -1;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  margin-left: auto;
+}
+
+.t-string {
+  color: #a8e6a1;
+}
+
+/* ---- Architecture Section ---- */
+.architecture-content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ---- Automation module icon color ---- */
+.module-icon.automation {
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--accent);
+}
+
+/* ---- Hero image ---- */
+.hero-image {
+  margin-top: 3rem;
+  text-align: center;
+}
+.hero-image img {
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- Modules visual ---- */
+.modules-visual {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.modules-visual img {
+  max-width: 100%;
+  border-radius: var(--radius-lg);
 }
