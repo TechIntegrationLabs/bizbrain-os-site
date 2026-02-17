@@ -381,11 +381,36 @@ h1, h2, h3, h4, h5, h6 {
 .hero-title {
   font-size: clamp(2.8rem, 6.5vw, 4.5rem);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: -0.04em;
   margin-bottom: 24px;
 }
 
+/* Typing animation line */
+.typing-line {
+  display: inline-flex;
+  align-items: baseline;
+  min-height: 1.15em;
+}
+.typing-text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  min-width: 2px;
+}
+.typing-cursor {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 300;
+  animation: blink-cursor 0.75s step-end infinite;
+  margin-left: 2px;
+  font-size: 0.9em;
+  opacity: 0.9;
+}
+@keyframes blink-cursor {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0; }
+}
 
 .hero-subtitle {
   font-size: clamp(1.05rem, 2vw, 1.25rem);

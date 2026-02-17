@@ -256,6 +256,49 @@
     requestAnimationFrame(animateCounters);
   }, { passive: true });
 
+  // ---- Typing Animation ----
+  var typingEl = document.getElementById('typing-text');
+  var cursorEl = document.getElementById('typing-cursor');
+  if (typingEl) {
+    var phrases = [
+      'Your Business',
+      'Your Clients',
+      'Your Projects',
+      'Your Workflows',
+      'Your History'
+    ];
+    var phraseIdx = 0;
+    var charIdx = 0;
+    var isDeleting = false;
+    var typeSpeed = 80;
+    var deleteSpeed = 40;
+    var pauseEnd = 2400;
+    var pauseStart = 600;
+
+    function tick() {
+      var current = phrases[phraseIdx];
+      if (!isDeleting) {
+        charIdx++;
+        typingEl.textContent = current.substring(0, charIdx);
+        if (charIdx === current.length) {
+          setTimeout(function () { isDeleting = true; tick(); }, pauseEnd);
+          return;
+        }
+        setTimeout(tick, typeSpeed);
+      } else {
+        charIdx--;
+        typingEl.textContent = current.substring(0, charIdx);
+        if (charIdx === 0) {
+          isDeleting = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          setTimeout(tick, pauseStart);
+          return;
+        }
+        setTimeout(tick, deleteSpeed);
+      }
+    }
+    setTimeout(tick, 800);
+  }
 
   // ---- FAQ Accordion ----
   var faqItems = document.querySelectorAll('.faq-item');
