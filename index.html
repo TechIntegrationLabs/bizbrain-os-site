@@ -21,6 +21,9 @@
 </head>
 <body>
 
+  <!-- ===================== SCROLL PROGRESS ===================== -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
   <!-- ===================== NAVIGATION ===================== -->
   <nav class="nav" id="nav">
     <div class="nav-container">
@@ -41,12 +44,12 @@
       </a>
 
       <div class="nav-links" id="nav-links">
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#quick-start" class="nav-link">Install</a>
-        <a href="#openclaw" class="nav-link">OpenClaw</a>
-        <a href="#modules" class="nav-link">Modules</a>
+        <a href="#features" class="nav-link" data-section="features">Features</a>
+        <a href="#how-it-works" class="nav-link" data-section="how-it-works">How It Works</a>
+        <a href="#openclaw" class="nav-link" data-section="openclaw">OpenClaw</a>
+        <a href="#modules" class="nav-link" data-section="modules">Modules</a>
+        <a href="#faq" class="nav-link" data-section="faq">FAQ</a>
         <a href="https://github.com/TechIntegrationLabs/bizbrain-os/wiki" class="nav-link" target="_blank" rel="noopener">Docs</a>
-        <a href="https://discord.gg/bizbrain" class="nav-link" target="_blank" rel="noopener">Discord</a>
         <a href="https://github.com/TechIntegrationLabs/bizbrain-os" class="nav-link nav-link--github" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           GitHub
@@ -89,7 +92,7 @@
         </div>
         <h1 class="hero-title animate-in">
           AI Is Only as Useful as<br>
-          <span class="gradient-text">What It Knows About Your Business</span>
+          <span class="gradient-text">What It Knows About <span class="rotating-text" id="rotating-text">Your Business</span></span>
         </h1>
         <p class="hero-subtitle animate-in">
           BizBrain OS is the structured context layer that teaches AI everything about
@@ -109,7 +112,7 @@
         <div class="hero-actions animate-in">
           <a href="https://github.com/TechIntegrationLabs/bizbrain-os" class="btn btn-primary" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            Get Started
+            Get Started Free
           </a>
           <a href="https://discord.gg/bizbrain" class="btn btn-secondary" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
@@ -118,7 +121,7 @@
         </div>
         <div class="hero-stats animate-in">
           <div class="stat">
-            <span class="stat-value">27+</span>
+            <span class="stat-value" data-target="27" data-suffix="+">27+</span>
             <span class="stat-label">Modules</span>
           </div>
           <div class="stat-divider"></div>
@@ -128,7 +131,7 @@
           </div>
           <div class="stat-divider"></div>
           <div class="stat">
-            <span class="stat-value">100%</span>
+            <span class="stat-value" data-target="100" data-suffix="%">100%</span>
             <span class="stat-label">Your Data</span>
           </div>
           <div class="stat-divider"></div>
@@ -141,6 +144,10 @@
       <div class="hero-image animate-in">
         <img src="images/dashboard-mockup.png" alt="BizBrain OS Dashboard - Terminal and web dashboard showing client management, tasks, and revenue tracking" loading="lazy" width="800">
       </div>
+    </div>
+    <div class="scroll-indicator" id="scroll-indicator">
+      <span>Scroll to explore</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
     </div>
   </section>
 
@@ -239,6 +246,50 @@
     </div>
   </section>
 
+  <!-- ===================== BEFORE / AFTER ===================== -->
+  <section class="section before-after" id="before-after">
+    <div class="container">
+      <div class="section-header animate-in">
+        <span class="section-label">The Difference</span>
+        <h2 class="section-title">Before &amp; After BizBrain OS</h2>
+        <p class="section-desc">See the real-world difference a structured context layer makes in your daily AI workflow.</p>
+      </div>
+      <div class="comparison-grid animate-in">
+        <div class="comparison-col comparison-before">
+          <div class="comparison-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <span>Without BizBrain OS</span>
+          </div>
+          <ul class="comparison-list">
+            <li>Re-explain your business every AI session</li>
+            <li>Copy-paste client info from scattered docs</li>
+            <li>AI writes generic content missing your voice</li>
+            <li>New team members take weeks to onboard</li>
+            <li>Project decisions lost in chat history</li>
+            <li>Every AI tool starts from zero knowledge</li>
+          </ul>
+        </div>
+        <div class="comparison-divider">
+          <div class="comparison-vs">VS</div>
+        </div>
+        <div class="comparison-col comparison-after">
+          <div class="comparison-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>With BizBrain OS</span>
+          </div>
+          <ul class="comparison-list">
+            <li>AI knows your clients, projects &amp; history instantly</li>
+            <li>Structured context auto-loaded every session</li>
+            <li>Content drafted in your exact brand voice</li>
+            <li>New hires productive in hours, not weeks</li>
+            <li>Every decision captured &amp; searchable forever</li>
+            <li>All AI tools share your compounding knowledge</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== HOW IT WORKS ===================== -->
   <section class="section how-it-works" id="how-it-works">
     <div class="container">
@@ -253,7 +304,7 @@
           <div class="step-content">
             <h3 class="step-title">Install with One Command</h3>
             <p class="step-desc">Run <code>npx create-bizbrain</code> and the installer handles everything -- cloning the repo, checking dependencies, and scaffolding your workspace.</p>
-            <div class="step-terminal">
+            <div class="step-terminal" data-typing="true">
               <div class="terminal-header">
                 <span class="terminal-dot red"></span>
                 <span class="terminal-dot yellow"></span>
@@ -287,7 +338,7 @@
           <div class="step-content">
             <h3 class="step-title">Watch It Compound</h3>
             <p class="step-desc">Every client interaction, every project decision, every conversation gets captured and structured. Your AI context layer grows richer every day &mdash; automatically.</p>
-            <div class="step-terminal">
+            <div class="step-terminal" data-typing="true">
               <div class="terminal-header">
                 <span class="terminal-dot red"></span>
                 <span class="terminal-dot yellow"></span>
@@ -321,6 +372,7 @@
         <div class="timeline-item">
           <div class="timeline-marker">Day 1</div>
           <div class="timeline-content">
+            <div class="timeline-progress" style="--progress: 5%"></div>
             <h4>Foundation</h4>
             <p>Your business profile, key clients, and active projects are structured. AI stops asking &ldquo;what do you do?&rdquo;</p>
           </div>
@@ -328,6 +380,7 @@
         <div class="timeline-item">
           <div class="timeline-marker">Week 1</div>
           <div class="timeline-content">
+            <div class="timeline-progress" style="--progress: 15%"></div>
             <h4>Pattern Recognition</h4>
             <p>Client preferences, communication styles, and project workflows emerge. AI starts anticipating needs.</p>
           </div>
@@ -335,6 +388,7 @@
         <div class="timeline-item">
           <div class="timeline-marker">Month 1</div>
           <div class="timeline-content">
+            <div class="timeline-progress" style="--progress: 35%"></div>
             <h4>Institutional Knowledge</h4>
             <p>Historical decisions, resolved issues, and proven approaches are captured. New team members onboard in minutes, not weeks.</p>
           </div>
@@ -342,6 +396,7 @@
         <div class="timeline-item">
           <div class="timeline-marker">Month 6</div>
           <div class="timeline-content">
+            <div class="timeline-progress" style="--progress: 60%"></div>
             <h4>Deep Understanding</h4>
             <p>AI knows your client&rsquo;s preferred communication channel, your team&rsquo;s velocity patterns, and which proposals close. It drafts content in your voice.</p>
           </div>
@@ -349,6 +404,7 @@
         <div class="timeline-item">
           <div class="timeline-marker">Year 1</div>
           <div class="timeline-content">
+            <div class="timeline-progress" style="--progress: 82%"></div>
             <h4>Competitive Moat</h4>
             <p>Your AI context layer contains insights no competitor can replicate. It&rsquo;s not just data &mdash; it&rsquo;s structured understanding of your unique business.</p>
           </div>
@@ -356,6 +412,7 @@
         <div class="timeline-item">
           <div class="timeline-marker">Year 2</div>
           <div class="timeline-content">
+            <div class="timeline-progress" style="--progress: 100%"></div>
             <h4>Insurmountable Advantage</h4>
             <p>A competitor starting now is two years behind. Your context layer feeds every new AI tool instantly. Theirs starts from scratch.</p>
           </div>
@@ -659,90 +716,22 @@
         <h2 class="section-title">Works With Everything</h2>
         <p class="section-desc">BizBrain OS feeds context to any tool you use. Connect through MCP servers, direct APIs, or pair with OpenClaw for autonomous action.</p>
       </div>
-      <div class="integrations-grid animate-in">
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          </div>
-          <span class="integration-name">GitHub</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          </div>
-          <span class="integration-name">Netlify</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.5C4.5 2.67 5.17 2 6 2h12c.83 0 1.5.67 1.5 1.5v17c0 .83-.67 1.5-1.5 1.5H6c-.83 0-1.5-.67-1.5-1.5v-17zM8 6v2h8V6H8zm0 4v2h8v-2H8z"/></svg>
-          </div>
-          <span class="integration-name">Notion</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.165 0a2.528 2.528 0 012.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.165 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 01-2.52-2.523 2.526 2.526 0 012.52-2.52h6.313A2.527 2.527 0 0124 15.165a2.528 2.528 0 01-2.522 2.523h-6.313z"/></svg>
-          </div>
-          <span class="integration-name">Slack</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M21 4.5H3c-.83 0-1.5.67-1.5 1.5v12c0 .83.67 1.5 1.5 1.5h18c.83 0 1.5-.67 1.5-1.5V6c0-.83-.67-1.5-1.5-1.5zM12 13.5L3.6 7.5h16.8L12 13.5z"/></svg>
-          </div>
-          <span class="integration-name">Supabase</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.918 3.757 7.038c0 4.238 2.702 5.996 7.037 7.553 2.734 1.009 3.673 1.74 3.673 2.83 0 .95-.793 1.535-2.29 1.535-2.098 0-4.945-.928-6.873-2.199L4.338 22.35C6.527 23.606 9.682 24.5 12.585 24.5c2.615 0 4.786-.635 6.317-1.834 1.648-1.29 2.497-3.138 2.497-5.39 0-4.359-2.765-6.106-7.423-8.126z"/></svg>
-          </div>
-          <span class="integration-name">Stripe</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
-          </div>
-          <span class="integration-name">Gmail</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M24 22.525H0l12-21.05 12 21.05z"/></svg>
-          </div>
-          <span class="integration-name">Vercel</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-          </div>
-          <span class="integration-name">Claude Code</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-          </div>
-          <span class="integration-name">OpenClaw</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="var(--bg-primary)"/></svg>
-          </div>
-          <span class="integration-name">Chrome</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1" fill="none"/><path d="M12 3L8 8h3v4.5L15 7h-3V3z" fill="currentColor" opacity="0.7"/><circle cx="12" cy="16" r="3" fill="currentColor"/></svg>
-          </div>
-          <span class="integration-name">Obsidian</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
-          <span class="integration-name">Remotion</span>
-        </div>
-        <div class="integration-item">
-          <div class="integration-logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 17.075c-.248.694-1.436 1.328-2.006 1.413-.511.077-1.159.109-1.871-.118-.432-.136-.985-.319-1.694-.625-2.981-1.287-4.928-4.289-5.077-4.487-.148-.199-1.213-1.612-1.213-3.074 0-1.463.768-2.182 1.04-2.479.272-.298.594-.372.792-.372.199 0 .397.002.57.01.182.01.427-.069.669.51.247.595.841 2.058.916 2.207.075.149.124.322.025.52-.1.199-.149.323-.298.497-.148.173-.312.387-.446.52-.148.148-.303.309-.13.606.173.298.77 1.271 1.653 2.059 1.135 1.012 2.093 1.325 2.39 1.475.297.148.471.124.644-.075.173-.198.743-.867.94-1.164.199-.298.397-.249.67-.15.272.1 1.733.818 2.03.967.298.149.496.223.57.347.075.124.075.719-.173 1.413z"/></svg>
-          </div>
-          <span class="integration-name">WhatsApp</span>
+      <div class="integrations-marquee animate-in">
+        <div class="marquee-track">
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></div><span class="integration-name">GitHub</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17.3877 16.4048L12.0001 20.5714L6.61253 16.4048L12.0001 0L17.3877 16.4048Z"/><path d="M17.3877 16.4048L12.0001 20.5714L22.7578 16.4048L17.3877 16.4048Z"/><path d="M6.61253 16.4048L12.0001 20.5714L1.24234 16.4048H6.61253Z"/><path d="M1.24234 16.4048L12.0001 0L6.61253 16.4048H1.24234Z" opacity="0.7"/><path d="M22.7578 16.4048L12.0001 0L17.3877 16.4048H22.7578Z" opacity="0.7"/></svg></div><span class="integration-name">Netlify</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.5C4.5 2.67 5.17 2 6 2h12c.83 0 1.5.67 1.5 1.5v17c0 .83-.67 1.5-1.5 1.5H6c-.83 0-1.5-.67-1.5-1.5v-17zM8 6v2h8V6H8zm0 4v2h8v-2H8z"/></svg></div><span class="integration-name">Notion</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.165 0a2.528 2.528 0 012.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.165 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 01-2.52-2.523 2.526 2.526 0 012.52-2.52h6.313A2.527 2.527 0 0124 15.165a2.528 2.528 0 01-2.522 2.523h-6.313z"/></svg></div><span class="integration-name">Slack</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M21.362 9.354H12V14.22h5.392c-.488 2.56-2.723 4.39-5.392 4.39-3.032 0-5.49-2.458-5.49-5.49s2.458-5.49 5.49-5.49c1.36 0 2.6.498 3.558 1.32l3.486-3.486A9.743 9.743 0 0012 2.37c-5.388 0-9.75 4.362-9.75 9.75s4.362 9.75 9.75 9.75c5.044 0 9.27-3.68 9.75-8.516h.022V9.354h-.41z"/></svg></div><span class="integration-name">Supabase</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.918 3.757 7.038c0 4.238 2.702 5.996 7.037 7.553 2.734 1.009 3.673 1.74 3.673 2.83 0 .95-.793 1.535-2.29 1.535-2.098 0-4.945-.928-6.873-2.199L4.338 22.35C6.527 23.606 9.682 24.5 12.585 24.5c2.615 0 4.786-.635 6.317-1.834 1.648-1.29 2.497-3.138 2.497-5.39 0-4.359-2.765-6.106-7.423-8.126z"/></svg></div><span class="integration-name">Stripe</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></div><span class="integration-name">Gmail</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M24 22.525H0l12-21.05 12 21.05z"/></svg></div><span class="integration-name">Vercel</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M4.709 15.955l4.397-2.85a3.252 3.252 0 001.476-2.725V4.18C10.582 1.872 11.165.5 12 .5s1.418 1.372 1.418 3.68v6.2a3.252 3.252 0 001.476 2.725l4.397 2.85c1.97 1.277 2.652 2.576 1.844 3.51-.808.934-2.612.685-4.582-.592l-3.135-2.033a3.252 3.252 0 00-2.836 0l-3.135 2.033c-1.97 1.277-3.774 1.526-4.582.592-.808-.934-.126-2.233 1.844-3.51z"/></svg></div><span class="integration-name">Claude Code</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><span class="integration-name">OpenClaw</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="var(--bg-primary)"/></svg></div><span class="integration-name">Chrome</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1" fill="none"/><path d="M12 3L8 8h3v4.5L15 7h-3V3z" fill="currentColor" opacity="0.7"/><circle cx="12" cy="16" r="3" fill="currentColor"/></svg></div><span class="integration-name">Obsidian</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div><span class="integration-name">Remotion</span></div>
+          <div class="integration-item"><div class="integration-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 17.075c-.248.694-1.436 1.328-2.006 1.413-.511.077-1.159.109-1.871-.118-.432-.136-.985-.319-1.694-.625-2.981-1.287-4.928-4.289-5.077-4.487-.148-.199-1.213-1.612-1.213-3.074 0-1.463.768-2.182 1.04-2.479.272-.298.594-.372.792-.372.199 0 .397.002.57.01.182.01.427-.069.669.51.247.595.841 2.058.916 2.207.075.149.124.322.025.52-.1.199-.149.323-.298.497-.148.173-.312.387-.446.52-.148.148-.303.309-.13.606.173.298.77 1.271 1.653 2.059 1.135 1.012 2.093 1.325 2.39 1.475.297.148.471.124.644-.075.173-.198.743-.867.94-1.164.199-.298.397-.249.67-.15.272.1 1.733.818 2.03.967.298.149.496.223.57.347.075.124.075.719-.173 1.413z"/></svg></div><span class="integration-name">WhatsApp</span></div>
         </div>
       </div>
     </div>
@@ -758,8 +747,12 @@
       </div>
       <div class="testimonials-grid">
         <div class="testimonial-card animate-in">
-          <div class="testimonial-quote">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609L9.978 5.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H0z"/></svg>
+          <div class="testimonial-stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <p class="testimonial-text">"I used to spend the first 10 minutes of every AI session re-explaining my business. Who my clients are, what we're working on, what the preferences are. BizBrain OS eliminated that completely. Now my AI knows my business better than my junior hire did."</p>
           <div class="testimonial-author">
@@ -771,10 +764,14 @@
           </div>
         </div>
         <div class="testimonial-card animate-in">
-          <div class="testimonial-quote">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609L9.978 5.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H0z"/></svg>
+          <div class="testimonial-stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <p class="testimonial-text">"Six months in, the compounding effect is real. My AI context layer knows every client interaction, every project decision, every lesson learned. When a new team member joins, they get up to speed in a day instead of a month. That's institutional knowledge that doesn't walk out the door."</p>
+          <p class="testimonial-text">"Six months in, the compounding effect is real. My AI context layer knows every client interaction, every project decision, every lesson learned. When a new team member joins, they get up to speed in a day instead of a month."</p>
           <div class="testimonial-author">
             <div class="author-avatar">MK</div>
             <div class="author-info">
@@ -784,10 +781,14 @@
           </div>
         </div>
         <div class="testimonial-card animate-in">
-          <div class="testimonial-quote">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609L9.978 5.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H0z"/></svg>
+          <div class="testimonial-stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <p class="testimonial-text">"I connected BizBrain OS with OpenClaw and now I get a morning briefing that actually knows my business. It pulls my priorities, checks project status, and drafts client updates -- all without me opening a single app. This is what AI was supposed to feel like."</p>
+          <p class="testimonial-text">"I connected BizBrain OS with OpenClaw and now I get a morning briefing that actually knows my business. It pulls my priorities, checks project status, and drafts client updates -- all without me opening a single app."</p>
           <div class="testimonial-author">
             <div class="author-avatar">DS</div>
             <div class="author-info">
@@ -829,6 +830,73 @@
           </div>
           <h3>It Takes 5 Minutes</h3>
           <p>Run <code>npx create-bizbrain</code>, complete the voice interview, and your context layer starts building. Five minutes of setup for years of compounding returns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section faq-section" id="faq">
+    <div class="container">
+      <div class="section-header animate-in">
+        <span class="section-label">Questions</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">Everything you need to know before getting started.</p>
+      </div>
+      <div class="faq-list animate-in">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Is my business data sent to the cloud?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>No. BizBrain OS is 100% local-first. All your business data stays on your machine. Nothing is uploaded to any cloud service. Your context files are gitignored by default, meaning they never leave your local workspace. The only data that touches external services is when you explicitly choose to use an AI provider (Claude, OpenAI, etc.) for processing.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Does BizBrain OS require Claude Code?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Claude Code is the recommended engine for the best experience, but BizBrain OS is designed as a universal context layer. The structured files it generates (CLAUDE.md, entity records, knowledge base) can be fed into any LLM. You can use the context with ChatGPT, Cursor, Copilot, or any other AI tool that accepts text context.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How is this different from just using a CRM?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>A CRM stores contact data. BizBrain OS captures <em>context</em> &mdash; the nuances, preferences, communication styles, decision history, and institutional knowledge that make AI truly useful. It's the difference between knowing a client's email and knowing how they like to be communicated with, what projects have worked, and what they'll likely ask next. CRMs are for humans to look up data. BizBrain OS is for AI to understand your world.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Can I use this for a team?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! The architecture supports both individual and team use. System files (modules, commands, templates) are git-tracked, so your team can share the same BizBrain OS setup. Each team member's personal data is gitignored. You can selectively share context by committing specific knowledge base files while keeping sensitive client data local. Many teams use a shared repo for the system files and individual workspaces for private data.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What happens when I update BizBrain OS?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Updates are seamless. Run <code>git pull origin main</code> and system files update automatically. Your data, config, and context are never touched because they're in gitignored directories. New modules and features appear instantly. No migration scripts, no database changes, no breaking updates. Your context layer is yours forever.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Is it really free? What's the catch?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>BizBrain OS is open source under the AGPL v3 license. There's no catch, no freemium, no hidden fees. The project is built and maintained by Tech Integration Labs and the community. You'll need your own Claude Code subscription (or other AI provider) to use the AI features, but BizBrain OS itself is completely free. We believe the context layer should be an open standard, not a walled garden.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -912,10 +980,23 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 Tech Integration Labs LLC &amp; community. All rights reserved.</p>
-        <p class="footer-built">Built with Claude Code &middot; Deployed on Vercel</p>
+        <p class="footer-built">Built with Claude Code &middot; Deployed on Netlify</p>
       </div>
     </div>
   </footer>
+
+  <!-- ===================== BACK TO TOP ===================== -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- ===================== FLOATING CTA ===================== -->
+  <div class="floating-cta" id="floating-cta">
+    <div class="floating-cta-inner">
+      <span class="floating-cta-text">Start building your AI context layer</span>
+      <a href="https://github.com/TechIntegrationLabs/bizbrain-os" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Get Started Free</a>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
