@@ -141,4 +141,69 @@
   handleNavScroll();
   window.addEventListener('scroll', handleNavScroll, { passive: true });
 
+  // ---- Animated Counters ----
+  function animateCounters() {
+    var stats = document.querySelectorAll('.stat-value');
+    stats.forEach(function (stat) {
+      if (stat.dataset.animated) return;
+      var rect = stat.getBoundingClientRect();
+      if (rect.top > window.innerHeight * 0.95) return;
+
+      var text = stat.textContent.trim();
+      var match = text.match(/^(\d+)([+%]?)$/);
+      if (!match) return;
+
+      stat.dataset.animated = 'true';
+      var target = parseInt(match[1]);
+      var suffix = match[2] || '';
+      var duration = 1800;
+      var start = performance.now();
+
+      function update(now) {
+        var elapsed = now - start;
+        var progress = Math.min(elapsed / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        stat.textContent = Math.round(target * eased) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+
+      stat.textContent = '0' + suffix;
+      requestAnimationFrame(update);
+    });
+  }
+
+  animateCounters();
+  window.addEventListener('scroll', function () {
+    requestAnimationFrame(animateCounters);
+  }, { passive: true });
+
+  // ---- Mouse Parallax on Hero Glow ----
+  var heroGlow = document.querySelector('.hero-glow');
+  if (heroGlow) {
+    var parallaxFrame;
+    document.addEventListener('mousemove', function (e) {
+      if (parallaxFrame) return;
+      parallaxFrame = requestAnimationFrame(function () {
+        var x = (e.clientX / window.innerWidth - 0.5) * 40;
+        var y = (e.clientY / window.innerHeight - 0.5) * 30;
+        heroGlow.style.transform = 'translateX(calc(-50% + ' + x + 'px)) translateY(' + y + 'px)';
+        parallaxFrame = null;
+      });
+    });
+  }
+
+  // ---- Tilt Effect on Feature Cards ----
+  var featureCards = document.querySelectorAll('.feature-card');
+  featureCards.forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'translateY(-4px) perspective(800px) rotateX(' + (-y * 4) + 'deg) rotateY(' + (x * 4) + 'deg)';
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = '';
+    });
+  });
+
 })();
