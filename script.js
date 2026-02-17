@@ -19,7 +19,6 @@
   var backToTop = document.getElementById('back-to-top');
   var floatingCTA = document.getElementById('floating-cta');
   var scrollIndicator = document.getElementById('scroll-indicator');
-  var rotatingText = document.getElementById('rotating-text');
 
   // ---- Theme Toggle ----
   function getPreferredTheme() {
@@ -257,55 +256,6 @@
     requestAnimationFrame(animateCounters);
   }, { passive: true });
 
-  // ---- Typing Animation for Hero Text ----
-  if (rotatingText) {
-    var phrases = ['Your Business', 'Your Clients', 'Your Projects', 'Your Workflows', 'Your History'];
-    var phraseIndex = 0;
-    var typeSpeed = 60;
-    var deleteSpeed = 35;
-    var pauseAfterType = 2200;
-    var pauseAfterDelete = 400;
-
-    function typePhrase(text, callback) {
-      var i = 0;
-      rotatingText.textContent = '';
-      rotatingText.classList.add('typing');
-      function typeChar() {
-        if (i < text.length) {
-          rotatingText.textContent = text.substring(0, i + 1);
-          i++;
-          setTimeout(typeChar, typeSpeed);
-        } else {
-          if (callback) setTimeout(callback, pauseAfterType);
-        }
-      }
-      typeChar();
-    }
-
-    function deletePhrase(callback) {
-      var text = rotatingText.textContent;
-      var i = text.length;
-      function deleteChar() {
-        if (i > 0) {
-          i--;
-          rotatingText.textContent = text.substring(0, i);
-          setTimeout(deleteChar, deleteSpeed);
-        } else {
-          if (callback) setTimeout(callback, pauseAfterDelete);
-        }
-      }
-      deleteChar();
-    }
-
-    function cycleTyping() {
-      deletePhrase(function () {
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-        typePhrase(phrases[phraseIndex], cycleTyping);
-      });
-    }
-
-    typePhrase(phrases[0], cycleTyping);
-  }
 
   // ---- FAQ Accordion ----
   var faqItems = document.querySelectorAll('.faq-item');

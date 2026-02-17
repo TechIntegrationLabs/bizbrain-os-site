@@ -329,17 +329,17 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 80%);
   pointer-events: none;
 }
 [data-theme="light"] .hero-grid-bg {
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
 }
 .hero-content {
   text-align: center;
@@ -386,31 +386,6 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 24px;
 }
 
-/* Typing animation for rotating text in hero */
-.rotating-text {
-  display: inline-block;
-  position: relative;
-  background: var(--gradient-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  border-right: 3px solid var(--accent);
-  padding-right: 4px;
-  animation: cursor-blink 0.7s step-end infinite;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.rotating-text.typing {
-  animation: cursor-blink 0.7s step-end infinite;
-}
-.rotating-text.no-cursor {
-  border-right-color: transparent;
-  animation: none;
-}
-@keyframes cursor-blink {
-  0%, 100% { border-right-color: var(--accent); }
-  50% { border-right-color: transparent; }
-}
 
 .hero-subtitle {
   font-size: clamp(1.05rem, 2vw, 1.25rem);
