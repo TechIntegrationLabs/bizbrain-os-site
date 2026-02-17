@@ -342,6 +342,10 @@ img { max-width: 100%; display: block; }
   display: inline-block;
   position: relative;
   min-width: 200px;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 .rotating-text.fade-out {
   opacity: 0;
