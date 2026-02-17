@@ -652,93 +652,116 @@
         <h2 class="section-title">Module Showcase</h2>
         <p class="section-desc">27+ modules organized into 7 categories. Every module feeds the context layer. Install what you need, ignore the rest.</p>
       </div>
-      <div class="modules-visual animate-in">
-        <img src="images/modules-infographic.png" alt="BizBrain OS module categories: Core, Deploy, Communication, Content, Integrations, Business, and Automation arranged in a honeycomb pattern" loading="lazy" width="700">
-      </div>
-      <div class="modules-grid">
-        <div class="module-card animate-in">
-          <div class="module-icon core">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      <!-- Interactive Honeycomb Module Showcase -->
+      <div class="honeycomb-showcase animate-in" id="honeycomb-showcase">
+        <div class="honeycomb-grid">
+          <!-- Row 1: 3 hexagons -->
+          <div class="hex-row">
+            <div class="hex-cell" data-category="core">
+              <div class="hex-shape">
+                <svg viewBox="0 0 100 115" class="hex-bg"><polygon points="50 0, 100 28.75, 100 86.25, 50 115, 0 86.25, 0 28.75"/></svg>
+                <div class="hex-content">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                  <span class="hex-label">Core</span>
+                  <span class="hex-count">4</span>
+                </div>
+              </div>
+            </div>
+            <div class="hex-cell" data-category="deploy">
+              <div class="hex-shape">
+                <svg viewBox="0 0 100 115" class="hex-bg"><polygon points="50 0, 100 28.75, 100 86.25, 50 115, 0 86.25, 0 28.75"/></svg>
+                <div class="hex-content">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  <span class="hex-label">Deploy</span>
+                  <span class="hex-count">4</span>
+                </div>
+              </div>
+            </div>
+            <div class="hex-cell" data-category="comms">
+              <div class="hex-shape">
+                <svg viewBox="0 0 100 115" class="hex-bg"><polygon points="50 0, 100 28.75, 100 86.25, 50 115, 0 86.25, 0 28.75"/></svg>
+                <div class="hex-content">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  <span class="hex-label">Comms</span>
+                  <span class="hex-count">4</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <h3 class="module-category">Core (Always Active)</h3>
-          <ul class="module-list">
-            <li>Brain Core</li>
-            <li>Knowledge Base</li>
-            <li>Conversation Capture</li>
-            <li>Entity Watchdog</li>
-          </ul>
+          <!-- Row 2: 4 hexagons (offset) -->
+          <div class="hex-row hex-row-offset">
+            <div class="hex-cell" data-category="content">
+              <div class="hex-shape">
+                <svg viewBox="0 0 100 115" class="hex-bg"><polygon points="50 0, 100 28.75, 100 86.25, 50 115, 0 86.25, 0 28.75"/></svg>
+                <div class="hex-content">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  <span class="hex-label">Content</span>
+                  <span class="hex-count">4</span>
+                </div>
+              </div>
+            </div>
+            <div class="hex-cell hex-cell-center" data-category="all">
+              <div class="hex-shape">
+                <svg viewBox="0 0 100 115" class="hex-bg"><polygon points="50 0, 100 28.75, 100 86.25, 50 115, 0 86.25, 0 28.75"/></svg>
+                <div class="hex-content">
+                  <span class="hex-total">27+</span>
+                  <span class="hex-label">Modules</span>
+                </div>
+              </div>
+            </div>
+            <div class="hex-cell" data-category="integrations">
+              <div class="hex-shape">
+                <svg viewBox="0 0 100 115" class="hex-bg"><polygon points="50 0, 100 28.75, 100 86.25, 50 115, 0 86.25, 0 28.75"/></svg>
+                <div class="hex-content">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+                  <span class="hex-label">Integrate</span>
+                  <span class="hex-count">4</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Row 3: 3 hexagons -->
+          <div class="hex-row">
+            <div class="hex-cell" data-category="bizops">
+              <div class="hex-shape">
+                <svg viewBox="0 0 100 115" class="hex-bg"><polygon points="50 0, 100 28.75, 100 86.25, 50 115, 0 86.25, 0 28.75"/></svg>
+                <div class="hex-content">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                  <span class="hex-label">Business</span>
+                  <span class="hex-count">4</span>
+                </div>
+              </div>
+            </div>
+            <div class="hex-cell" data-category="automation">
+              <div class="hex-shape">
+                <svg viewBox="0 0 100 115" class="hex-bg"><polygon points="50 0, 100 28.75, 100 86.25, 50 115, 0 86.25, 0 28.75"/></svg>
+                <div class="hex-content">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                  <span class="hex-label">Automate</span>
+                  <span class="hex-count">3</span>
+                </div>
+              </div>
+            </div>
+            <div class="hex-cell hex-cell-ghost" data-category="coming">
+              <div class="hex-shape">
+                <svg viewBox="0 0 100 115" class="hex-bg"><polygon points="50 0, 100 28.75, 100 86.25, 50 115, 0 86.25, 0 28.75"/></svg>
+                <div class="hex-content">
+                  <span class="hex-label">More<br>Coming</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="module-card animate-in">
-          <div class="module-icon dev">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+
+        <!-- Module Detail Panel -->
+        <div class="module-detail-panel" id="module-detail-panel">
+          <div class="detail-header">
+            <span class="detail-category" id="detail-category">Click a category</span>
+            <span class="detail-count" id="detail-count"></span>
           </div>
-          <h3 class="module-category">Development & Deploy</h3>
-          <ul class="module-list">
-            <li>GitHub &amp; Supabase</li>
-            <li>Stripe &amp; Clerk</li>
-            <li>Netlify &amp; Vercel</li>
-            <li>GSD Orchestrator</li>
-          </ul>
-        </div>
-        <div class="module-card animate-in">
-          <div class="module-icon comms">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <div class="detail-modules" id="detail-modules">
+            <p class="detail-hint">Select a honeycomb cell to explore modules</p>
           </div>
-          <h3 class="module-category">Communication</h3>
-          <ul class="module-list">
-            <li>Communications Hub</li>
-            <li>Gmail Integration</li>
-            <li>Slack Agent</li>
-            <li>WhatsApp Gateway</li>
-          </ul>
-        </div>
-        <div class="module-card animate-in">
-          <div class="module-icon content">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          </div>
-          <h3 class="module-category">Content</h3>
-          <ul class="module-list">
-            <li>Content Factory</li>
-            <li>Remotion Studio</li>
-            <li>Slideshow Generator</li>
-            <li>Digest Generator</li>
-          </ul>
-        </div>
-        <div class="module-card animate-in">
-          <div class="module-icon integrations">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-          </div>
-          <h3 class="module-category">Integrations</h3>
-          <ul class="module-list">
-            <li>MCP Manager</li>
-            <li>Supabase Agent</li>
-            <li>SaaS Agent</li>
-            <li>Chrome Automation</li>
-          </ul>
-        </div>
-        <div class="module-card animate-in">
-          <div class="module-icon bizops">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-          </div>
-          <h3 class="module-category">Business & CRM</h3>
-          <ul class="module-list">
-            <li>Client Tracking</li>
-            <li>Time &amp; Billing</li>
-            <li>Spec &amp; Implement</li>
-            <li>Todo Aggregator</li>
-          </ul>
-        </div>
-        <div class="module-card animate-in">
-          <div class="module-icon automation">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-          </div>
-          <h3 class="module-category">Setup & Automation</h3>
-          <ul class="module-list">
-            <li>Chrome Extension</li>
-            <li>Voice Input</li>
-            <li>Notion Sync</li>
-            <li>Obsidian Archive</li>
-          </ul>
         </div>
       </div>
     </div>

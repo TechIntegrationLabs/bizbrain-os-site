@@ -430,4 +430,117 @@
     }
   }
 
+  // ---- Interactive Honeycomb Module Showcase ----
+  var moduleData = {
+    core: {
+      name: 'Core (Always Active)',
+      modules: [
+        { name: 'Brain Core', desc: 'Central intelligence hub — state management, context routing' },
+        { name: 'Knowledge Base', desc: 'Structured business knowledge with full-text search' },
+        { name: 'Conversation Capture', desc: 'Auto-captures every AI session in real-time' },
+        { name: 'Entity Watchdog', desc: 'Monitors and updates client/partner/vendor records' }
+      ]
+    },
+    deploy: {
+      name: 'Development & Deploy',
+      modules: [
+        { name: 'GitHub Integration', desc: 'Repo management, PR workflows, issue tracking' },
+        { name: 'Supabase Agent', desc: 'Database design, migrations, RLS policies' },
+        { name: 'Stripe & Clerk', desc: 'Payments, auth, and SaaS scaffolding' },
+        { name: 'GSD Orchestrator', desc: 'Structured project execution with wave parallelization' }
+      ]
+    },
+    comms: {
+      name: 'Communication',
+      modules: [
+        { name: 'Communications Hub', desc: 'Unified inbox across all channels' },
+        { name: 'Gmail Integration', desc: 'Send, receive, and draft emails with context' },
+        { name: 'Slack Agent', desc: 'Channel monitoring, bug-fixing from Slack' },
+        { name: 'WhatsApp Gateway', desc: 'Business messaging with entity awareness' }
+      ]
+    },
+    content: {
+      name: 'Content Creation',
+      modules: [
+        { name: 'Content Factory', desc: 'Auto-generate blogs, social posts, newsletters' },
+        { name: 'Remotion Studio', desc: 'Programmatic video creation and motion graphics' },
+        { name: 'Slideshow Generator', desc: 'Slidev presentations from outlines' },
+        { name: 'Digest Generator', desc: 'Weekly summaries from all activity sources' }
+      ]
+    },
+    integrations: {
+      name: 'Integrations',
+      modules: [
+        { name: 'MCP Manager', desc: 'Dynamic MCP server profiles and subprocess delegation' },
+        { name: 'Supabase Agent', desc: 'Global database specialist, auto-detects projects' },
+        { name: 'SaaS Agent', desc: 'Full-stack SaaS scaffolding (Clerk + Stripe + Supabase)' },
+        { name: 'Chrome Automation', desc: 'Browser control for testing and web interaction' }
+      ]
+    },
+    bizops: {
+      name: 'Business & CRM',
+      modules: [
+        { name: 'Client Tracking', desc: 'Full client lifecycle with history and preferences' },
+        { name: 'Time & Billing', desc: 'Automatic time tracking with timesheet reports' },
+        { name: 'Spec & Implement', desc: 'Feature specs with structured implementation' },
+        { name: 'Todo Aggregator', desc: 'Unified task view across all projects and entities' }
+      ]
+    },
+    automation: {
+      name: 'Setup & Automation',
+      modules: [
+        { name: 'Voice Input', desc: 'Voice-to-context with structured extraction' },
+        { name: 'Notion Sync', desc: 'Two-way sync with Notion databases' },
+        { name: 'Obsidian Archive', desc: 'Session archiving to Obsidian vault' }
+      ]
+    },
+    all: {
+      name: 'All Modules',
+      modules: [
+        { name: '27+ modules', desc: 'Organized into 7 categories. Every module feeds the context layer.' },
+        { name: 'Install what you need', desc: 'Modular architecture — activate only the modules relevant to your business.' },
+        { name: 'Context compounds', desc: 'The more modules active, the smarter every tool becomes.' }
+      ]
+    }
+  };
+
+  var hexCells = document.querySelectorAll('.hex-cell:not(.hex-cell-ghost)');
+  var detailPanel = document.getElementById('module-detail-panel');
+  var detailCategory = document.getElementById('detail-category');
+  var detailCount = document.getElementById('detail-count');
+  var detailModules = document.getElementById('detail-modules');
+
+  function showModuleDetail(category) {
+    var data = moduleData[category];
+    if (!data) return;
+
+    hexCells.forEach(function (c) { c.classList.remove('active'); });
+    var activeCell = document.querySelector('.hex-cell[data-category="' + category + '"]');
+    if (activeCell) activeCell.classList.add('active');
+
+    detailPanel.classList.add('active');
+    detailCategory.textContent = data.name;
+    detailCount.textContent = data.modules.length + ' modules';
+
+    detailModules.innerHTML = '';
+    data.modules.forEach(function (mod, i) {
+      var item = document.createElement('div');
+      item.className = 'detail-module-item';
+      item.style.animationDelay = (i * 0.06) + 's';
+      item.innerHTML = '<div class="detail-module-dot"></div>' +
+        '<div class="detail-module-info">' +
+        '<div class="detail-module-name">' + mod.name + '</div>' +
+        '<div class="detail-module-desc">' + mod.desc + '</div>' +
+        '</div>';
+      detailModules.appendChild(item);
+    });
+  }
+
+  hexCells.forEach(function (cell) {
+    cell.addEventListener('click', function () {
+      var category = this.getAttribute('data-category');
+      showModuleDetail(category);
+    });
+  });
+
 })();

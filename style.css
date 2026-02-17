@@ -1275,64 +1275,212 @@ img { max-width: 100%; display: block; }
   color: var(--accent);
 }
 
-/* ---- Modules Grid ---- */
+/* ---- Interactive Honeycomb Module Showcase ---- */
 .modules { background: var(--bg-primary); }
-.modules-visual { text-align: center; margin-bottom: 3rem; }
-.modules-visual img { max-width: 100%; border-radius: var(--radius-lg); }
-.modules-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.module-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  transition: all var(--transition-slow);
-}
-.module-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-light);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-}
-.module-icon {
-  width: 44px;
-  height: 44px;
+.honeycomb-showcase {
   display: flex;
-  align-items: center;
+  gap: 40px;
+  align-items: flex-start;
   justify-content: center;
-  border-radius: var(--radius-md);
-  margin-bottom: 16px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-wrap: wrap;
 }
-.module-card:hover .module-icon { transform: scale(1.15); }
-.module-icon.core { background: rgba(0, 212, 255, 0.1); color: #00d4ff; }
-.module-icon.dev { background: rgba(0, 184, 212, 0.1); color: #00b8d4; }
-.module-icon.comms { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
-.module-icon.content { background: rgba(251, 146, 60, 0.1); color: #fb923c; }
-.module-icon.integrations { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-.module-icon.bizops { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
-.module-icon.automation { background: rgba(0, 212, 255, 0.08); color: var(--accent); }
-.module-category { font-size: 1rem; font-weight: 700; margin-bottom: 14px; }
-.module-list li {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  padding: 5px 0;
-  border-bottom: 1px solid var(--border);
+.honeycomb-grid {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 8px;
 }
-.module-list li:last-child { border-bottom: none; }
-.module-list li::before {
+.hex-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.hex-row-offset {
+  margin-top: -20px;
+}
+.hex-cell {
+  width: 120px;
+  height: 138px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.hex-cell:hover {
+  transform: scale(1.1);
+  z-index: 2;
+}
+.hex-cell.active {
+  transform: scale(1.12);
+  z-index: 3;
+}
+.hex-shape {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.hex-bg polygon {
+  fill: var(--bg-card);
+  stroke: var(--border);
+  stroke-width: 1.5;
+  transition: all 0.3s ease;
+}
+.hex-cell:hover .hex-bg polygon {
+  fill: var(--bg-card-hover);
+  stroke: rgba(0, 212, 255, 0.4);
+  filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.15));
+}
+.hex-cell.active .hex-bg polygon {
+  fill: rgba(0, 212, 255, 0.08);
+  stroke: var(--accent);
+  filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.25));
+}
+.hex-cell-center .hex-bg polygon {
+  fill: rgba(0, 212, 255, 0.06);
+  stroke: rgba(0, 212, 255, 0.3);
+}
+.hex-cell-ghost .hex-bg polygon {
+  fill: transparent;
+  stroke: var(--border);
+  stroke-dasharray: 4 3;
+  opacity: 0.5;
+}
+.hex-cell-ghost { cursor: default; }
+.hex-cell-ghost:hover { transform: none; }
+.hex-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+.hex-cell:hover .hex-content,
+.hex-cell.active .hex-content { color: var(--accent); }
+.hex-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1.3;
+}
+.hex-count {
+  font-size: 0.65rem;
+  opacity: 0.6;
+}
+.hex-total {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+.hex-cell-center .hex-label { color: var(--text-primary); }
+
+/* Module Detail Panel */
+.module-detail-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  min-width: 320px;
+  max-width: 400px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.module-detail-panel::before {
   content: '';
-  width: 4px;
-  height: 4px;
-  background: var(--accent);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.module-detail-panel.active::before { opacity: 1; }
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.detail-category {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.detail-count {
+  font-size: 0.8rem;
+  color: var(--accent);
+  background: rgba(0, 212, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.detail-hint {
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 20px 0;
+}
+.detail-modules {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.detail-module-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  animation: moduleSlideIn 0.3s ease forwards;
+  opacity: 0;
+  transform: translateX(-10px);
+}
+.detail-module-item:last-child { border-bottom: none; }
+@keyframes moduleSlideIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+.detail-module-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
+  background: var(--accent);
   flex-shrink: 0;
+}
+.detail-module-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.detail-module-desc {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+.detail-module-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Honeycomb responsive */
+@media (max-width: 768px) {
+  .honeycomb-showcase { flex-direction: column; align-items: center; }
+  .hex-cell { width: 100px; height: 115px; }
+  .module-detail-panel { min-width: 280px; max-width: 100%; }
+}
+@media (max-width: 480px) {
+  .hex-cell { width: 85px; height: 98px; }
+  .hex-label { font-size: 0.65rem; }
+  .hex-row { gap: 6px; }
 }
 
 /* ---- Integrations with Marquee ---- */
