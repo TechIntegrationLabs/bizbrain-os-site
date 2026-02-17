@@ -257,23 +257,54 @@
     requestAnimationFrame(animateCounters);
   }, { passive: true });
 
-  // ---- Rotating Text in Hero ----
+  // ---- Typing Animation for Hero Text ----
   if (rotatingText) {
     var phrases = ['Your Business', 'Your Clients', 'Your Projects', 'Your Workflows', 'Your History'];
     var phraseIndex = 0;
-    rotatingText.classList.add('fade-in');
+    var typeSpeed = 60;
+    var deleteSpeed = 35;
+    var pauseAfterType = 2200;
+    var pauseAfterDelete = 400;
 
-    setInterval(function () {
-      rotatingText.classList.remove('fade-in');
-      rotatingText.classList.add('fade-out');
+    function typePhrase(text, callback) {
+      var i = 0;
+      rotatingText.textContent = '';
+      rotatingText.classList.add('typing');
+      function typeChar() {
+        if (i < text.length) {
+          rotatingText.textContent = text.substring(0, i + 1);
+          i++;
+          setTimeout(typeChar, typeSpeed);
+        } else {
+          if (callback) setTimeout(callback, pauseAfterType);
+        }
+      }
+      typeChar();
+    }
 
-      setTimeout(function () {
+    function deletePhrase(callback) {
+      var text = rotatingText.textContent;
+      var i = text.length;
+      function deleteChar() {
+        if (i > 0) {
+          i--;
+          rotatingText.textContent = text.substring(0, i);
+          setTimeout(deleteChar, deleteSpeed);
+        } else {
+          if (callback) setTimeout(callback, pauseAfterDelete);
+        }
+      }
+      deleteChar();
+    }
+
+    function cycleTyping() {
+      deletePhrase(function () {
         phraseIndex = (phraseIndex + 1) % phrases.length;
-        rotatingText.textContent = phrases[phraseIndex];
-        rotatingText.classList.remove('fade-out');
-        rotatingText.classList.add('fade-in');
-      }, 300);
-    }, 3000);
+        typePhrase(phrases[phraseIndex], cycleTyping);
+      });
+    }
+
+    typePhrase(phrases[0], cycleTyping);
   }
 
   // ---- FAQ Accordion ----
