@@ -148,6 +148,9 @@
         <span class="section-label">Capabilities</span>
         <h2 class="section-title">Teach AI Your Business</h2>
         <p class="section-desc">BizBrain OS is a structured context layer for AI &mdash; the knowledge substrate that makes every AI tool smarter about your business.</p>
+        <div class="section-icon-visual">
+          <img src="images/brain-circuit.png" alt="AI brain circuit icon representing BizBrain OS capabilities" loading="lazy" width="120" class="section-floating-icon">
+        </div>
       </div>
       <div class="features-grid">
         <div class="feature-card animate-in">
@@ -202,6 +205,9 @@
       <div class="section-header animate-in">
         <span class="section-label">The Insight</span>
         <h2 class="section-title">Every AI Tool Has the Same Blind Spot</h2>
+      </div>
+      <div class="principle-visual animate-in">
+        <img src="images/ai-principle-chaos-order.jpg" alt="Chaos vs Order - scattered data on the left, organized neural network brain on the right" loading="lazy" width="800" class="section-image">
       </div>
       <div class="principle-content animate-in">
         <div class="principle-cards">
@@ -288,6 +294,9 @@
         <h2 class="section-title">How It Works</h2>
         <p class="section-desc">From zero to a compounding business context layer in under 10 minutes.</p>
       </div>
+      <div class="how-it-works-visual animate-in">
+        <img src="images/how-it-works-flow.jpg" alt="4-step flow: install command, voice interview, modular activation, exponential growth" loading="lazy" width="800" class="section-image">
+      </div>
       <div class="steps">
         <div class="step animate-in">
           <div class="step-number">01</div>
@@ -358,53 +367,117 @@
         <h2 class="section-title">The Most Valuable Asset You're Not Building Yet</h2>
         <p class="section-desc">Your AI context layer compounds like interest. The earlier you start, the wider the gap between you and everyone who didn't.</p>
       </div>
-      <div class="timeline animate-in">
-        <div class="timeline-item">
-          <div class="timeline-marker">Day 1</div>
-          <div class="timeline-content">
-            <div class="timeline-progress" style="--progress: 5%"></div>
-            <h4>Foundation</h4>
-            <p>Your business profile, key clients, and active projects are structured. AI stops asking &ldquo;what do you do?&rdquo;</p>
+      <div class="growth-chart animate-in" id="growth-chart">
+        <!-- Knowledge Counter -->
+        <div class="knowledge-counter">
+          <span class="counter-label">Structured Context Records</span>
+          <span class="counter-value" id="knowledge-counter">0</span>
+        </div>
+
+        <!-- SVG Chart -->
+        <div class="chart-container">
+          <svg viewBox="0 0 800 400" class="growth-svg" id="growth-svg" preserveAspectRatio="xMidYMid meet">
+            <!-- Grid lines -->
+            <g class="chart-grid" opacity="0.1">
+              <line x1="80" y1="50" x2="80" y2="350" stroke="currentColor" stroke-width="1"/>
+              <line x1="80" y1="350" x2="760" y2="350" stroke="currentColor" stroke-width="1"/>
+              <line x1="80" y1="275" x2="760" y2="275" stroke="currentColor" stroke-dasharray="4,4"/>
+              <line x1="80" y1="200" x2="760" y2="200" stroke="currentColor" stroke-dasharray="4,4"/>
+              <line x1="80" y1="125" x2="760" y2="125" stroke="currentColor" stroke-dasharray="4,4"/>
+            </g>
+
+            <!-- Y-axis labels -->
+            <g class="chart-labels" fill="var(--text-tertiary)" font-size="11" font-family="var(--font-mono)">
+              <text x="70" y="354" text-anchor="end">0</text>
+              <text x="70" y="279" text-anchor="end">25K</text>
+              <text x="70" y="204" text-anchor="end">50K</text>
+              <text x="70" y="129" text-anchor="end">75K</text>
+              <text x="70" y="58" text-anchor="end">85K+</text>
+            </g>
+
+            <!-- Competitor line (starts at Month 6) -->
+            <path class="competitor-curve" d="M 488 350 Q 560 340, 624 310 T 760 260"
+                  fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-dasharray="6,4" opacity="0.4"/>
+            <text x="765" y="256" fill="var(--text-muted)" font-size="10" font-family="var(--font-sans)">Competitor</text>
+
+            <!-- Glow filter -->
+            <defs>
+              <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00d4ff"/>
+                <stop offset="100%" stop-color="#7b2fff"/>
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Area fill under curve -->
+            <path class="growth-area" d="M 80 350 Q 120 348, 216 340 Q 300 325, 352 300 Q 420 260, 488 190 Q 540 130, 624 80 Q 680 58, 760 50 L 760 350 Z"
+                  fill="url(#areaGradient)" opacity="0"/>
+
+            <!-- Main growth curve -->
+            <path class="growth-curve" d="M 80 350 Q 120 348, 216 340 Q 300 325, 352 300 Q 420 260, 488 190 Q 540 130, 624 80 Q 680 58, 760 50"
+                  fill="none" stroke="url(#curveGradient)" stroke-width="3" stroke-linecap="round"
+                  filter="url(#glow)"
+                  stroke-dasharray="1200" stroke-dashoffset="1200"/>
+
+            <!-- Milestone dots -->
+            <g class="milestone-dots">
+              <circle class="milestone-dot" cx="80" cy="350" r="6" data-index="0" fill="#00d4ff" opacity="0"/>
+              <circle class="milestone-dot" cx="216" cy="340" r="6" data-index="1" fill="#00ccee" opacity="0"/>
+              <circle class="milestone-dot" cx="352" cy="300" r="6" data-index="2" fill="#3ba8f7" opacity="0"/>
+              <circle class="milestone-dot" cx="488" cy="190" r="6" data-index="3" fill="#6b5bf7" opacity="0"/>
+              <circle class="milestone-dot" cx="624" cy="80" r="6" data-index="4" fill="#8b3ff7" opacity="0"/>
+              <circle class="milestone-dot" cx="760" cy="50" r="6" data-index="5" fill="#7b2fff" opacity="0"/>
+            </g>
+
+            <!-- X-axis milestone labels -->
+            <g class="chart-x-labels" fill="var(--text-secondary)" font-size="12" font-weight="600" font-family="var(--font-sans)">
+              <text x="80" y="375" text-anchor="middle">Day 1</text>
+              <text x="216" y="375" text-anchor="middle">Week 1</text>
+              <text x="352" y="375" text-anchor="middle">Month 1</text>
+              <text x="488" y="375" text-anchor="middle">Month 6</text>
+              <text x="624" y="375" text-anchor="middle">Year 1</text>
+              <text x="760" y="375" text-anchor="middle">Year 2</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Time slider -->
+        <div class="time-slider-container">
+          <input type="range" min="0" max="5" value="0" step="1" class="time-slider" id="time-slider">
+          <div class="slider-labels">
+            <span>Day 1</span><span>Week 1</span><span>Month 1</span><span>Month 6</span><span>Year 1</span><span>Year 2</span>
           </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-marker">Week 1</div>
-          <div class="timeline-content">
-            <div class="timeline-progress" style="--progress: 15%"></div>
-            <h4>Pattern Recognition</h4>
-            <p>Client preferences, communication styles, and project workflows emerge. AI starts anticipating needs.</p>
+
+        <!-- Milestone detail card -->
+        <div class="milestone-detail" id="milestone-detail">
+          <div class="milestone-detail-header">
+            <span class="milestone-detail-time" id="detail-time">Day 1</span>
+            <span class="milestone-detail-records" id="detail-records">10 records</span>
           </div>
+          <h4 id="detail-title">Foundation</h4>
+          <p id="detail-desc">Your business profile, key clients, and active projects are structured. AI stops asking "what do you do?"</p>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-marker">Month 1</div>
-          <div class="timeline-content">
-            <div class="timeline-progress" style="--progress: 35%"></div>
-            <h4>Institutional Knowledge</h4>
-            <p>Historical decisions, resolved issues, and proven approaches are captured. New team members onboard in minutes, not weeks.</p>
+
+        <!-- Legend -->
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-line legend-you"></span>
+            <span>You (started now)</span>
           </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-marker">Month 6</div>
-          <div class="timeline-content">
-            <div class="timeline-progress" style="--progress: 60%"></div>
-            <h4>Deep Understanding</h4>
-            <p>AI knows your client&rsquo;s preferred communication channel, your team&rsquo;s velocity patterns, and which proposals close. It drafts content in your voice.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-marker">Year 1</div>
-          <div class="timeline-content">
-            <div class="timeline-progress" style="--progress: 82%"></div>
-            <h4>Competitive Moat</h4>
-            <p>Your AI context layer contains insights no competitor can replicate. It&rsquo;s not just data &mdash; it&rsquo;s structured understanding of your unique business.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-marker">Year 2</div>
-          <div class="timeline-content">
-            <div class="timeline-progress" style="--progress: 100%"></div>
-            <h4>Insurmountable Advantage</h4>
-            <p>A competitor starting now is two years behind. Your context layer feeds every new AI tool instantly. Theirs starts from scratch.</p>
+          <div class="legend-item">
+            <span class="legend-line legend-competitor"></span>
+            <span>Competitor (starts Month 6)</span>
           </div>
         </div>
       </div>
@@ -420,35 +493,8 @@
         <p class="section-desc">OpenClaw can do anything. BizBrain OS knows everything. Together, they form an AI employee that understands your business and acts on it.</p>
       </div>
       <div class="openclaw-diagram animate-in">
-        <div class="diagram-card brain-card">
-          <div class="diagram-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>
-          </div>
-          <h3>BizBrain OS</h3>
-          <span class="diagram-label">The Brain</span>
-          <p>Knows your clients, projects, history, preferences, and workflows</p>
-        </div>
-        <div class="diagram-plus">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </div>
-        <div class="diagram-card claw-card">
-          <div class="diagram-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-          </div>
-          <h3>OpenClaw</h3>
-          <span class="diagram-label">The Hands</span>
-          <p>Sends messages, executes commands, automates browsers, takes action</p>
-        </div>
-        <div class="diagram-equals">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/></svg>
-        </div>
-        <div class="diagram-card result-card">
-          <div class="diagram-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-          </div>
-          <h3>AI Employee</h3>
-          <span class="diagram-label">The Result</span>
-          <p>An autonomous agent that knows your business and gets things done</p>
+        <div class="ecosystem-image-container">
+          <img src="images/ecosystem-diagram.jpg" alt="BizBrain OS + OpenClaw ecosystem diagram showing how the Brain (context) and Hands (action) combine to create an AI Employee" loading="lazy" width="800" class="ecosystem-image">
         </div>
       </div>
       <div class="openclaw-usecases">
@@ -799,6 +845,9 @@
         <h2 class="section-title">Two Years from Now, You'll Wish You Started Today</h2>
         <p class="section-desc">Your AI context layer compounds every day. Every day you wait is context you'll never recover.</p>
       </div>
+      <div class="why-now-visual animate-in">
+        <img src="images/why-start-now.jpg" alt="Two diverging paths: Started Today curves upward with compounding advantage, Started Late stays flat" loading="lazy" width="800" class="section-image">
+      </div>
       <div class="why-now-grid">
         <div class="why-now-card animate-in">
           <div class="why-now-icon">
@@ -895,6 +944,9 @@
   <!-- ===================== COMMUNITY ===================== -->
   <section class="section community" id="community">
     <div class="container">
+      <div class="community-visual animate-in">
+        <img src="images/community-open-source.jpg" alt="Open source community network with interconnected contributors around a central brain logo" loading="lazy" width="800" class="section-image">
+      </div>
       <div class="community-content animate-in">
         <span class="section-label">Open Source</span>
         <h2 class="section-title">Join the Community</h2>

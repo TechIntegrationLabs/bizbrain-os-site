@@ -336,4 +336,98 @@
     marqueeTrack.innerHTML = items + items;
   }
 
+  // ---- Interactive Compounding Growth Chart ----
+  var growthChart = document.getElementById('growth-chart');
+  var timeSlider = document.getElementById('time-slider');
+  var knowledgeCounter = document.getElementById('knowledge-counter');
+  var detailTime = document.getElementById('detail-time');
+  var detailRecords = document.getElementById('detail-records');
+  var detailTitle = document.getElementById('detail-title');
+  var detailDesc = document.getElementById('detail-desc');
+
+  var milestones = [
+    { time: 'Day 1', records: 10, title: 'Foundation', desc: 'Your business profile, key clients, and active projects are structured. AI stops asking \u201cwhat do you do?\u201d' },
+    { time: 'Week 1', records: 45, title: 'Pattern Recognition', desc: 'Client preferences, communication styles, and project workflows emerge. AI starts anticipating needs.' },
+    { time: 'Month 1', records: 180, title: 'Institutional Knowledge', desc: 'Historical decisions, resolved issues, and proven approaches are captured. New team members onboard in minutes, not weeks.' },
+    { time: 'Month 6', records: 2400, title: 'Deep Understanding', desc: 'AI knows your client\u2019s preferred communication channel, your team\u2019s velocity patterns, and which proposals close. It drafts content in your voice.' },
+    { time: 'Year 1', records: 15000, title: 'Competitive Moat', desc: 'Your AI context layer contains insights no competitor can replicate. It\u2019s not just data \u2014 it\u2019s structured understanding of your unique business.' },
+    { time: 'Year 2', records: 85000, title: 'Insurmountable Advantage', desc: 'A competitor starting now is two years behind. Your context layer feeds every new AI tool instantly. Theirs starts from scratch.' }
+  ];
+
+  function formatNumber(n) {
+    if (n >= 1000) return (n / 1000).toFixed(n >= 10000 ? 0 : 1) + 'K';
+    return n.toString();
+  }
+
+  function animateCounter(target, duration) {
+    if (!knowledgeCounter) return;
+    var start = parseInt(knowledgeCounter.dataset.current || '0');
+    var startTime = performance.now();
+    duration = duration || 800;
+
+    function update(now) {
+      var elapsed = now - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(start + (target - start) * eased);
+      knowledgeCounter.textContent = current.toLocaleString();
+      knowledgeCounter.dataset.current = current;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  function updateMilestone(index) {
+    if (!detailTime) return;
+    var m = milestones[index];
+    detailTime.textContent = m.time;
+    detailRecords.textContent = formatNumber(m.records) + ' records';
+    detailTitle.textContent = m.title;
+    detailDesc.textContent = m.desc;
+    animateCounter(m.records);
+
+    // Highlight active dot
+    var dots = document.querySelectorAll('.milestone-dot');
+    dots.forEach(function (dot, i) {
+      if (i === index) {
+        dot.classList.add('active');
+        dot.setAttribute('r', '9');
+      } else {
+        dot.classList.remove('active');
+        dot.setAttribute('r', '6');
+      }
+    });
+  }
+
+  if (growthChart && timeSlider) {
+    // Slider interaction
+    timeSlider.addEventListener('input', function () {
+      updateMilestone(parseInt(this.value));
+    });
+
+    // Click on dots
+    var dots = document.querySelectorAll('.milestone-dot');
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        var index = parseInt(this.getAttribute('data-index'));
+        timeSlider.value = index;
+        updateMilestone(index);
+      });
+    });
+
+    // Scroll-triggered animation
+    if ('IntersectionObserver' in window) {
+      var chartObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !growthChart.classList.contains('active')) {
+            growthChart.classList.add('active');
+            animateCounter(milestones[0].records, 1200);
+          }
+        });
+      }, { threshold: 0.3 });
+      chartObserver.observe(growthChart);
+    }
+  }
+
 })();
