@@ -19,10 +19,10 @@
   --text-muted: #444444;
 
   --accent: #00d4ff;
-  --accent-secondary: #7b2fff;
+  --accent-secondary: #00a3cc;
   --accent-glow: rgba(0, 212, 255, 0.15);
-  --gradient: linear-gradient(135deg, #00d4ff 0%, #7b2fff 100%);
-  --gradient-text: linear-gradient(135deg, #00d4ff 0%, #a855f7 50%, #7b2fff 100%);
+  --gradient: linear-gradient(135deg, #00d4ff 0%, #00a3cc 100%);
+  --gradient-text: linear-gradient(135deg, #00d4ff 0%, #00e5ff 50%, #00a3cc 100%);
 
   --border: #1e1e1e;
   --border-light: #2a2a2a;
@@ -274,7 +274,7 @@ img { max-width: 100%; display: block; }
   transform: translateX(-50%);
   width: 800px;
   height: 600px;
-  background: radial-gradient(ellipse, rgba(0, 212, 255, 0.08) 0%, rgba(123, 47, 255, 0.04) 40%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(0, 212, 255, 0.08) 0%, rgba(0, 163, 204, 0.04) 40%, transparent 70%);
   pointer-events: none;
 }
 .hero-grid-bg {
@@ -383,7 +383,7 @@ img { max-width: 100%; display: block; }
 }
 .install-box:hover {
   border-color: rgba(0, 212, 255, 0.3);
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.1), 0 0 60px rgba(123, 47, 255, 0.05);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.1), 0 0 60px rgba(0, 163, 204, 0.05);
 }
 .install-prompt { color: var(--accent); font-weight: 600; user-select: none; }
 .install-command { color: var(--text-primary); user-select: all; }
@@ -667,19 +667,19 @@ img { max-width: 100%; display: block; }
 .feature-card:nth-child(2) .feature-icon { color: #22c55e; background: rgba(34, 197, 94, 0.1); }
 .feature-card:nth-child(3) .feature-icon { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
 .feature-card:nth-child(4) .feature-icon { color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
-.feature-card:nth-child(5) .feature-icon { color: #a855f7; background: rgba(168, 85, 247, 0.1); }
+.feature-card:nth-child(5) .feature-icon { color: #00b8d4; background: rgba(0, 184, 212, 0.1); }
 .feature-card:nth-child(6) .feature-icon { color: #ec4899; background: rgba(236, 72, 153, 0.1); }
 .feature-card:nth-child(1):hover .feature-icon { box-shadow: 0 0 24px rgba(0, 212, 255, 0.25); }
 .feature-card:nth-child(2):hover .feature-icon { box-shadow: 0 0 24px rgba(34, 197, 94, 0.25); }
 .feature-card:nth-child(3):hover .feature-icon { box-shadow: 0 0 24px rgba(245, 158, 11, 0.25); }
 .feature-card:nth-child(4):hover .feature-icon { box-shadow: 0 0 24px rgba(59, 130, 246, 0.25); }
-.feature-card:nth-child(5):hover .feature-icon { box-shadow: 0 0 24px rgba(168, 85, 247, 0.25); }
+.feature-card:nth-child(5):hover .feature-icon { box-shadow: 0 0 24px rgba(0, 184, 212, 0.25); }
 .feature-card:nth-child(6):hover .feature-icon { box-shadow: 0 0 24px rgba(236, 72, 153, 0.25); }
 .feature-card:nth-child(1):hover { border-top-color: #00d4ff; }
 .feature-card:nth-child(2):hover { border-top-color: #22c55e; }
 .feature-card:nth-child(3):hover { border-top-color: #f59e0b; }
 .feature-card:nth-child(4):hover { border-top-color: #3b82f6; }
-.feature-card:nth-child(5):hover { border-top-color: #a855f7; }
+.feature-card:nth-child(5):hover { border-top-color: #00b8d4; }
 .feature-card:nth-child(6):hover { border-top-color: #ec4899; }
 
 /* ---- AI Knowledge Principle ---- */
@@ -1143,7 +1143,7 @@ img { max-width: 100%; display: block; }
 }
 .ecosystem-image-container:hover {
   border-color: rgba(0, 212, 255, 0.3);
-  box-shadow: var(--shadow-lg), 0 0 80px rgba(0, 212, 255, 0.15), 0 0 120px rgba(123, 47, 255, 0.08);
+  box-shadow: var(--shadow-lg), 0 0 80px rgba(0, 212, 255, 0.15), 0 0 120px rgba(0, 163, 204, 0.08);
   transform: translateY(-4px);
 }
 .ecosystem-image {
@@ -1309,7 +1309,7 @@ img { max-width: 100%; display: block; }
 }
 .module-card:hover .module-icon { transform: scale(1.15); }
 .module-icon.core { background: rgba(0, 212, 255, 0.1); color: #00d4ff; }
-.module-icon.dev { background: rgba(168, 85, 247, 0.1); color: #a855f7; }
+.module-icon.dev { background: rgba(0, 184, 212, 0.1); color: #00b8d4; }
 .module-icon.comms { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
 .module-icon.content { background: rgba(251, 146, 60, 0.1); color: #fb923c; }
 .module-icon.integrations { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
@@ -1397,7 +1397,7 @@ img { max-width: 100%; display: block; }
 .integration-item:nth-child(7):hover .integration-logo { color: #EA4335; }
 .integration-item:nth-child(8):hover .integration-logo { color: #f0f0f0; }
 .integration-item:nth-child(9):hover .integration-logo { color: #D97757; }
-.integration-item:nth-child(10):hover .integration-logo { color: #a855f7; }
+.integration-item:nth-child(10):hover .integration-logo { color: #00b8d4; }
 .integration-item:nth-child(11):hover .integration-logo { color: #4285F4; }
 .integration-item:nth-child(12):hover .integration-logo { color: #7C3AED; }
 .integration-item:nth-child(13):hover .integration-logo { color: #0B84F3; }
@@ -1691,11 +1691,11 @@ img { max-width: 100%; display: block; }
   100% { opacity: 0; transform: translateY(-10vh) scale(0.5); }
 }
 .particle:nth-child(1) { left: 8%; width: 4px; height: 4px; background: rgba(0, 212, 255, 0.4); animation-duration: 12s; animation-delay: 0s; }
-.particle:nth-child(2) { left: 22%; width: 3px; height: 3px; background: rgba(123, 47, 255, 0.35); animation-duration: 15s; animation-delay: 2s; }
+.particle:nth-child(2) { left: 22%; width: 3px; height: 3px; background: rgba(0, 163, 204, 0.35); animation-duration: 15s; animation-delay: 2s; }
 .particle:nth-child(3) { left: 38%; width: 5px; height: 5px; background: rgba(0, 212, 255, 0.25); animation-duration: 18s; animation-delay: 4s; }
-.particle:nth-child(4) { left: 52%; width: 3px; height: 3px; background: rgba(168, 85, 247, 0.35); animation-duration: 14s; animation-delay: 1s; }
+.particle:nth-child(4) { left: 52%; width: 3px; height: 3px; background: rgba(0, 184, 212, 0.35); animation-duration: 14s; animation-delay: 1s; }
 .particle:nth-child(5) { left: 68%; width: 4px; height: 4px; background: rgba(0, 212, 255, 0.3); animation-duration: 16s; animation-delay: 3s; }
-.particle:nth-child(6) { left: 82%; width: 3px; height: 3px; background: rgba(123, 47, 255, 0.25); animation-duration: 13s; animation-delay: 5s; }
+.particle:nth-child(6) { left: 82%; width: 3px; height: 3px; background: rgba(0, 163, 204, 0.25); animation-duration: 13s; animation-delay: 5s; }
 .particle:nth-child(7) { left: 15%; width: 2px; height: 2px; background: rgba(34, 197, 94, 0.3); animation-duration: 17s; animation-delay: 6s; }
 .particle:nth-child(8) { left: 58%; width: 2px; height: 2px; background: rgba(251, 191, 36, 0.25); animation-duration: 11s; animation-delay: 7s; }
 
