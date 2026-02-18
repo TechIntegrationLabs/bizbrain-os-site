@@ -567,4 +567,19 @@
     });
   });
 
+  // ---- Interactive Hero Demo Navigation ----
+  var demoNavBtns = document.querySelectorAll('.demo-nav-btn');
+  var demoViews = document.querySelectorAll('.demo-view');
+
+  demoNavBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var viewName = this.getAttribute('data-demo-view');
+      demoNavBtns.forEach(function (b) { b.classList.remove('active'); });
+      demoViews.forEach(function (v) { v.classList.remove('active'); });
+      btn.classList.add('active');
+      var target = document.querySelector('.demo-view[data-view="' + viewName + '"]');
+      if (target) target.classList.add('active');
+    });
+  });
+
 })();
