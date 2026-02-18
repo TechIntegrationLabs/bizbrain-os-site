@@ -139,14 +139,14 @@
         </div>
       </div>
       <div class="hero-image animate-in">
-        <div class="demo-label">Interactive Demo &mdash; Click tabs to explore</div>
+        <div class="demo-label">Interactive Demo &mdash; Click tabs to explore, click projects to drill down</div>
         <div class="demo-window" id="demo-window">
           <!-- Header -->
           <div class="demo-header">
             <div class="demo-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
             <div class="demo-header-brand">
               <div class="demo-header-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
-              <div><div class="demo-header-name">Command Center</div><div class="demo-header-path">~/Tech Integration Labs BB1</div></div>
+              <div><div class="demo-header-name">Command Center</div><div class="demo-header-path">~/business-brain</div></div>
             </div>
             <div class="demo-header-status"><span class="demo-status-dot"></span> Connected</div>
           </div>
@@ -162,71 +162,75 @@
           <div class="demo-content">
             <!-- Projects Tab -->
             <div class="demo-pane active" data-pane="projects">
-              <div class="demo-pane-head"><span class="demo-pane-title">Projects</span><div class="demo-pane-actions"><span class="demo-btn-sm green">Refresh All</span><span class="demo-btn-sm violet">+ Add Project</span></div></div>
+              <div class="demo-pane-head"><span class="demo-pane-title">Projects</span><div class="demo-pane-actions"><span class="demo-btn-sm green">Refresh All</span><span class="demo-btn-sm accent">+ Add Project</span></div></div>
               <div class="demo-proj-grid">
-                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">BuildTrack</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/buildtrack</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">Supabase</span><span class="demo-tag">Clerk</span></div></div>
-                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">GEOViz 2.0</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/geoviz-app</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">Recharts</span><span class="demo-tag">Stripe</span></div></div>
-                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">BizBrain OS</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/bizbrain-os</div><div class="demo-proj-tags"><span class="demo-tag">Vanilla JS</span><span class="demo-tag">Tauri v2</span></div></div>
-                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">EDF-Pro</span><span class="demo-proj-health yellow"></span></div><div class="demo-proj-path">~/Repos/edfmvp</div><div class="demo-proj-tags"><span class="demo-tag">React</span><span class="demo-tag">Supabase</span></div></div>
-                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">OpenClaw</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/openclaw-admin</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">AI SDK</span></div></div>
-                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">ContentEngine</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/content-engine-til</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">Perplexity</span></div></div>
+                <div class="demo-proj-card" data-project="bizbrain"><div class="demo-proj-top"><span class="demo-proj-name">BizBrain OS</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/bizbrain-os</div><div class="demo-proj-tags"><span class="demo-tag">Vanilla JS</span><span class="demo-tag">Tauri v2</span><span class="demo-tag">Rust</span></div></div>
+                <div class="demo-proj-card" data-project="meridian"><div class="demo-proj-top"><span class="demo-proj-name">Meridian CRM</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/meridian-crm</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">Supabase</span><span class="demo-tag">Clerk</span></div></div>
+                <div class="demo-proj-card" data-project="atlas"><div class="demo-proj-top"><span class="demo-proj-name">Atlas Analytics</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/atlas-analytics</div><div class="demo-proj-tags"><span class="demo-tag">React</span><span class="demo-tag">D3.js</span><span class="demo-tag">PostgreSQL</span></div></div>
+                <div class="demo-proj-card" data-project="beacon"><div class="demo-proj-top"><span class="demo-proj-name">Beacon AI</span><span class="demo-proj-health yellow"></span></div><div class="demo-proj-path">~/Repos/beacon-ai</div><div class="demo-proj-tags"><span class="demo-tag">Python</span><span class="demo-tag">FastAPI</span><span class="demo-tag">LangChain</span></div></div>
+                <div class="demo-proj-card" data-project="novapay"><div class="demo-proj-top"><span class="demo-proj-name">NovaPay</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/novapay</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">Stripe</span><span class="demo-tag">Redis</span></div></div>
+                <div class="demo-proj-card" data-project="cascade"><div class="demo-proj-top"><span class="demo-proj-name">Cascade Docs</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/cascade-docs</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">MDX</span><span class="demo-tag">Contentlayer</span></div></div>
               </div>
             </div>
+            <!-- Project Detail (drill-down) -->
+            <div class="demo-pane" data-pane="project-detail" id="demo-project-detail"></div>
             <!-- Services Tab -->
             <div class="demo-pane" data-pane="services">
               <div class="demo-pane-head"><span class="demo-pane-title">Services</span></div>
               <div class="demo-svc-grid">
-                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128187;</span><span class="demo-svc-name">GitHub</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">TechIntegrationLabs &bull; 2 accounts</div></div>
-                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#9889;</span><span class="demo-svc-name">Supabase</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">8 projects connected</div></div>
-                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128179;</span><span class="demo-svc-name">Stripe</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">Live + Test mode keys</div></div>
-                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128274;</span><span class="demo-svc-name">Clerk</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">3 applications configured</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128187;</span><span class="demo-svc-name">GitHub</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">2 accounts &bull; 34 repos</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#9889;</span><span class="demo-svc-name">Supabase</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">6 projects connected</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128179;</span><span class="demo-svc-name">Stripe</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">Live + Test mode</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128274;</span><span class="demo-svc-name">Clerk</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">3 applications</div></div>
                 <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128172;</span><span class="demo-svc-name">Slack</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">Bot token active</div></div>
-                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128231;</span><span class="demo-svc-name">Resend</span><span class="demo-svc-status yellow"></span></div><div class="demo-svc-detail">API key configured</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128231;</span><span class="demo-svc-name">Resend</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">342 emails this week</div></div>
               </div>
             </div>
             <!-- MCP Tab -->
             <div class="demo-pane" data-pane="mcp">
-              <div class="demo-pane-head"><span class="demo-pane-title">MCP Configuration Overview</span></div>
+              <div class="demo-pane-head"><span class="demo-pane-title">MCP Configuration</span></div>
               <div class="demo-mcp-summary">
                 <div class="demo-mcp-stat"><div class="demo-mcp-num">12</div><div class="demo-mcp-lbl">Total Servers</div></div>
                 <div class="demo-mcp-stat"><div class="demo-mcp-num" style="color:#22c55e">5</div><div class="demo-mcp-lbl">Active</div></div>
                 <div class="demo-mcp-stat"><div class="demo-mcp-num" style="color:#eab308">3</div><div class="demo-mcp-lbl">Profiles</div></div>
-                <div class="demo-mcp-stat"><div class="demo-mcp-num" style="color:#3b82f6">8</div><div class="demo-mcp-lbl">Projects</div></div>
+                <div class="demo-mcp-stat"><div class="demo-mcp-num" style="color:#3b82f6">79</div><div class="demo-mcp-lbl">Tools</div></div>
               </div>
               <div class="demo-mcp-list">
-                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">claude-in-chrome</span><span class="demo-mcp-type">npx</span></div>
-                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">github</span><span class="demo-mcp-type">plugin</span></div>
-                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">notion</span><span class="demo-mcp-type">npx</span></div>
-                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">slack</span><span class="demo-mcp-type">npx</span></div>
-                <div class="demo-mcp-row"><span class="demo-mcp-dot gray"></span><span class="demo-mcp-name">supabase</span><span class="demo-mcp-type">npx</span></div>
-                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">context7</span><span class="demo-mcp-type">plugin</span></div>
-                <div class="demo-mcp-row"><span class="demo-mcp-dot gray"></span><span class="demo-mcp-name">filesystem</span><span class="demo-mcp-type">npx</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">claude-in-chrome</span><span class="demo-mcp-badge">16 tools</span><span class="demo-mcp-type">npx</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">github</span><span class="demo-mcp-badge">38 tools</span><span class="demo-mcp-type">plugin</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">notion</span><span class="demo-mcp-badge">12 tools</span><span class="demo-mcp-type">npx</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">slack</span><span class="demo-mcp-badge">11 tools</span><span class="demo-mcp-type">npx</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">context7</span><span class="demo-mcp-badge">2 tools</span><span class="demo-mcp-type">plugin</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot gray"></span><span class="demo-mcp-name">supabase</span><span class="demo-mcp-badge">8 tools</span><span class="demo-mcp-type">npx</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot gray"></span><span class="demo-mcp-name">filesystem</span><span class="demo-mcp-badge">6 tools</span><span class="demo-mcp-type">npx</span></div>
               </div>
             </div>
             <!-- Claude Code Tab -->
             <div class="demo-pane" data-pane="claude">
               <div class="demo-pane-head"><span class="demo-pane-title">Claude Code Configurations</span></div>
               <div class="demo-claude-grid">
-                <div class="demo-claude-card"><div class="demo-claude-name">BuildTrack</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">12 commands</span><span class="demo-claude-badge">4 agents</span></div></div>
-                <div class="demo-claude-card"><div class="demo-claude-name">GEOViz 2.0</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">8 commands</span><span class="demo-claude-badge">3 agents</span></div></div>
                 <div class="demo-claude-card"><div class="demo-claude-name">BizBrain OS</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">6 commands</span><span class="demo-claude-badge">2 agents</span></div></div>
-                <div class="demo-claude-card"><div class="demo-claude-name">EDF-Pro</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">5 commands</span><span class="demo-claude-badge">2 agents</span></div></div>
+                <div class="demo-claude-card"><div class="demo-claude-name">Meridian CRM</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">8 commands</span><span class="demo-claude-badge">3 agents</span></div></div>
+                <div class="demo-claude-card"><div class="demo-claude-name">Atlas Analytics</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">5 commands</span><span class="demo-claude-badge">2 agents</span></div></div>
+                <div class="demo-claude-card"><div class="demo-claude-name">NovaPay</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">6 commands</span><span class="demo-claude-badge">2 agents</span></div></div>
               </div>
             </div>
             <!-- Secrets Tab -->
             <div class="demo-pane" data-pane="secrets">
               <div class="demo-pane-head"><span class="demo-pane-title">Secrets Management</span></div>
-              <div class="demo-secrets-warn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Keep Secrets Safe &mdash; Never commit to version control</div>
-              <div class="demo-secrets-actions"><span class="demo-btn-sm violet">Export All Secrets</span><span class="demo-btn-sm gray">Preview Export</span><span class="demo-btn-sm green">Import Secrets File</span></div>
+              <div class="demo-secrets-warn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Encrypted at rest &mdash; Never commit to version control</div>
+              <div class="demo-secrets-actions"><span class="demo-btn-sm accent">Export All</span><span class="demo-btn-sm gray">Import File</span></div>
               <div class="demo-secrets-list">
-                <div class="demo-secret-row"><span class="demo-secret-key">SUPABASE_URL</span><span class="demo-secret-val">https://oopt...iqjs.supabase.co</span></div>
+                <div class="demo-secret-row"><span class="demo-secret-key">SUPABASE_URL</span><span class="demo-secret-val">https://abc...xyz.supabase.co</span></div>
                 <div class="demo-secret-row"><span class="demo-secret-key">STRIPE_SECRET_KEY</span><span class="demo-secret-val">sk_live_...****</span></div>
                 <div class="demo-secret-row"><span class="demo-secret-key">CLERK_SECRET_KEY</span><span class="demo-secret-val">sk_live_...****</span></div>
+                <div class="demo-secret-row"><span class="demo-secret-key">ANTHROPIC_API_KEY</span><span class="demo-secret-val">sk-ant-...****</span></div>
                 <div class="demo-secret-row"><span class="demo-secret-key">RESEND_API_KEY</span><span class="demo-secret-val">re_...****</span></div>
               </div>
             </div>
           </div>
         </div>
+        <a href="demo.html" class="demo-fulllink" target="_blank">Open Full Interactive Demo &rarr;</a>
       </div>
     </div>
     <div class="scroll-indicator" id="scroll-indicator">

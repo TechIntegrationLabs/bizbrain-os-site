@@ -571,14 +571,114 @@
   var demoTabs = document.querySelectorAll('.demo-tab');
   var demoPanes = document.querySelectorAll('.demo-pane');
 
+  function showDemoPane(paneName) {
+    demoPanes.forEach(function (p) { p.classList.remove('active'); });
+    var target = document.querySelector('.demo-pane[data-pane="' + paneName + '"]');
+    if (target) target.classList.add('active');
+  }
+
   demoTabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
       var paneName = this.getAttribute('data-demo-tab');
       demoTabs.forEach(function (t) { t.classList.remove('active'); });
-      demoPanes.forEach(function (p) { p.classList.remove('active'); });
       tab.classList.add('active');
-      var target = document.querySelector('.demo-pane[data-pane="' + paneName + '"]');
-      if (target) target.classList.add('active');
+      showDemoPane(paneName);
+    });
+  });
+
+  // ---- Project Drill-down Data ----
+  var demoProjects = {
+    bizbrain: {
+      name: 'BizBrain OS', status: 'green', statusLabel: 'Active',
+      tech: ['Vanilla JS', 'Tauri v2', 'Rust'],
+      desc: 'Personal business intelligence OS. Local-first knowledge layer with desktop app and CLI tooling.',
+      commits: 156, issues: 3, prs: 1, uptime: '99.9%',
+      activity: [
+        { icon: '\u{1F680}', bg: 'rgba(34,197,94,0.12)', text: '<strong>Deployed</strong> v1.2.0', time: '2h ago' },
+        { icon: '\u{1F500}', bg: 'rgba(59,130,246,0.12)', text: '<strong>Merged PR #12</strong> \u2014 File watcher', time: '5h ago' },
+        { icon: '\u{1F41B}', bg: 'rgba(239,68,68,0.12)', text: '<strong>Fixed #28</strong> \u2014 Tray icon bug', time: '1d ago' }
+      ]
+    },
+    meridian: {
+      name: 'Meridian CRM', status: 'green', statusLabel: 'Active',
+      tech: ['Next.js 14', 'Supabase', 'Clerk', 'Tailwind'],
+      desc: 'Client relationship management platform with team collaboration and pipeline tracking.',
+      commits: 347, issues: 12, prs: 4, uptime: '99.7%',
+      activity: [
+        { icon: '\u2705', bg: 'rgba(34,197,94,0.12)', text: '<strong>Tests passing</strong> \u2014 94/94 specs', time: '1h ago' },
+        { icon: '\u{1F500}', bg: 'rgba(59,130,246,0.12)', text: '<strong>Merged PR #47</strong> \u2014 Kanban drag-drop', time: '3h ago' },
+        { icon: '\u{1F6E1}', bg: 'rgba(234,179,8,0.12)', text: '<strong>Updated</strong> RLS policies', time: '8h ago' }
+      ]
+    },
+    atlas: {
+      name: 'Atlas Analytics', status: 'green', statusLabel: 'Active',
+      tech: ['React 19', 'D3.js', 'PostgreSQL', 'Express'],
+      desc: 'Business analytics dashboard with real-time data visualization and custom report builder.',
+      commits: 203, issues: 8, prs: 2, uptime: '99.5%',
+      activity: [
+        { icon: '\u{1F4CA}', bg: 'rgba(0,212,255,0.12)', text: '<strong>Added</strong> funnel visualization', time: '4h ago' },
+        { icon: '\u{1F500}', bg: 'rgba(59,130,246,0.12)', text: '<strong>Merged PR #31</strong> \u2014 Query perf fix', time: '1d ago' }
+      ]
+    },
+    beacon: {
+      name: 'Beacon AI', status: 'yellow', statusLabel: 'Needs Attention',
+      tech: ['Python', 'FastAPI', 'LangChain', 'Pinecone'],
+      desc: 'AI assistant platform with RAG pipeline, conversation memory, and tool use.',
+      commits: 89, issues: 15, prs: 6, uptime: '97.2%',
+      activity: [
+        { icon: '\u26A0', bg: 'rgba(234,179,8,0.12)', text: '<strong>Blocker:</strong> Pinecone rate limit', time: '30m ago' },
+        { icon: '\u{1F500}', bg: 'rgba(59,130,246,0.12)', text: '<strong>Opened PR #19</strong> \u2014 Streaming', time: '2h ago' },
+        { icon: '\u{1F41B}', bg: 'rgba(239,68,68,0.12)', text: '<strong>Investigating</strong> memory leak', time: '2d ago' }
+      ]
+    },
+    novapay: {
+      name: 'NovaPay', status: 'green', statusLabel: 'Active',
+      tech: ['Next.js 14', 'Stripe', 'Redis', 'Prisma'],
+      desc: 'Payment processing platform with subscription management and real-time webhooks.',
+      commits: 412, issues: 5, prs: 1, uptime: '99.99%',
+      activity: [
+        { icon: '\u{1F4B3}', bg: 'rgba(34,197,94,0.12)', text: '<strong>Processed</strong> 2,847 txns today', time: '15m ago' },
+        { icon: '\u{1F500}', bg: 'rgba(59,130,246,0.12)', text: '<strong>Merged PR #83</strong> \u2014 Sub pause/resume', time: '6h ago' }
+      ]
+    },
+    cascade: {
+      name: 'Cascade Docs', status: 'green', statusLabel: 'Active',
+      tech: ['Next.js', 'MDX', 'Contentlayer', 'Vercel'],
+      desc: 'Documentation platform with versioning, search, and interactive code examples.',
+      commits: 134, issues: 2, prs: 0, uptime: '100%',
+      activity: [
+        { icon: '\u{1F4DD}', bg: 'rgba(0,212,255,0.12)', text: '<strong>Published</strong> 3 new API pages', time: '3h ago' },
+        { icon: '\u{1F50D}', bg: 'rgba(59,130,246,0.12)', text: '<strong>Improved</strong> search indexing', time: '1d ago' }
+      ]
+    }
+  };
+
+  // ---- Project Card Click -> Detail View ----
+  var demoDetailPane = document.getElementById('demo-project-detail');
+  document.querySelectorAll('.demo-proj-card[data-project]').forEach(function (card) {
+    card.addEventListener('click', function () {
+      var projectId = this.getAttribute('data-project');
+      var p = demoProjects[projectId];
+      if (!p || !demoDetailPane) return;
+
+      var html = '<button class="demo-detail-back" id="demo-back-btn">\u2190 Back to Projects</button>';
+      html += '<div class="demo-detail-head"><span class="demo-proj-health ' + p.status + '" style="width:10px;height:10px"></span><span class="demo-detail-name">' + p.name + '</span><span class="demo-detail-badge ' + p.status + '">' + p.statusLabel + '</span></div>';
+      html += '<div class="demo-detail-stats"><div class="demo-detail-stat"><div class="demo-detail-stat-num">' + p.commits + '</div><div class="demo-detail-stat-lbl">commits</div></div><div class="demo-detail-stat"><div class="demo-detail-stat-num">' + p.issues + '</div><div class="demo-detail-stat-lbl">issues</div></div><div class="demo-detail-stat"><div class="demo-detail-stat-num">' + p.prs + '</div><div class="demo-detail-stat-lbl">PRs</div></div><div class="demo-detail-stat"><div class="demo-detail-stat-num" style="color:#22c55e">' + p.uptime + '</div><div class="demo-detail-stat-lbl">uptime</div></div></div>';
+      html += '<div class="demo-detail-desc">' + p.desc + '</div>';
+      html += '<div class="demo-proj-tags" style="margin-bottom:14px">' + p.tech.map(function (t) { return '<span class="demo-tag">' + t + '</span>'; }).join('') + '</div>';
+      html += '<div class="demo-detail-section"><div class="demo-detail-section-title">Recent Activity</div>';
+      p.activity.forEach(function (a) {
+        html += '<div class="demo-detail-activity"><div class="demo-detail-activity-icon" style="background:' + a.bg + '">' + a.icon + '</div><div class="demo-detail-activity-text">' + a.text + '</div><div class="demo-detail-activity-time">' + a.time + '</div></div>';
+      });
+      html += '</div>';
+      html += '<div class="demo-detail-actions"><span class="demo-btn-sm accent">Open Repo</span><span class="demo-btn-sm green">Run Tests</span><span class="demo-btn-sm gray">Deploy</span><span class="demo-btn-sm gray">View Logs</span></div>';
+
+      demoDetailPane.innerHTML = html;
+      showDemoPane('project-detail');
+
+      document.getElementById('demo-back-btn').addEventListener('click', function () {
+        showDemoPane('projects');
+      });
     });
   });
 
