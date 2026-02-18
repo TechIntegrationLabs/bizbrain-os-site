@@ -2323,6 +2323,18 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.85rem;
   color: var(--text-tertiary);
 }
+.community-contact {
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+}
+.community-contact a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.community-contact a:hover {
+  text-decoration: underline;
+}
 
 /* ---- Footer ---- */
 .footer {
