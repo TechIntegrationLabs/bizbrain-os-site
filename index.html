@@ -134,117 +134,92 @@
         </div>
       </div>
       <div class="hero-image animate-in">
-        <div class="demo-label">Interactive Demo &mdash; Click sidebar to explore</div>
+        <div class="demo-label">Interactive Demo &mdash; Click tabs to explore</div>
         <div class="demo-window" id="demo-window">
-          <div class="demo-titlebar">
+          <!-- Header -->
+          <div class="demo-header">
             <div class="demo-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
-            <span class="demo-titlebar-text">BB-1 Command Center</span>
-            <span></span>
+            <div class="demo-header-brand">
+              <div class="demo-header-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+              <div><div class="demo-header-name">Command Center</div><div class="demo-header-path">~/Tech Integration Labs BB1</div></div>
+            </div>
+            <div class="demo-header-status"><span class="demo-status-dot"></span> Connected</div>
           </div>
-          <div class="demo-body">
-            <aside class="demo-sidebar">
-              <div class="demo-brand">
-                <div class="demo-brain-wrap"><span class="demo-brain">&#129504;</span><span class="demo-online"></span></div>
-                <div class="demo-brand-info"><div class="demo-brand-name">BB-1</div><div class="demo-brand-sub">Business Brain</div></div>
+          <!-- Tab Nav -->
+          <div class="demo-tabs">
+            <button class="demo-tab active" data-demo-tab="projects">Projects</button>
+            <button class="demo-tab" data-demo-tab="services">Services</button>
+            <button class="demo-tab" data-demo-tab="mcp">MCP Servers</button>
+            <button class="demo-tab" data-demo-tab="claude">Claude Code</button>
+            <button class="demo-tab" data-demo-tab="secrets">Secrets</button>
+          </div>
+          <!-- Content -->
+          <div class="demo-content">
+            <!-- Projects Tab -->
+            <div class="demo-pane active" data-pane="projects">
+              <div class="demo-pane-head"><span class="demo-pane-title">Projects</span><div class="demo-pane-actions"><span class="demo-btn-sm green">Refresh All</span><span class="demo-btn-sm violet">+ Add Project</span></div></div>
+              <div class="demo-proj-grid">
+                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">BuildTrack</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/buildtrack</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">Supabase</span><span class="demo-tag">Clerk</span></div></div>
+                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">GEOViz 2.0</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/geoviz-app</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">Recharts</span><span class="demo-tag">Stripe</span></div></div>
+                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">BizBrain OS</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/bizbrain-os</div><div class="demo-proj-tags"><span class="demo-tag">Vanilla JS</span><span class="demo-tag">Tauri v2</span></div></div>
+                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">EDF-Pro</span><span class="demo-proj-health yellow"></span></div><div class="demo-proj-path">~/Repos/edfmvp</div><div class="demo-proj-tags"><span class="demo-tag">React</span><span class="demo-tag">Supabase</span></div></div>
+                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">OpenClaw</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/openclaw-admin</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">AI SDK</span></div></div>
+                <div class="demo-proj-card"><div class="demo-proj-top"><span class="demo-proj-name">ContentEngine</span><span class="demo-proj-health green"></span></div><div class="demo-proj-path">~/Repos/content-engine-til</div><div class="demo-proj-tags"><span class="demo-tag">Next.js</span><span class="demo-tag">Perplexity</span></div></div>
               </div>
-              <div class="demo-status-bar">&#9889; Active</div>
-              <nav class="demo-nav">
-                <button class="demo-nav-btn active" data-demo-view="dashboard">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-                  <span>Dashboard</span>
-                </button>
-                <button class="demo-nav-btn" data-demo-view="memory">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                  <span>Memory</span>
-                </button>
-                <button class="demo-nav-btn" data-demo-view="tasks">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                  <span>Tasks</span>
-                </button>
-                <button class="demo-nav-btn" data-demo-view="projects">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
-                  <span>Projects</span>
-                </button>
-              </nav>
-              <div class="demo-sidebar-foot"><span class="demo-foot-dot"></span><span class="demo-foot-text">Session Active</span></div>
-            </aside>
-            <main class="demo-content">
-              <!-- Dashboard View -->
-              <div class="demo-view active" data-view="dashboard">
-                <div class="demo-view-header"><div class="demo-view-title">Dashboard</div><div class="demo-view-sub">BB-1 System Overview</div></div>
-                <div class="demo-stats">
-                  <div class="demo-stat"><div class="demo-stat-icon" style="color:#3b82f6;background:rgba(59,130,246,.12)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="demo-stat-num">142</div><div class="demo-stat-label">Memory Files</div></div>
-                  <div class="demo-stat"><div class="demo-stat-icon" style="color:#a855f7;background:rgba(168,85,247,.12)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></div><div class="demo-stat-num">8</div><div class="demo-stat-label">Projects</div></div>
-                  <div class="demo-stat"><div class="demo-stat-icon" style="color:#eab308;background:rgba(234,179,8,.12)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="demo-stat-num">14</div><div class="demo-stat-label">Pending Tasks</div></div>
-                  <div class="demo-stat"><div class="demo-stat-icon" style="color:#22c55e;background:rgba(34,197,94,.12)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="demo-stat-num" style="font-size:.65rem;color:#22c55e">Connected</div><div class="demo-stat-label">BB1 Bridge</div></div>
-                </div>
-                <div class="demo-panels">
-                  <div class="demo-panel">
-                    <div class="demo-panel-title"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Recent Activity</div>
-                    <div class="demo-act"><span class="demo-act-dot green"></span><span class="demo-act-text">Entity updated: AI Revolution Labs</span><span class="demo-act-time">2m</span></div>
-                    <div class="demo-act"><span class="demo-act-dot blue"></span><span class="demo-act-text">Memory sync completed (142 files)</span><span class="demo-act-time">15m</span></div>
-                    <div class="demo-act"><span class="demo-act-dot green"></span><span class="demo-act-text">Session captured: GEOViz planning</span><span class="demo-act-time">1h</span></div>
-                    <div class="demo-act"><span class="demo-act-dot blue"></span><span class="demo-act-text">Timesheet synced to Notion</span><span class="demo-act-time">3h</span></div>
-                  </div>
-                  <div class="demo-panel">
-                    <div class="demo-panel-title"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Context Growth</div>
-                    <div class="demo-prog"><span class="demo-prog-label">Knowledge Base</span><span class="demo-prog-pct">92%</span></div>
-                    <div class="demo-prog-bar"><div class="demo-prog-fill" style="width:92%;background:linear-gradient(90deg,#14b8a6,#0d9488)"></div></div>
-                    <div class="demo-prog"><span class="demo-prog-label">Entity Coverage</span><span class="demo-prog-pct">78%</span></div>
-                    <div class="demo-prog-bar"><div class="demo-prog-fill" style="width:78%;background:linear-gradient(90deg,#3b82f6,#2563eb)"></div></div>
-                    <div class="demo-prog"><span class="demo-prog-label">Workflow Patterns</span><span class="demo-prog-pct">45%</span></div>
-                    <div class="demo-prog-bar"><div class="demo-prog-fill" style="width:45%;background:linear-gradient(90deg,#a855f7,#9333ea)"></div></div>
-                  </div>
-                </div>
+            </div>
+            <!-- Services Tab -->
+            <div class="demo-pane" data-pane="services">
+              <div class="demo-pane-head"><span class="demo-pane-title">Services</span></div>
+              <div class="demo-svc-grid">
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128187;</span><span class="demo-svc-name">GitHub</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">TechIntegrationLabs &bull; 2 accounts</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#9889;</span><span class="demo-svc-name">Supabase</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">8 projects connected</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128179;</span><span class="demo-svc-name">Stripe</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">Live + Test mode keys</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128274;</span><span class="demo-svc-name">Clerk</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">3 applications configured</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128172;</span><span class="demo-svc-name">Slack</span><span class="demo-svc-status green"></span></div><div class="demo-svc-detail">Bot token active</div></div>
+                <div class="demo-svc"><div class="demo-svc-top"><span class="demo-svc-icon">&#128231;</span><span class="demo-svc-name">Resend</span><span class="demo-svc-status yellow"></span></div><div class="demo-svc-detail">API key configured</div></div>
               </div>
-              <!-- Memory View -->
-              <div class="demo-view" data-view="memory">
-                <div class="demo-view-header"><div class="demo-view-title">Memory</div><div class="demo-view-sub">Browse BB-1's knowledge files</div></div>
-                <div class="demo-search"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search memories...</div>
-                <div class="demo-file-list">
-                  <div class="demo-file"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="demo-fname">CLAUDE.md</span><span class="demo-fbadge core">core</span><span class="demo-fsize">4.2 KB</span></div>
-                  <div class="demo-file"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="demo-fname">clients.md</span><span class="demo-fbadge knowledge">knowledge</span><span class="demo-fsize">2.8 KB</span></div>
-                  <div class="demo-file"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="demo-fname">2026-02-18.md</span><span class="demo-fbadge daily">daily</span><span class="demo-fsize">1.1 KB</span></div>
-                  <div class="demo-file"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="demo-fname">work-queue.md</span><span class="demo-fbadge tasks">tasks</span><span class="demo-fsize">892 B</span></div>
-                  <div class="demo-file"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="demo-fname">project-registry.json</span><span class="demo-fbadge core">core</span><span class="demo-fsize">3.4 KB</span></div>
-                  <div class="demo-file"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="demo-fname">roadmap-v2.md</span><span class="demo-fbadge planning">planning</span><span class="demo-fsize">1.7 KB</span></div>
-                  <div class="demo-file"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span class="demo-fname">entity-index.md</span><span class="demo-fbadge knowledge">knowledge</span><span class="demo-fsize">5.1 KB</span></div>
-                </div>
+            </div>
+            <!-- MCP Tab -->
+            <div class="demo-pane" data-pane="mcp">
+              <div class="demo-pane-head"><span class="demo-pane-title">MCP Configuration Overview</span></div>
+              <div class="demo-mcp-summary">
+                <div class="demo-mcp-stat"><div class="demo-mcp-num">12</div><div class="demo-mcp-lbl">Total Servers</div></div>
+                <div class="demo-mcp-stat"><div class="demo-mcp-num" style="color:#22c55e">5</div><div class="demo-mcp-lbl">Active</div></div>
+                <div class="demo-mcp-stat"><div class="demo-mcp-num" style="color:#eab308">3</div><div class="demo-mcp-lbl">Profiles</div></div>
+                <div class="demo-mcp-stat"><div class="demo-mcp-num" style="color:#3b82f6">8</div><div class="demo-mcp-lbl">Projects</div></div>
               </div>
-              <!-- Tasks View -->
-              <div class="demo-view" data-view="tasks">
-                <div class="demo-view-header"><div class="demo-view-title">Tasks</div><div class="demo-view-sub">Work queue from memory</div></div>
-                <div class="demo-task-grid">
-                  <div class="demo-task-col">
-                    <div class="demo-task-col-head"><span class="demo-task-dot pending"></span> Pending <span class="demo-task-count">5</span></div>
-                    <div class="demo-task-item"><span class="demo-cb"></span>Deploy GEOViz staging env</div>
-                    <div class="demo-task-item"><span class="demo-cb"></span>Set up Stripe products</div>
-                    <div class="demo-task-item"><span class="demo-cb"></span>Client onboarding flow</div>
-                    <div class="demo-task-item"><span class="demo-cb"></span>Review BuildTrack PR #47</div>
-                    <div class="demo-task-item"><span class="demo-cb"></span>Update EDF entity records</div>
-                  </div>
-                  <div class="demo-task-col">
-                    <div class="demo-task-col-head"><span class="demo-task-dot done"></span> Done <span class="demo-task-count">4</span></div>
-                    <div class="demo-task-item done"><span class="demo-cb ck"></span>Build Tauri desktop app</div>
-                    <div class="demo-task-item done"><span class="demo-cb ck"></span>Publish create-bizbrain npm</div>
-                    <div class="demo-task-item done"><span class="demo-cb ck"></span>Conversation capture setup</div>
-                    <div class="demo-task-item done"><span class="demo-cb ck"></span>Configure MCP profiles</div>
-                  </div>
-                </div>
+              <div class="demo-mcp-list">
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">claude-in-chrome</span><span class="demo-mcp-type">npx</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">github</span><span class="demo-mcp-type">plugin</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">notion</span><span class="demo-mcp-type">npx</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">slack</span><span class="demo-mcp-type">npx</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot gray"></span><span class="demo-mcp-name">supabase</span><span class="demo-mcp-type">npx</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot green"></span><span class="demo-mcp-name">context7</span><span class="demo-mcp-type">plugin</span></div>
+                <div class="demo-mcp-row"><span class="demo-mcp-dot gray"></span><span class="demo-mcp-name">filesystem</span><span class="demo-mcp-type">npx</span></div>
               </div>
-              <!-- Projects View -->
-              <div class="demo-view" data-view="projects">
-                <div class="demo-view-header"><div class="demo-view-title">Projects</div><div class="demo-view-sub">All projects from BB1</div></div>
-                <div class="demo-proj-grid">
-                  <div class="demo-proj"><div class="demo-proj-name"><span class="demo-proj-dot green"></span>BizBrain OS</div><div class="demo-proj-client">Open Source</div><div class="demo-proj-badges"><span class="demo-proj-badge green">Active</span></div></div>
-                  <div class="demo-proj"><div class="demo-proj-name"><span class="demo-proj-dot green"></span>GEOViz 2.0</div><div class="demo-proj-client">AI Revolution Labs</div><div class="demo-proj-badges"><span class="demo-proj-badge green">Active</span></div></div>
-                  <div class="demo-proj"><div class="demo-proj-name"><span class="demo-proj-dot green"></span>BuildTrack</div><div class="demo-proj-client">Disruptors Media</div><div class="demo-proj-badges"><span class="demo-proj-badge yellow">In Progress</span></div></div>
-                  <div class="demo-proj"><div class="demo-proj-name"><span class="demo-proj-dot yellow"></span>EDF-Pro</div><div class="demo-proj-client">Elite Dental Force</div><div class="demo-proj-badges"><span class="demo-proj-badge yellow">Setup</span></div></div>
-                  <div class="demo-proj"><div class="demo-proj-name"><span class="demo-proj-dot green"></span>OpenClaw</div><div class="demo-proj-client">Open Source</div><div class="demo-proj-badges"><span class="demo-proj-badge green">Active</span></div></div>
-                  <div class="demo-proj"><div class="demo-proj-name"><span class="demo-proj-dot blue"></span>ContentEngine</div><div class="demo-proj-client">Multiple</div><div class="demo-proj-badges"><span class="demo-proj-badge green">Active</span></div></div>
-                </div>
+            </div>
+            <!-- Claude Code Tab -->
+            <div class="demo-pane" data-pane="claude">
+              <div class="demo-pane-head"><span class="demo-pane-title">Claude Code Configurations</span></div>
+              <div class="demo-claude-grid">
+                <div class="demo-claude-card"><div class="demo-claude-name">BuildTrack</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">12 commands</span><span class="demo-claude-badge">4 agents</span></div></div>
+                <div class="demo-claude-card"><div class="demo-claude-name">GEOViz 2.0</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">8 commands</span><span class="demo-claude-badge">3 agents</span></div></div>
+                <div class="demo-claude-card"><div class="demo-claude-name">BizBrain OS</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">6 commands</span><span class="demo-claude-badge">2 agents</span></div></div>
+                <div class="demo-claude-card"><div class="demo-claude-name">EDF-Pro</div><div class="demo-claude-items"><span class="demo-claude-badge">CLAUDE.md</span><span class="demo-claude-badge">5 commands</span><span class="demo-claude-badge">2 agents</span></div></div>
               </div>
-            </main>
+            </div>
+            <!-- Secrets Tab -->
+            <div class="demo-pane" data-pane="secrets">
+              <div class="demo-pane-head"><span class="demo-pane-title">Secrets Management</span></div>
+              <div class="demo-secrets-warn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Keep Secrets Safe &mdash; Never commit to version control</div>
+              <div class="demo-secrets-actions"><span class="demo-btn-sm violet">Export All Secrets</span><span class="demo-btn-sm gray">Preview Export</span><span class="demo-btn-sm green">Import Secrets File</span></div>
+              <div class="demo-secrets-list">
+                <div class="demo-secret-row"><span class="demo-secret-key">SUPABASE_URL</span><span class="demo-secret-val">https://oopt...iqjs.supabase.co</span></div>
+                <div class="demo-secret-row"><span class="demo-secret-key">STRIPE_SECRET_KEY</span><span class="demo-secret-val">sk_live_...****</span></div>
+                <div class="demo-secret-row"><span class="demo-secret-key">CLERK_SECRET_KEY</span><span class="demo-secret-val">sk_live_...****</span></div>
+                <div class="demo-secret-row"><span class="demo-secret-key">RESEND_API_KEY</span><span class="demo-secret-val">re_...****</span></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

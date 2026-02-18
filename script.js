@@ -567,17 +567,17 @@
     });
   });
 
-  // ---- Interactive Hero Demo Navigation ----
-  var demoNavBtns = document.querySelectorAll('.demo-nav-btn');
-  var demoViews = document.querySelectorAll('.demo-view');
+  // ---- Interactive Hero Demo Tab Navigation ----
+  var demoTabs = document.querySelectorAll('.demo-tab');
+  var demoPanes = document.querySelectorAll('.demo-pane');
 
-  demoNavBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var viewName = this.getAttribute('data-demo-view');
-      demoNavBtns.forEach(function (b) { b.classList.remove('active'); });
-      demoViews.forEach(function (v) { v.classList.remove('active'); });
-      btn.classList.add('active');
-      var target = document.querySelector('.demo-view[data-view="' + viewName + '"]');
+  demoTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var paneName = this.getAttribute('data-demo-tab');
+      demoTabs.forEach(function (t) { t.classList.remove('active'); });
+      demoPanes.forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var target = document.querySelector('.demo-pane[data-pane="' + paneName + '"]');
       if (target) target.classList.add('active');
     });
   });
