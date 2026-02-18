@@ -417,47 +417,124 @@
         <span class="section-num">1</span>
         <h2>Prerequisites</h2>
       </div>
-      <p>Before you start, make sure you have these installed. If you're missing any, follow the links to install them &mdash; each takes just a minute or two.</p>
+      <p>You need two things installed before you can use BizBrain OS: <strong>Git</strong> (with a terminal) and <strong>Node.js</strong>. Pick your operating system below and follow the steps &mdash; each takes just a minute or two.</p>
 
-      <div class="prereq-grid">
-        <div class="prereq-card">
-          <h4>Node.js</h4>
-          <div class="version">v18 or newer</div>
-          <p>JavaScript runtime needed to run the BizBrain installer and optional dashboard.</p>
-          <a href="https://nodejs.org" target="_blank" rel="noopener">Download Node.js &rarr;</a>
+      <div class="os-tabs" id="prereq-os-tabs">
+        <button class="os-tab" data-os="win">Windows</button>
+        <button class="os-tab active" data-os="mac">Mac / Linux</button>
+      </div>
+
+      <!-- ========== WINDOWS ========== -->
+      <div class="os-content" data-os="win">
+        <h3>Step 1a: Install Git Bash</h3>
+        <p>Git Bash gives you Git <em>and</em> a proper Unix-style terminal on Windows. Claude Code and BizBrain OS run best inside Git Bash.</p>
+
+        <div class="prereq-grid">
+          <div class="prereq-card" style="grid-column: 1 / -1;">
+            <h4>Git for Windows (includes Git Bash)</h4>
+            <div class="version">Download &amp; run the installer</div>
+            <p>This installs both <strong>Git</strong> and <strong>Git Bash</strong> (a terminal that supports Unix commands). During installation, accept all the defaults &mdash; they work perfectly.</p>
+            <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Download Git for Windows &rarr;</a>
+          </div>
         </div>
-        <div class="prereq-card">
-          <h4>Git</h4>
-          <div class="version">Any version</div>
-          <p>Version control for backing up your Brain and pulling updates.</p>
-          <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Download Git &rarr;</a>
+
+        <div class="callout callout-info">
+          <strong>After installing</strong>, open <strong>Git Bash</strong> from your Start menu (search for "Git Bash"). This is the terminal you'll use for everything below.
         </div>
-        <div class="prereq-card">
-          <h4>Terminal / Command Line</h4>
-          <div class="version">Built-in</div>
-          <p><strong>Mac:</strong> Terminal app. <strong>Windows:</strong> PowerShell or Windows Terminal. <strong>Linux:</strong> Any terminal.</p>
+
+        <h3>Step 1b: Install Node.js</h3>
+        <p>Node.js is needed to run the BizBrain installer and Claude Code.</p>
+
+        <div class="prereq-grid">
+          <div class="prereq-card" style="grid-column: 1 / -1;">
+            <h4>Node.js</h4>
+            <div class="version">v18 or newer (LTS recommended)</div>
+            <p>Download the <strong>Windows Installer (.msi)</strong>, run it, and accept the defaults. It adds <code>node</code> and <code>npm</code> to your system automatically.</p>
+            <a href="https://nodejs.org" target="_blank" rel="noopener">Download Node.js &rarr;</a>
+          </div>
+        </div>
+
+        <h3>Verify Everything Works</h3>
+        <p>Open <strong>Git Bash</strong> and run these commands:</p>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot r"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+            <span class="terminal-label">Git Bash</span>
+          </div>
+          <pre><span class="prompt">$</span> <span class="cmd">git --version</span>
+<span class="output">git version 2.47.1.windows.1</span>    <span class="comment"># any version is fine</span>
+
+<span class="prompt">$</span> <span class="cmd">node --version</span>
+<span class="output">v22.13.0</span>    <span class="comment"># needs to be 18+</span>
+
+<span class="prompt">$</span> <span class="cmd">npm --version</span>
+<span class="output">10.9.2</span>    <span class="comment"># comes with Node.js</span></pre>
+        </div>
+
+        <div class="callout callout-warning">
+          <strong>Node not found?</strong>
+          If Git Bash says <code>node: command not found</code>, close and reopen Git Bash after installing Node.js. The installer needs a fresh terminal to register the PATH.
         </div>
       </div>
 
-      <h3>Check Your Versions</h3>
-      <p>Open your terminal and run these to confirm everything is installed:</p>
-      <div class="terminal">
-        <div class="terminal-bar">
-          <span class="terminal-dot r"></span>
-          <span class="terminal-dot y"></span>
-          <span class="terminal-dot g"></span>
-          <span class="terminal-label">Terminal</span>
+      <!-- ========== MAC / LINUX ========== -->
+      <div class="os-content active" data-os="mac">
+        <h3>Step 1a: Install Git</h3>
+        <p>Most Macs already have Git. Check by running <code>git --version</code> in Terminal. If it's not installed, macOS will prompt you to install the Command Line Tools automatically.</p>
+
+        <div class="prereq-grid">
+          <div class="prereq-card">
+            <h4>macOS (easiest)</h4>
+            <div class="version">Built-in or via Xcode CLT</div>
+            <p>Open Terminal and type <code>git --version</code>. If not installed, macOS will offer to install it for you.</p>
+          </div>
+          <div class="prereq-card">
+            <h4>Homebrew (alternative)</h4>
+            <div class="version">brew install git</div>
+            <p>If you use <a href="https://brew.sh" target="_blank" rel="noopener">Homebrew</a>: <code>brew install git</code></p>
+          </div>
+          <div class="prereq-card">
+            <h4>Linux</h4>
+            <div class="version">Use your package manager</div>
+            <p><strong>Ubuntu/Debian:</strong> <code>sudo apt install git</code><br><strong>Fedora:</strong> <code>sudo dnf install git</code></p>
+          </div>
         </div>
-        <pre><span class="prompt">$</span> <span class="cmd">node --version</span>
+
+        <h3>Step 1b: Install Node.js</h3>
+        <div class="prereq-grid">
+          <div class="prereq-card">
+            <h4>Direct download</h4>
+            <div class="version">v18 or newer (LTS recommended)</div>
+            <p>Download and run the macOS or Linux installer from the official site.</p>
+            <a href="https://nodejs.org" target="_blank" rel="noopener">Download Node.js &rarr;</a>
+          </div>
+          <div class="prereq-card">
+            <h4>Homebrew (Mac)</h4>
+            <div class="version">brew install node</div>
+            <p>If you use Homebrew: <code>brew install node</code></p>
+          </div>
+        </div>
+
+        <h3>Verify Everything Works</h3>
+        <p>Open <strong>Terminal</strong> and run:</p>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot r"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+            <span class="terminal-label">Terminal</span>
+          </div>
+          <pre><span class="prompt">$</span> <span class="cmd">git --version</span>
+<span class="output">git version 2.43.0</span>    <span class="comment"># any version is fine</span>
+
+<span class="prompt">$</span> <span class="cmd">node --version</span>
 <span class="output">v20.11.0</span>    <span class="comment"># needs to be 18+</span>
 
-<span class="prompt">$</span> <span class="cmd">git --version</span>
-<span class="output">git version 2.43.0</span>    <span class="comment"># any version works</span></pre>
-      </div>
-
-      <div class="callout callout-info">
-        <strong>Don't have Node.js?</strong>
-        The easiest way to install it is from <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a> &mdash; download the LTS version and run the installer. It takes about 2 minutes.
+<span class="prompt">$</span> <span class="cmd">npm --version</span>
+<span class="output">10.2.4</span>    <span class="comment"># comes with Node.js</span></pre>
+        </div>
       </div>
     </div>
   </section>
@@ -469,40 +546,81 @@
         <span class="section-num">2</span>
         <h2>Install Claude Code</h2>
       </div>
-      <p>Claude Code is the AI engine that powers BizBrain OS. It's a command-line tool made by Anthropic that gives you a powerful AI assistant right in your terminal.</p>
+      <p>Claude Code is the AI engine that powers BizBrain OS. It's a command-line tool made by <a href="https://anthropic.com" target="_blank" rel="noopener">Anthropic</a> that gives you a powerful AI assistant right in your terminal.</p>
 
-      <h3>Install via npm</h3>
-      <div class="terminal">
-        <div class="terminal-bar">
-          <span class="terminal-dot r"></span>
-          <span class="terminal-dot y"></span>
-          <span class="terminal-dot g"></span>
-          <span class="terminal-label">Terminal</span>
-        </div>
-        <pre><span class="prompt">$</span> <span class="cmd">npm install -g @anthropic-ai/claude-code</span>
+      <div class="os-tabs" id="claude-os-tabs">
+        <button class="os-tab" data-os="win">Windows</button>
+        <button class="os-tab active" data-os="mac">Mac / Linux</button>
+      </div>
+
+      <!-- ========== WINDOWS ========== -->
+      <div class="os-content" data-os="win">
+        <h3>Install via npm (in Git Bash)</h3>
+        <p>Open <strong>Git Bash</strong> and run:</p>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot r"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+            <span class="terminal-label">Git Bash</span>
+          </div>
+          <pre><span class="prompt">$</span> <span class="cmd">npm install -g @anthropic-ai/claude-code</span>
 <span class="output">added 1 package in 12s</span></pre>
-      </div>
-
-      <div class="callout callout-warning">
-        <strong>Permission error on Mac/Linux?</strong>
-        If you get an <code>EACCES</code> error, try: <code>sudo npm install -g @anthropic-ai/claude-code</code>
-      </div>
-
-      <h3>Verify Installation</h3>
-      <div class="terminal">
-        <div class="terminal-bar">
-          <span class="terminal-dot r"></span>
-          <span class="terminal-dot y"></span>
-          <span class="terminal-dot g"></span>
-          <span class="terminal-label">Terminal</span>
         </div>
-        <pre><span class="prompt">$</span> <span class="cmd">claude --version</span>
+
+        <h3>Verify Installation</h3>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot r"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+            <span class="terminal-label">Git Bash</span>
+          </div>
+          <pre><span class="prompt">$</span> <span class="cmd">claude --version</span>
 <span class="output">claude-code v1.x.x</span>    <span class="comment"># you should see a version number</span></pre>
+        </div>
+
+        <div class="callout callout-info">
+          <strong>Always use Git Bash</strong>
+          Claude Code works best in Git Bash on Windows. PowerShell and CMD also work, but Git Bash provides the most consistent experience.
+        </div>
+      </div>
+
+      <!-- ========== MAC / LINUX ========== -->
+      <div class="os-content active" data-os="mac">
+        <h3>Install via npm</h3>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot r"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+            <span class="terminal-label">Terminal</span>
+          </div>
+          <pre><span class="prompt">$</span> <span class="cmd">npm install -g @anthropic-ai/claude-code</span>
+<span class="output">added 1 package in 12s</span></pre>
+        </div>
+
+        <div class="callout callout-warning">
+          <strong>Permission error?</strong>
+          If you get an <code>EACCES</code> error, try: <code>sudo npm install -g @anthropic-ai/claude-code</code>
+        </div>
+
+        <h3>Verify Installation</h3>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot r"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+            <span class="terminal-label">Terminal</span>
+          </div>
+          <pre><span class="prompt">$</span> <span class="cmd">claude --version</span>
+<span class="output">claude-code v1.x.x</span>    <span class="comment"># you should see a version number</span></pre>
+        </div>
       </div>
 
       <div class="callout callout-info">
-        <strong>Official docs</strong>
-        For the latest installation instructions and troubleshooting, see the <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code documentation</a>.
+        <strong>Official documentation</strong>
+        For the latest installation instructions and troubleshooting, see the <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code documentation</a> from Anthropic.
       </div>
     </div>
   </section>
@@ -516,24 +634,19 @@
       </div>
       <p>Claude Code needs an API key to work. You'll get this from the Anthropic Console. It takes about 2 minutes.</p>
 
-      <h3>Create an Account</h3>
-      <p>Go to <a href="https://console.anthropic.com" target="_blank" rel="noopener"><strong>console.anthropic.com</strong></a> and sign up (or log in if you already have an account).</p>
-
-      <h3>Add Billing</h3>
-      <p>Navigate to <strong>Settings &rarr; Billing</strong> and add a payment method. Claude Code is pay-per-use &mdash; typical usage for BizBrain OS costs a few dollars per month depending on how actively you use it.</p>
+      <h3>Create an Account &amp; API Key</h3>
+      <ol style="color: var(--text-secondary); padding-left: 20px; margin-bottom: 16px;">
+        <li style="margin-bottom: 8px;">Go to <a href="https://console.anthropic.com" target="_blank" rel="noopener"><strong>console.anthropic.com</strong></a> and sign up (or log in)</li>
+        <li style="margin-bottom: 8px;">Navigate to <strong>Settings &rarr; Billing</strong> and add a payment method</li>
+        <li style="margin-bottom: 8px;">Go to <strong>Settings &rarr; API Keys</strong> and click <strong>"Create Key"</strong></li>
+        <li style="margin-bottom: 8px;">Name it something like <code>bizbrain</code></li>
+        <li style="margin-bottom: 8px;">Copy the key (starts with <code>sk-ant-...</code>) and save it somewhere safe</li>
+      </ol>
 
       <div class="callout callout-info">
         <strong>Cost Expectations</strong>
-        Light usage (a few sessions per day) typically runs $5&ndash;15/month. Heavy usage might be $30&ndash;50/month. You can set spending limits in the console to control costs.
+        Claude Code is pay-per-use. Light usage (a few sessions per day) typically runs $5&ndash;15/month. You can set spending limits in the <a href="https://console.anthropic.com" target="_blank" rel="noopener">console</a> to control costs.
       </div>
-
-      <h3>Create an API Key</h3>
-      <ol style="color: var(--text-secondary); padding-left: 20px; margin-bottom: 16px;">
-        <li style="margin-bottom: 8px;">In the Anthropic Console, go to <strong>Settings &rarr; API Keys</strong></li>
-        <li style="margin-bottom: 8px;">Click <strong>"Create Key"</strong></li>
-        <li style="margin-bottom: 8px;">Give it a name like <code>bizbrain</code></li>
-        <li style="margin-bottom: 8px;">Copy the key (starts with <code>sk-ant-...</code>)</li>
-      </ol>
 
       <div class="callout callout-warning">
         <strong>Save your key somewhere safe</strong>
@@ -541,13 +654,33 @@
       </div>
 
       <h3>Connect Claude Code to Your Key</h3>
-      <p>The first time you run <code>claude</code>, it will ask for your API key. Paste it in and you're set. Alternatively, you can set it as an environment variable:</p>
+      <p>The easiest way: just run <code>claude</code> in your terminal and it will ask for your API key on first launch. Paste it in and you're set.</p>
+      <p>Alternatively, set it as an environment variable:</p>
 
-      <div class="os-tabs">
+      <div class="os-tabs" id="key-os-tabs">
+        <button class="os-tab" data-os="win">Windows (Git Bash)</button>
         <button class="os-tab active" data-os="mac">Mac / Linux</button>
-        <button class="os-tab" data-os="win">Windows</button>
       </div>
 
+      <div class="os-content" data-os="win">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot r"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+            <span class="terminal-label">Git Bash</span>
+          </div>
+          <pre><span class="comment"># Add this to your ~/.bashrc file:</span>
+<span class="cmd">export ANTHROPIC_API_KEY="sk-ant-your-key-here"</span>
+
+<span class="comment"># Then reload:</span>
+<span class="prompt">$</span> <span class="cmd">source ~/.bashrc</span>
+
+<span class="comment"># Or set permanently via Windows UI:</span>
+<span class="comment"># Settings > System > About > Advanced > Environment Variables</span>
+<span class="comment"># Add ANTHROPIC_API_KEY with your key value</span></pre>
+        </div>
+      </div>
       <div class="os-content active" data-os="mac">
         <div class="terminal">
           <div class="terminal-bar">
@@ -561,22 +694,6 @@
 
 <span class="comment"># Then reload:</span>
 <span class="prompt">$</span> <span class="cmd">source ~/.zshrc</span></pre>
-        </div>
-      </div>
-      <div class="os-content" data-os="win">
-        <div class="terminal">
-          <div class="terminal-bar">
-            <span class="terminal-dot r"></span>
-            <span class="terminal-dot y"></span>
-            <span class="terminal-dot g"></span>
-            <span class="terminal-label">PowerShell</span>
-          </div>
-          <pre><span class="comment"># Set for current session:</span>
-<span class="prompt">></span> <span class="cmd">$env:ANTHROPIC_API_KEY = "sk-ant-your-key-here"</span>
-
-<span class="comment"># Or set permanently (System Environment Variables):</span>
-<span class="comment"># Settings > System > About > Advanced > Environment Variables</span>
-<span class="comment"># Add ANTHROPIC_API_KEY with your key value</span></pre>
         </div>
       </div>
 
@@ -779,16 +896,37 @@ toggle.addEventListener('click', () => {
   localStorage.setItem('bizbrain-theme', next);
 });
 
-// ---- OS Tabs ----
-document.querySelectorAll('.os-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    const os = tab.dataset.os;
-    document.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.os-content').forEach(c => c.classList.remove('active'));
-    tab.classList.add('active');
-    document.querySelector(`.os-content[data-os="${os}"]`).classList.add('active');
+// ---- OS Tabs (supports multiple independent tab groups) ----
+document.querySelectorAll('.os-tabs').forEach(tabGroup => {
+  var tabs = tabGroup.querySelectorAll('.os-tab');
+  // Find the next sibling .os-content elements until the next non-.os-content
+  var contents = [];
+  var sibling = tabGroup.nextElementSibling;
+  while (sibling && sibling.classList.contains('os-content')) {
+    contents.push(sibling);
+    sibling = sibling.nextElementSibling;
+  }
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      var os = tab.dataset.os;
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => { if (c.dataset.os === os) c.classList.add('active'); });
+    });
   });
 });
+
+// ---- Sync all OS tab groups on first load (detect OS) ----
+(function() {
+  var isWin = navigator.platform && navigator.platform.indexOf('Win') > -1;
+  if (isWin) {
+    document.querySelectorAll('.os-tabs').forEach(tabGroup => {
+      var winTab = tabGroup.querySelector('.os-tab[data-os="win"]');
+      if (winTab) winTab.click();
+    });
+  }
+})();
   </script>
 </body>
 </html>

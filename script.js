@@ -263,9 +263,9 @@
     var phrases = [
       'Your Business',
       'Your Clients',
-      'Your Projects',
       'Your Workflows',
-      'Your History'
+      'Your History',
+      'Every Detail'
     ];
     var phraseIdx = 0;
     var charIdx = 0;
