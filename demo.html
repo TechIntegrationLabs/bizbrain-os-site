@@ -209,8 +209,21 @@
     .card.clickable { cursor: pointer; }
     .card.clickable:hover {
       border-color: var(--border-hover);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
       box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    }
+    .card.project-card {
+      transition: border-color 0.2s, transform 0.2s ease, box-shadow 0.3s ease, background 0.2s;
+    }
+    .card.project-card:hover {
+      border-color: var(--proj-color-border, var(--border-hover));
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 20px var(--proj-color-dim, transparent);
+      background: var(--proj-color-dim, var(--surface-hover));
+    }
+    .detail-tab.active {
+      color: #fff;
+      border-bottom-color: var(--dt-color, var(--accent));
     }
 
     /* ---- Tags ---- */
@@ -476,6 +489,7 @@
     {
       id: 'bizbrain-os', name: 'BizBrain OS', path: '~/Repos/bizbrain-os',
       status: 'green', statusLabel: 'Active',
+      color: '#00d4ff', colorDim: 'rgba(0,212,255,0.1)', colorBorder: 'rgba(0,212,255,0.3)',
       tech: ['Vanilla JS', 'Tauri v2', 'Rust'],
       desc: 'Personal business intelligence operating system. Local-first knowledge layer with desktop app.',
       commits: 156, issues: 3, prs: 1, uptime: '99.9%',
@@ -484,15 +498,34 @@
         { icon: '&#x1F680;', bg: 'var(--green-dim)', text: '<strong>Deployed</strong> v1.2.0 to production', time: '2h ago' },
         { icon: '&#x1F500;', bg: 'var(--blue-dim)', text: '<strong>Merged PR #12</strong> &mdash; File watcher optimization', time: '5h ago' },
         { icon: '&#x1F41B;', bg: 'var(--red-dim)', text: '<strong>Resolved #28</strong> &mdash; Tray icon on Windows', time: '1d ago' },
-        { icon: '&#x1F4E6;', bg: 'var(--accent-dim)', text: '<strong>Published</strong> create-bizbrain v0.9.4 to npm', time: '2d ago' },
+        { icon: '&#x1F4E6;', bg: 'rgba(0,212,255,0.12)', text: '<strong>Published</strong> create-bizbrain v0.9.4 to npm', time: '2d ago' },
       ],
       commands: ['launch', 'build', 'sync', 'verify', 'intake', 'deploy'],
       agents: ['intake-processor', 'entity-watchdog'],
-      envVars: { BIZBRAIN_PATH: '~/business-brain', TAURI_DEBUG: 'false', APP_PORT: '5173' }
+      envVars: { BIZBRAIN_PATH: '~/business-brain', TAURI_DEBUG: 'false', APP_PORT: '5173' },
+      dashboard: {
+        title: 'Brain Modules',
+        widgets: [
+          { label: 'Active Modules', value: '27', sub: '3 pending activation' },
+          { label: 'Entities Tracked', value: '42', sub: '14 clients, 8 partners, 20 vendors' },
+          { label: 'Intake Queue', value: '5', sub: 'files awaiting processing' },
+          { label: 'Knowledge Files', value: '186', sub: 'across 12 categories' }
+        ],
+        custom: '<div class="sec-head mt-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Active Modules</div>' +
+          '<div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr))">' +
+            '<div class="card" style="border-left:3px solid #00d4ff"><div style="font-weight:600;font-size:13px">Entity Watchdog</div><div class="text-xs text-muted">Monitoring 42 entities</div></div>' +
+            '<div class="card" style="border-left:3px solid #22c55e"><div style="font-weight:600;font-size:13px">Intake Processor</div><div class="text-xs text-muted">5 files in queue</div></div>' +
+            '<div class="card" style="border-left:3px solid #3b82f6"><div style="font-weight:600;font-size:13px">Time Tracking</div><div class="text-xs text-muted">6.5 hrs today</div></div>' +
+            '<div class="card" style="border-left:3px solid #a855f7"><div style="font-weight:600;font-size:13px">Todo Manager</div><div class="text-xs text-muted">12 open, 3 overdue</div></div>' +
+            '<div class="card" style="border-left:3px solid #eab308"><div style="font-weight:600;font-size:13px">Content Factory</div><div class="text-xs text-muted">3 drafts ready</div></div>' +
+            '<div class="card" style="border-left:3px solid #ec4899"><div style="font-weight:600;font-size:13px">Session Archiver</div><div class="text-xs text-muted">47 sessions archived</div></div>' +
+          '</div>'
+      }
     },
     {
       id: 'meridian-crm', name: 'Meridian CRM', path: '~/Repos/meridian-crm',
       status: 'green', statusLabel: 'Active',
+      color: '#a855f7', colorDim: 'rgba(168,85,247,0.1)', colorBorder: 'rgba(168,85,247,0.3)',
       tech: ['Next.js 14', 'Supabase', 'Clerk', 'Tailwind'],
       desc: 'Full-featured client relationship management platform with team collaboration and pipeline tracking.',
       commits: 347, issues: 12, prs: 4, uptime: '99.7%',
@@ -501,31 +534,84 @@
         { icon: '&#x2705;', bg: 'var(--green-dim)', text: '<strong>Tests passing</strong> &mdash; 94 of 94 specs', time: '1h ago' },
         { icon: '&#x1F500;', bg: 'var(--blue-dim)', text: '<strong>Merged PR #47</strong> &mdash; Pipeline kanban drag-drop', time: '3h ago' },
         { icon: '&#x1F6E1;', bg: 'var(--yellow-dim)', text: '<strong>Updated</strong> RLS policies for team access', time: '8h ago' },
-        { icon: '&#x1F4E7;', bg: 'var(--accent-dim)', text: '<strong>Integrated</strong> Resend email templates', time: '1d ago' },
+        { icon: '&#x1F4E7;', bg: 'rgba(168,85,247,0.12)', text: '<strong>Integrated</strong> Resend email templates', time: '1d ago' },
       ],
       commands: ['dev', 'build', 'test', 'deploy', 'db-migrate', 'db-seed', 'lint', 'typecheck'],
       agents: ['supabase-agent', 'saas-agent', 'code-reviewer'],
-      envVars: { NEXT_PUBLIC_SUPABASE_URL: 'https://abc...xyz.supabase.co', CLERK_SECRET_KEY: 'sk_live_...****', STRIPE_SECRET_KEY: 'sk_live_...****', RESEND_API_KEY: 're_...****' }
+      envVars: { NEXT_PUBLIC_SUPABASE_URL: 'https://abc...xyz.supabase.co', CLERK_SECRET_KEY: 'sk_live_...****', STRIPE_SECRET_KEY: 'sk_live_...****', RESEND_API_KEY: 're_...****' },
+      dashboard: {
+        title: 'Sales Pipeline',
+        widgets: [
+          { label: 'Active Deals', value: '23', sub: '$184K total pipeline' },
+          { label: 'Won This Month', value: '7', sub: '$52K closed revenue' },
+          { label: 'Contacts', value: '1,204', sub: '89 added this week' },
+          { label: 'Email Sent', value: '342', sub: '68% open rate' }
+        ],
+        custom: '<div class="sec-head mt-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> Pipeline Board</div>' +
+          '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">' +
+            '<div class="card" style="border-top:3px solid #64748b"><div style="font-weight:600;font-size:12px;margin-bottom:8px;color:#94a3b8">Lead <span class="text-xs">(8)</span></div>' +
+              '<div style="background:var(--surface);border-radius:6px;padding:8px;margin-bottom:6px;font-size:11px"><div style="font-weight:600">Acme Corp</div><div class="text-muted">$24K &bull; Sarah</div></div>' +
+              '<div style="background:var(--surface);border-radius:6px;padding:8px;margin-bottom:6px;font-size:11px"><div style="font-weight:600">TechVentures</div><div class="text-muted">$18K &bull; You</div></div>' +
+              '<div style="background:var(--surface);border-radius:6px;padding:8px;font-size:11px"><div style="font-weight:600">GlobalFin</div><div class="text-muted">$32K &bull; Jordan</div></div>' +
+            '</div>' +
+            '<div class="card" style="border-top:3px solid #3b82f6"><div style="font-weight:600;font-size:12px;margin-bottom:8px;color:#3b82f6">Qualified <span class="text-xs">(6)</span></div>' +
+              '<div style="background:var(--surface);border-radius:6px;padding:8px;margin-bottom:6px;font-size:11px"><div style="font-weight:600">DataFlow Inc</div><div class="text-muted">$45K &bull; You</div></div>' +
+              '<div style="background:var(--surface);border-radius:6px;padding:8px;font-size:11px"><div style="font-weight:600">NorthStar</div><div class="text-muted">$12K &bull; Sarah</div></div>' +
+            '</div>' +
+            '<div class="card" style="border-top:3px solid #a855f7"><div style="font-weight:600;font-size:12px;margin-bottom:8px;color:#a855f7">Proposal <span class="text-xs">(5)</span></div>' +
+              '<div style="background:var(--surface);border-radius:6px;padding:8px;margin-bottom:6px;font-size:11px"><div style="font-weight:600">CloudScale</div><div class="text-muted">$28K &bull; You</div></div>' +
+              '<div style="background:var(--surface);border-radius:6px;padding:8px;font-size:11px"><div style="font-weight:600">PrimeLogic</div><div class="text-muted">$15K &bull; Jordan</div></div>' +
+            '</div>' +
+            '<div class="card" style="border-top:3px solid #22c55e"><div style="font-weight:600;font-size:12px;margin-bottom:8px;color:#22c55e">Won <span class="text-xs">(4)</span></div>' +
+              '<div style="background:var(--surface);border-radius:6px;padding:8px;margin-bottom:6px;font-size:11px"><div style="font-weight:600">Zenith Media</div><div class="text-muted">$18K &bull; Closed!</div></div>' +
+              '<div style="background:var(--surface);border-radius:6px;padding:8px;font-size:11px"><div style="font-weight:600">BlueHorizon</div><div class="text-muted">$22K &bull; Closed!</div></div>' +
+            '</div>' +
+          '</div>'
+      }
     },
     {
       id: 'atlas-analytics', name: 'Atlas Analytics', path: '~/Repos/atlas-analytics',
       status: 'green', statusLabel: 'Active',
+      color: '#f97316', colorDim: 'rgba(249,115,22,0.1)', colorBorder: 'rgba(249,115,22,0.3)',
       tech: ['React 19', 'D3.js', 'PostgreSQL', 'Express'],
       desc: 'Business analytics dashboard with real-time data visualization and custom report builder.',
       commits: 203, issues: 8, prs: 2, uptime: '99.5%',
       team: ['You', 'AI Assistant'],
       activity: [
-        { icon: '&#x1F4CA;', bg: 'var(--accent-dim)', text: '<strong>Added</strong> funnel visualization component', time: '4h ago' },
+        { icon: '&#x1F4CA;', bg: 'rgba(249,115,22,0.12)', text: '<strong>Added</strong> funnel visualization component', time: '4h ago' },
         { icon: '&#x1F500;', bg: 'var(--blue-dim)', text: '<strong>Merged PR #31</strong> &mdash; Query performance fix', time: '1d ago' },
         { icon: '&#x1F41B;', bg: 'var(--red-dim)', text: '<strong>Fixed</strong> date range filter timezone bug', time: '2d ago' },
       ],
       commands: ['dev', 'build', 'test', 'db-migrate', 'seed-demo'],
       agents: ['supabase-agent', 'diagnose-investigator'],
-      envVars: { DATABASE_URL: 'postgresql://...****', API_PORT: '4000', REDIS_URL: 'redis://...****' }
+      envVars: { DATABASE_URL: 'postgresql://...****', API_PORT: '4000', REDIS_URL: 'redis://...****' },
+      dashboard: {
+        title: 'Analytics Overview',
+        widgets: [
+          { label: 'Active Users', value: '2,847', sub: '+12% vs last week' },
+          { label: 'Queries/min', value: '1,240', sub: 'avg response: 42ms' },
+          { label: 'Reports Generated', value: '89', sub: '23 scheduled, 66 ad-hoc' },
+          { label: 'Data Sources', value: '14', sub: '3 SQL, 5 API, 6 CSV' }
+        ],
+        custom: '<div class="sec-head mt-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> Traffic Breakdown</div>' +
+          '<div class="card">' +
+            '<div style="display:flex;align-items:flex-end;gap:6px;height:120px;padding:12px 0">' +
+              '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:rgba(249,115,22,0.7);border-radius:4px 4px 0 0;height:85px"></div><div class="text-xs text-muted">Mon</div></div>' +
+              '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:rgba(249,115,22,0.7);border-radius:4px 4px 0 0;height:92px"></div><div class="text-xs text-muted">Tue</div></div>' +
+              '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:rgba(249,115,22,0.7);border-radius:4px 4px 0 0;height:68px"></div><div class="text-xs text-muted">Wed</div></div>' +
+              '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:rgba(249,115,22,0.7);border-radius:4px 4px 0 0;height:100px"></div><div class="text-xs text-muted">Thu</div></div>' +
+              '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:rgba(249,115,22,1);border-radius:4px 4px 0 0;height:110px;box-shadow:0 0 12px rgba(249,115,22,0.3)"></div><div class="text-xs" style="color:#f97316;font-weight:600">Fri</div></div>' +
+              '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:rgba(249,115,22,0.4);border-radius:4px 4px 0 0;height:45px"></div><div class="text-xs text-muted">Sat</div></div>' +
+              '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;background:rgba(249,115,22,0.3);border-radius:4px 4px 0 0;height:30px"></div><div class="text-xs text-muted">Sun</div></div>' +
+            '</div>' +
+            '<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)"><span class="text-xs text-muted">Total: 18,420 queries</span><span class="text-xs" style="color:#f97316">Peak: 2,180 (Thursday)</span></div>' +
+          '</div>'
+      }
     },
     {
       id: 'beacon-ai', name: 'Beacon AI', path: '~/Repos/beacon-ai',
       status: 'yellow', statusLabel: 'Needs Attention',
+      color: '#eab308', colorDim: 'rgba(234,179,8,0.1)', colorBorder: 'rgba(234,179,8,0.3)',
       tech: ['Python', 'FastAPI', 'LangChain', 'Pinecone'],
       desc: 'AI-powered assistant platform with RAG pipeline, conversation memory, and tool use.',
       commits: 89, issues: 15, prs: 6, uptime: '97.2%',
@@ -533,16 +619,33 @@
       activity: [
         { icon: '&#x26A0;', bg: 'var(--yellow-dim)', text: '<strong>Blocker:</strong> Pinecone index rate limit exceeded', time: '30m ago' },
         { icon: '&#x1F500;', bg: 'var(--blue-dim)', text: '<strong>Opened PR #19</strong> &mdash; Streaming response handler', time: '2h ago' },
-        { icon: '&#x1F4A1;', bg: 'var(--accent-dim)', text: '<strong>Upgraded</strong> LangChain to v0.2', time: '1d ago' },
+        { icon: '&#x1F4A1;', bg: 'rgba(234,179,8,0.12)', text: '<strong>Upgraded</strong> LangChain to v0.2', time: '1d ago' },
         { icon: '&#x1F41B;', bg: 'var(--red-dim)', text: '<strong>Investigating</strong> memory leak in conversation cache', time: '2d ago' },
       ],
       commands: ['serve', 'test', 'lint', 'migrate', 'seed'],
       agents: ['diagnose-investigator', 'bug-crusher'],
-      envVars: { OPENAI_API_KEY: 'sk-...****', PINECONE_API_KEY: 'pc-...****', ANTHROPIC_API_KEY: 'sk-ant-...****' }
+      envVars: { OPENAI_API_KEY: 'sk-...****', PINECONE_API_KEY: 'pc-...****', ANTHROPIC_API_KEY: 'sk-ant-...****' },
+      dashboard: {
+        title: 'AI Pipeline Status',
+        widgets: [
+          { label: 'Conversations', value: '12,480', sub: '847 today' },
+          { label: 'RAG Queries', value: '3,204', sub: 'avg latency: 230ms' },
+          { label: 'Vector Store', value: '2.4M', sub: 'embeddings indexed' },
+          { label: 'Token Usage', value: '$847', sub: 'MTD across 3 models' }
+        ],
+        custom: '<div class="warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Pinecone rate limit exceeded &mdash; 2 indexing jobs queued. Consider upgrading to Standard plan.</div>' +
+          '<div class="sec-head mt-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Model Performance</div>' +
+          '<div class="card" style="padding:0;overflow:hidden">' +
+            '<div class="list-row" style="padding:12px 16px"><span style="font-weight:600;font-size:13px;flex:1">GPT-4o</span><span class="tag tag-green">Primary</span><span class="text-xs text-muted" style="min-width:80px;text-align:right">142ms avg</span><span class="text-xs" style="color:var(--green);min-width:50px;text-align:right">99.8%</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span style="font-weight:600;font-size:13px;flex:1">Claude Sonnet</span><span class="tag tag-blue">Fallback</span><span class="text-xs text-muted" style="min-width:80px;text-align:right">198ms avg</span><span class="text-xs" style="color:var(--green);min-width:50px;text-align:right">99.9%</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span style="font-weight:600;font-size:13px;flex:1">text-embedding-3-large</span><span class="tag">Embeddings</span><span class="text-xs text-muted" style="min-width:80px;text-align:right">45ms avg</span><span class="text-xs" style="color:var(--yellow);min-width:50px;text-align:right">97.2%</span></div>' +
+          '</div>'
+      }
     },
     {
       id: 'novapay', name: 'NovaPay', path: '~/Repos/novapay',
       status: 'green', statusLabel: 'Active',
+      color: '#22c55e', colorDim: 'rgba(34,197,94,0.1)', colorBorder: 'rgba(34,197,94,0.3)',
       tech: ['Next.js 14', 'Stripe', 'Redis', 'Prisma'],
       desc: 'Payment processing platform with subscription management, invoicing, and real-time webhooks.',
       commits: 412, issues: 5, prs: 1, uptime: '99.99%',
@@ -550,26 +653,61 @@
       activity: [
         { icon: '&#x1F4B3;', bg: 'var(--green-dim)', text: '<strong>Processed</strong> 2,847 transactions today', time: '15m ago' },
         { icon: '&#x1F500;', bg: 'var(--blue-dim)', text: '<strong>Merged PR #83</strong> &mdash; Subscription pause/resume', time: '6h ago' },
-        { icon: '&#x1F6E1;', bg: 'var(--accent-dim)', text: '<strong>Updated</strong> Stripe SDK to v14.2', time: '1d ago' },
+        { icon: '&#x1F6E1;', bg: 'rgba(34,197,94,0.12)', text: '<strong>Updated</strong> Stripe SDK to v14.2', time: '1d ago' },
       ],
       commands: ['dev', 'build', 'test', 'stripe-listen', 'db-push', 'db-seed'],
       agents: ['supabase-agent', 'saas-agent'],
-      envVars: { STRIPE_SECRET_KEY: 'sk_live_...****', STRIPE_WEBHOOK_SECRET: 'whsec_...****', DATABASE_URL: 'postgresql://...****', REDIS_URL: 'redis://...****' }
+      envVars: { STRIPE_SECRET_KEY: 'sk_live_...****', STRIPE_WEBHOOK_SECRET: 'whsec_...****', DATABASE_URL: 'postgresql://...****', REDIS_URL: 'redis://...****' },
+      dashboard: {
+        title: 'Payment Dashboard',
+        widgets: [
+          { label: 'Revenue MTD', value: '$18.4K', sub: '+22% vs last month' },
+          { label: 'Transactions', value: '2,847', sub: 'today (0 failed)' },
+          { label: 'Subscriptions', value: '412', sub: '389 active, 23 trialing' },
+          { label: 'Avg Ticket', value: '$64.20', sub: '+$3.40 vs last month' }
+        ],
+        custom: '<div class="sec-head mt-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> Recent Transactions</div>' +
+          '<div class="card" style="padding:0;overflow:hidden">' +
+            '<div class="list-row" style="padding:12px 16px"><span class="dot dot-green"></span><span style="font-weight:500;font-size:13px;flex:1">DataFlow Inc</span><span style="font-weight:700;font-size:13px;color:var(--green)">+$2,400.00</span><span class="text-xs text-muted" style="min-width:70px;text-align:right">2 min ago</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span class="dot dot-green"></span><span style="font-weight:500;font-size:13px;flex:1">CloudScale</span><span style="font-weight:700;font-size:13px;color:var(--green)">+$890.00</span><span class="text-xs text-muted" style="min-width:70px;text-align:right">8 min ago</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span class="dot dot-green"></span><span style="font-weight:500;font-size:13px;flex:1">PrimeLogic</span><span style="font-weight:700;font-size:13px;color:var(--green)">+$1,200.00</span><span class="text-xs text-muted" style="min-width:70px;text-align:right">15 min ago</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span class="dot dot-green"></span><span style="font-weight:500;font-size:13px;flex:1">Zenith Media</span><span style="font-weight:700;font-size:13px;color:var(--green)">+$450.00</span><span class="text-xs text-muted" style="min-width:70px;text-align:right">22 min ago</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span class="dot dot-yellow"></span><span style="font-weight:500;font-size:13px;flex:1">NorthStar (refund)</span><span style="font-weight:700;font-size:13px;color:var(--yellow)">-$320.00</span><span class="text-xs text-muted" style="min-width:70px;text-align:right">1 hr ago</span></div>' +
+          '</div>'
+      }
     },
     {
       id: 'cascade-docs', name: 'Cascade Docs', path: '~/Repos/cascade-docs',
       status: 'green', statusLabel: 'Active',
+      color: '#3b82f6', colorDim: 'rgba(59,130,246,0.1)', colorBorder: 'rgba(59,130,246,0.3)',
       tech: ['Next.js', 'MDX', 'Contentlayer', 'Vercel'],
       desc: 'Documentation platform with versioning, search, and interactive code examples.',
       commits: 134, issues: 2, prs: 0, uptime: '100%',
       team: ['You', 'AI Assistant'],
       activity: [
-        { icon: '&#x1F4DD;', bg: 'var(--accent-dim)', text: '<strong>Published</strong> 3 new API reference pages', time: '3h ago' },
+        { icon: '&#x1F4DD;', bg: 'rgba(59,130,246,0.12)', text: '<strong>Published</strong> 3 new API reference pages', time: '3h ago' },
         { icon: '&#x1F50D;', bg: 'var(--blue-dim)', text: '<strong>Improved</strong> search indexing performance', time: '1d ago' },
       ],
       commands: ['dev', 'build', 'deploy'],
       agents: ['knowledge-architect'],
-      envVars: { NEXT_PUBLIC_SITE_URL: 'https://docs.cascade.dev', ALGOLIA_API_KEY: 'alg_...****' }
+      envVars: { NEXT_PUBLIC_SITE_URL: 'https://docs.cascade.dev', ALGOLIA_API_KEY: 'alg_...****' },
+      dashboard: {
+        title: 'Documentation Hub',
+        widgets: [
+          { label: 'Published Pages', value: '142', sub: '3 new this week' },
+          { label: 'Search Queries', value: '4,280', sub: '92% found results' },
+          { label: 'Avg Read Time', value: '3.2m', sub: 'per page visit' },
+          { label: 'API Coverage', value: '94%', sub: '6 endpoints undocumented' }
+        ],
+        custom: '<div class="sec-head mt-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Content Structure</div>' +
+          '<div class="card" style="padding:0;overflow:hidden">' +
+            '<div class="list-row" style="padding:12px 16px"><span style="color:#3b82f6;font-size:16px;margin-right:4px">&#x1F4D8;</span><span style="font-weight:600;font-size:13px;flex:1">Getting Started</span><span class="tag tag-green">12 pages</span><span class="text-xs text-muted" style="min-width:90px;text-align:right">Updated 2h ago</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span style="color:#3b82f6;font-size:16px;margin-right:4px">&#x1F4D9;</span><span style="font-weight:600;font-size:13px;flex:1">API Reference</span><span class="tag tag-blue">48 pages</span><span class="text-xs text-muted" style="min-width:90px;text-align:right">Updated 3h ago</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span style="color:#3b82f6;font-size:16px;margin-right:4px">&#x1F4D7;</span><span style="font-weight:600;font-size:13px;flex:1">Guides &amp; Tutorials</span><span class="tag">32 pages</span><span class="text-xs text-muted" style="min-width:90px;text-align:right">Updated 1d ago</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span style="color:#3b82f6;font-size:16px;margin-right:4px">&#x1F4D5;</span><span style="font-weight:600;font-size:13px;flex:1">Architecture</span><span class="tag">28 pages</span><span class="text-xs text-muted" style="min-width:90px;text-align:right">Updated 3d ago</span></div>' +
+            '<div class="list-row" style="padding:12px 16px"><span style="color:#3b82f6;font-size:16px;margin-right:4px">&#x1F4D3;</span><span style="font-weight:600;font-size:13px;flex:1">Changelog</span><span class="tag tag-green">22 entries</span><span class="text-xs text-muted" style="min-width:90px;text-align:right">Updated 2h ago</span></div>' +
+          '</div>'
+      }
     }
   ];
 
@@ -627,12 +765,12 @@
   ];
 
   var DASHBOARD_ACTIVITY = [
-    { icon: '&#x1F680;', bg: 'var(--green-dim)', text: '<strong>BizBrain OS</strong> &mdash; Deployed v1.2.0 to production', time: '2h ago' },
-    { icon: '&#x2705;', bg: 'var(--green-dim)', text: '<strong>Meridian CRM</strong> &mdash; All 94 tests passing', time: '1h ago' },
-    { icon: '&#x26A0;', bg: 'var(--yellow-dim)', text: '<strong>Beacon AI</strong> &mdash; Pinecone rate limit warning', time: '30m ago' },
-    { icon: '&#x1F500;', bg: 'var(--blue-dim)', text: '<strong>NovaPay</strong> &mdash; Merged PR #83 (subscription pause)', time: '6h ago' },
-    { icon: '&#x1F4DD;', bg: 'var(--accent-dim)', text: '<strong>Cascade Docs</strong> &mdash; Published 3 new API pages', time: '3h ago' },
-    { icon: '&#x1F4CA;', bg: 'var(--accent-dim)', text: '<strong>Atlas Analytics</strong> &mdash; Added funnel visualization', time: '4h ago' },
+    { icon: '&#x1F680;', bg: 'rgba(0,212,255,0.12)', text: '<strong style="color:#00d4ff">BizBrain OS</strong> &mdash; Deployed v1.2.0 to production', time: '2h ago' },
+    { icon: '&#x2705;', bg: 'rgba(168,85,247,0.12)', text: '<strong style="color:#a855f7">Meridian CRM</strong> &mdash; All 94 tests passing', time: '1h ago' },
+    { icon: '&#x26A0;', bg: 'rgba(234,179,8,0.12)', text: '<strong style="color:#eab308">Beacon AI</strong> &mdash; Pinecone rate limit warning', time: '30m ago' },
+    { icon: '&#x1F500;', bg: 'rgba(34,197,94,0.12)', text: '<strong style="color:#22c55e">NovaPay</strong> &mdash; Merged PR #83 (subscription pause)', time: '6h ago' },
+    { icon: '&#x1F4DD;', bg: 'rgba(59,130,246,0.12)', text: '<strong style="color:#3b82f6">Cascade Docs</strong> &mdash; Published 3 new API pages', time: '3h ago' },
+    { icon: '&#x1F4CA;', bg: 'rgba(249,115,22,0.12)', text: '<strong style="color:#f97316">Atlas Analytics</strong> &mdash; Added funnel visualization', time: '4h ago' },
     { icon: '&#x1F4E7;', bg: 'var(--blue-dim)', text: '<strong>Resend</strong> &mdash; 342 emails sent this week', time: '5h ago' },
     { icon: '&#x1F4B3;', bg: 'var(--green-dim)', text: '<strong>Stripe</strong> &mdash; 2,847 transactions processed today', time: '15m ago' },
   ];
@@ -679,19 +817,19 @@
         '</div>' +
         '<div class="sec-head mt-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg> Project Health</div>' +
         '<div>' + PROJECTS.map(function(p) {
-          return '<div class="list-row" style="cursor:pointer" onclick="openProject(\''+p.id+'\')"><span class="dot dot-'+p.status+'"></span><span class="row-name" style="font-family:var(--font)">' + p.name + '</span><span class="tags"><span class="tag tag-'+(p.status==='green'?'green':'yellow')+'">' + p.statusLabel + '</span></span></div>';
+          return '<div class="list-row" style="cursor:pointer" onclick="openProject(\''+p.id+'\')"><span class="dot" style="background:'+p.color+';box-shadow:0 0 5px '+p.colorDim+'"></span><span class="row-name" style="font-family:var(--font);color:'+p.color+'">' + p.name + '</span><span class="tags"><span class="tag tag-'+(p.status==='green'?'green':'yellow')+'">' + p.statusLabel + '</span></span></div>';
         }).join('') + '</div>' +
       '</div></div>';
   }
 
   function renderProjects() {
-    return '<div class="pg-head"><div><div class="pg-title">Projects</div><div class="pg-sub">All registered development projects</div></div><div class="pg-actions"><button class="btn btn-green" onclick="alert(\'Refreshing all projects...\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh All</button><button class="btn btn-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Project</button></div></div>' +
+    return '<div class="pg-head"><div><div class="pg-title">Projects</div><div class="pg-sub">All registered development projects</div></div><div class="pg-actions"><button class="btn btn-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh All</button><button class="btn btn-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Project</button></div></div>' +
       '<div class="card-grid">' + PROJECTS.map(function(p) {
-        return '<div class="card clickable" onclick="openProject(\''+p.id+'\')">' +
-          '<div class="flex items-center gap-3 mb-3"><span class="dot dot-'+p.status+'"></span><span style="font-size:15px;font-weight:600;flex:1">' + p.name + '</span><span class="tag tag-'+(p.status==='green'?'green':'yellow')+'">' + p.statusLabel + '</span></div>' +
+        return '<div class="card clickable project-card" onclick="openProject(\''+p.id+'\')" style="border-left:3px solid '+p.color+';--proj-color:'+p.color+';--proj-color-dim:'+p.colorDim+';--proj-color-border:'+p.colorBorder+'">' +
+          '<div class="flex items-center gap-3 mb-3"><span class="dot dot-'+p.status+'"></span><span style="font-size:15px;font-weight:600;flex:1;color:'+p.color+'">' + p.name + '</span><span class="tag tag-'+(p.status==='green'?'green':'yellow')+'">' + p.statusLabel + '</span></div>' +
           '<div class="mono text-xs text-muted mb-3">' + p.path + '</div>' +
           '<div style="font-size:12px;color:var(--text-2);margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + p.desc + '</div>' +
-          '<div class="tags">' + p.tech.map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
+          '<div class="tags">' + p.tech.map(function(t){ return '<span class="tag" style="background:'+p.colorDim+';color:'+p.color+'">'+t+'</span>'; }).join('') + '</div>' +
           '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">' +
             '<div><div style="font-size:16px;font-weight:700">' + p.commits + '</div><div class="text-xs text-muted">commits</div></div>' +
             '<div><div style="font-size:16px;font-weight:700">' + p.issues + '</div><div class="text-xs text-muted">issues</div></div>' +
@@ -740,9 +878,9 @@
   function renderClaude() {
     return '<div class="pg-head"><div><div class="pg-title">Claude Code Configurations</div><div class="pg-sub">Per-project CLAUDE.md files, commands, and agent configurations</div></div></div>' +
       '<div class="card-grid-2">' + PROJECTS.map(function(p) {
-        return '<div class="card clickable" onclick="openProject(\''+p.id+'\')">' +
-          '<div class="flex items-center gap-3 mb-3"><span class="dot dot-'+p.status+'"></span><span style="font-size:15px;font-weight:600;flex:1">' + p.name + '</span></div>' +
-          '<div class="tags mb-3"><span class="tag tag-green">CLAUDE.md</span><span class="tag">' + p.commands.length + ' commands</span><span class="tag tag-blue">' + p.agents.length + ' agents</span></div>' +
+        return '<div class="card clickable project-card" onclick="openProject(\''+p.id+'\')" style="border-left:3px solid '+p.color+';--proj-color:'+p.color+';--proj-color-dim:'+p.colorDim+';--proj-color-border:'+p.colorBorder+'">' +
+          '<div class="flex items-center gap-3 mb-3"><span class="dot" style="background:'+p.color+';box-shadow:0 0 5px '+p.colorDim+'"></span><span style="font-size:15px;font-weight:600;flex:1;color:'+p.color+'">' + p.name + '</span></div>' +
+          '<div class="tags mb-3"><span class="tag tag-green">CLAUDE.md</span><span class="tag" style="background:'+p.colorDim+';color:'+p.color+'">' + p.commands.length + ' commands</span><span class="tag tag-blue">' + p.agents.length + ' agents</span></div>' +
           '<div class="text-sm text-muted mb-3">Commands: <span class="mono">' + p.commands.slice(0, 4).map(function(c){return '/'+c}).join(', ') + (p.commands.length > 4 ? ', ...' : '') + '</span></div>' +
           '<div class="text-sm text-muted">Agents: <span class="mono">' + p.agents.join(', ') + '</span></div>' +
         '</div>';
@@ -799,21 +937,23 @@
       return '<div class="secret-row"><span class="secret-key" style="min-width:180px">' + key + '</span><span class="secret-val">' + p.envVars[key] + '</span><div class="secret-actions"><button class="secret-btn">Copy</button><button class="secret-btn">Edit</button></div></div>';
     }).join('');
 
-    return '<button class="detail-back" onclick="closeProjectDetail()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Back to Projects</button>' +
-      '<div class="detail-header"><span class="dot dot-'+p.status+'" style="width:12px;height:12px"></span><span class="detail-name">' + p.name + '</span><span class="tag tag-'+(p.status==='green'?'green':'yellow')+'" style="font-size:12px;padding:4px 10px">' + p.statusLabel + '</span></div>' +
-      '<div class="detail-tabs" id="detail-tabs"><button class="detail-tab active" data-dtab="overview">Overview</button><button class="detail-tab" data-dtab="activity">Activity</button><button class="detail-tab" data-dtab="config">Configuration</button><button class="detail-tab" data-dtab="deploy">Deploy</button></div>' +
+    var dashWidgets = p.dashboard ? p.dashboard.widgets.map(function(w) {
+      return '<div class="stat-card" style="border-top:3px solid '+p.color+'"><div class="stat-label">'+w.label+'</div><div class="stat-value" style="color:'+p.color+'">'+w.value+'</div><div class="stat-sub">'+w.sub+'</div></div>';
+    }).join('') : '';
+
+    var dashCustom = p.dashboard ? p.dashboard.custom : '';
+
+    return '<button class="detail-back" onclick="closeProjectDetail()" style="color:'+p.color+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Back to Projects</button>' +
+      '<div class="detail-header"><span class="dot dot-'+p.status+'" style="width:12px;height:12px"></span><span class="detail-name" style="color:'+p.color+'">' + p.name + '</span><span class="tag tag-'+(p.status==='green'?'green':'yellow')+'" style="font-size:12px;padding:4px 10px">' + p.statusLabel + '</span></div>' +
+      '<div class="detail-tabs" id="detail-tabs" style="border-bottom-color:'+p.colorBorder+'"><button class="detail-tab active" data-dtab="overview" style="--dt-color:'+p.color+'">Overview</button><button class="detail-tab" data-dtab="activity" style="--dt-color:'+p.color+'">Activity</button><button class="detail-tab" data-dtab="config" style="--dt-color:'+p.color+'">Configuration</button><button class="detail-tab" data-dtab="deploy" style="--dt-color:'+p.color+'">Deploy</button></div>' +
 
       '<div class="detail-pane active" data-dpane="overview">' +
-        '<div class="stats">' +
-          '<div class="stat-card"><div class="stat-label">Commits</div><div class="stat-value">' + p.commits + '</div></div>' +
-          '<div class="stat-card"><div class="stat-label">Open Issues</div><div class="stat-value' + (p.issues > 10 ? ' text-yellow' : '') + '">' + p.issues + '</div></div>' +
-          '<div class="stat-card"><div class="stat-label">Pull Requests</div><div class="stat-value">' + p.prs + '</div></div>' +
-          '<div class="stat-card"><div class="stat-label">Uptime</div><div class="stat-value text-green">' + p.uptime + '</div></div>' +
-        '</div>' +
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">' +
-          '<div class="card"><div style="font-weight:600;margin-bottom:8px">Description</div><div class="text-sm" style="color:var(--text-2)">' + p.desc + '</div><div style="margin-top:12px"><div style="font-weight:600;margin-bottom:6px">Tech Stack</div><div class="tags">' + p.tech.map(function(t){return '<span class="tag">' + t + '</span>'}).join('') + '</div></div><div style="margin-top:12px"><div style="font-weight:600;margin-bottom:6px">Path</div><div class="mono text-sm text-muted">' + p.path + '</div></div></div>' +
-          '<div class="card"><div style="font-weight:600;margin-bottom:8px">Team</div>' + p.team.map(function(t){return '<div class="list-row" style="padding:6px 0"><span style="width:28px;height:28px;border-radius:50%;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--accent)">' + t.charAt(0) + '</span><span style="font-size:13px">' + t + '</span></div>'}).join('') +
-          '<div style="margin-top:16px"><div style="font-weight:600;margin-bottom:8px">Quick Actions</div><div style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn btn-sm btn-accent">Open Repo</button><button class="btn btn-sm btn-green">Run Tests</button><button class="btn btn-sm">Deploy</button><button class="btn btn-sm">View Logs</button><button class="btn btn-sm">Open IDE</button></div></div></div>' +
+        '<div class="stats">' + dashWidgets + '</div>' +
+        dashCustom +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px">' +
+          '<div class="card" style="border-top:2px solid '+p.colorBorder+'"><div style="font-weight:600;margin-bottom:8px">Description</div><div class="text-sm" style="color:var(--text-2)">' + p.desc + '</div><div style="margin-top:12px"><div style="font-weight:600;margin-bottom:6px">Tech Stack</div><div class="tags">' + p.tech.map(function(t){return '<span class="tag" style="background:'+p.colorDim+';color:'+p.color+'">' + t + '</span>'}).join('') + '</div></div><div style="margin-top:12px"><div style="font-weight:600;margin-bottom:6px">Path</div><div class="mono text-sm text-muted">' + p.path + '</div></div></div>' +
+          '<div class="card" style="border-top:2px solid '+p.colorBorder+'"><div style="font-weight:600;margin-bottom:8px">Team</div>' + p.team.map(function(t){return '<div class="list-row" style="padding:6px 0"><span style="width:28px;height:28px;border-radius:50%;background:'+p.colorDim+';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:'+p.color+'">' + t.charAt(0) + '</span><span style="font-size:13px">' + t + '</span></div>'}).join('') +
+          '<div style="margin-top:16px"><div style="font-weight:600;margin-bottom:8px">Quick Actions</div><div style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn btn-sm" style="background:'+p.colorDim+';color:'+p.color+';border-color:'+p.colorBorder+'">Open Repo</button><button class="btn btn-sm btn-green">Run Tests</button><button class="btn btn-sm">Deploy</button><button class="btn btn-sm">View Logs</button><button class="btn btn-sm">Open IDE</button></div></div></div>' +
         '</div>' +
       '</div>' +
 
