@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Install Guide &mdash; BizBrain OS</title>
+  <meta name="description" content="Complete installation guide for BizBrain OS. Install Claude Code, set up your API key, and get your AI-powered business operating system running in under 10 minutes.">
+  <meta property="og:title" content="Install Guide &mdash; BizBrain OS">
+  <meta property="og:description" content="Step-by-step guide to installing BizBrain OS — from zero to your AI business brain in under 10 minutes.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/logo-icon.png">
+  <link rel="apple-touch-icon" href="images/logo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ---- Variables (matching main site) ---- */
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --bg-card: #141414;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-tertiary: #666666;
+      --accent: #00d4ff;
+      --accent-secondary: #00a3cc;
+      --accent-glow: rgba(0, 212, 255, 0.15);
+      --gradient: linear-gradient(135deg, #00d4ff 0%, #00a3cc 100%);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --border: #1e1e1e;
+      --border-light: #2a2a2a;
+      --font-heading: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.3);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --bg-tertiary: #f0f1f3;
+      --bg-card: #ffffff;
+      --text-primary: #111111;
+      --text-secondary: #555555;
+      --text-tertiary: #888888;
+      --accent: #0099cc;
+      --accent-glow: rgba(0, 153, 204, 0.1);
+      --border: #e2e4e8;
+      --border-light: #eaecf0;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    /* ---- Base ---- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      background: var(--bg-tertiary); padding: 2px 8px; border-radius: 4px;
+      font-family: var(--font-mono); font-size: 0.9em;
+    }
+
+    /* ---- Layout ---- */
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---- Nav ---- */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 0;
+    }
+    [data-theme="light"] .nav { background: rgba(255,255,255,0.9); border-bottom-color: rgba(0,0,0,0.06); }
+    .nav-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-heading); font-weight: 700; font-size: 18px;
+      color: var(--text-primary); text-decoration: none;
+    }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; }
+    .nav-logo .accent { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-link {
+      font-size: 14px; color: var(--text-secondary); padding: 6px 12px;
+      border-radius: 6px; transition: var(--transition); text-decoration: none;
+    }
+    .nav-link:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); text-decoration: none; }
+    [data-theme="light"] .nav-link:hover { background: rgba(0,0,0,0.04); }
+    .theme-toggle {
+      background: none; border: 1px solid var(--border); color: var(--text-secondary);
+      width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: var(--transition);
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    [data-theme="dark"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: block; }
+
+    /* ---- Hero ---- */
+    .hero {
+      position: relative; padding: 80px 0 48px; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, var(--accent-glow), transparent);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-family: var(--font-heading); font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.03em;
+    }
+    .hero h1 .gradient {
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero .subtitle {
+      font-size: 17px; color: var(--text-secondary); max-width: 640px;
+      line-height: 1.7; margin-bottom: 24px;
+    }
+    .hero .alt-path {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-md);
+      background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15);
+      font-size: 14px; color: var(--text-secondary);
+    }
+    .hero .alt-path a { font-weight: 600; }
+
+    /* ---- TOC ---- */
+    .toc {
+      padding: 40px 0; border-bottom: 1px solid var(--border);
+    }
+    .toc h2 {
+      font-family: var(--font-heading); font-size: 20px; font-weight: 700;
+      margin-bottom: 16px; letter-spacing: -0.02em;
+    }
+    .toc-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;
+    }
+    .toc-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: var(--radius-md);
+      background: var(--bg-card); border: 1px solid var(--border);
+      text-decoration: none; color: var(--text-primary); font-size: 14px;
+      transition: var(--transition);
+    }
+    .toc-item:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-1px); text-decoration: none; }
+    .toc-num {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: rgba(0,212,255,0.1); color: var(--accent);
+      font-family: var(--font-heading); font-weight: 700; font-size: 13px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* ---- Section ---- */
+    .guide-section {
+      padding: 48px 0; border-bottom: 1px solid var(--border);
+    }
+    .guide-section:last-of-type { border-bottom: none; }
+    .section-header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 24px;
+    }
+    .section-num {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(0,212,255,0.1); color: var(--accent);
+      font-family: var(--font-heading); font-weight: 700; font-size: 16px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .section-header h2 {
+      font-family: var(--font-heading); font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
+    }
+    .guide-section p { margin-bottom: 16px; color: var(--text-secondary); }
+    .guide-section p strong { color: var(--text-primary); }
+    .guide-section h3 {
+      font-family: var(--font-heading); font-size: 17px; font-weight: 600;
+      margin-top: 28px; margin-bottom: 12px; color: var(--text-primary);
+    }
+
+    /* ---- Terminal Block ---- */
+    .terminal {
+      background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden; margin: 16px 0 20px;
+    }
+    .terminal-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 16px; background: var(--bg-tertiary);
+      border-bottom: 1px solid var(--border);
+    }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot.r { background: #ff5f57; }
+    .terminal-dot.y { background: #febc2e; }
+    .terminal-dot.g { background: #28c840; }
+    .terminal-label {
+      margin-left: auto; font-size: 12px; color: var(--text-tertiary);
+      font-family: var(--font-mono);
+    }
+    .terminal pre {
+      padding: 16px 20px; margin: 0;
+      font-family: var(--font-mono); font-size: 13px; line-height: 1.8;
+      color: var(--text-secondary); overflow-x: auto;
+    }
+    .terminal .prompt { color: var(--accent); }
+    .terminal .cmd { color: var(--text-primary); }
+    .terminal .output { color: var(--text-tertiary); }
+    .terminal .success { color: var(--success); }
+    .terminal .comment { color: var(--text-tertiary); font-style: italic; }
+
+    /* ---- Info / Warning / Tip Boxes ---- */
+    .callout {
+      padding: 16px 20px; border-radius: var(--radius-md); margin: 16px 0;
+      font-size: 14px; line-height: 1.6;
+    }
+    .callout strong { display: block; margin-bottom: 4px; }
+    .callout-info {
+      background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15);
+    }
+    .callout-info strong { color: var(--accent); }
+    .callout-warning {
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);
+    }
+    .callout-warning strong { color: var(--warning); }
+    .callout-success {
+      background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);
+    }
+    .callout-success strong { color: var(--success); }
+
+    /* ---- Prereq Cards ---- */
+    .prereq-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;
+      margin: 16px 0 20px;
+    }
+    .prereq-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 20px;
+    }
+    .prereq-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .prereq-card .version { font-size: 12px; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+    .prereq-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
+    .prereq-card a {
+      font-size: 13px; font-weight: 500;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+
+    /* ---- OS Tabs ---- */
+    .os-tabs {
+      display: flex; gap: 8px; margin-bottom: 16px;
+    }
+    .os-tab {
+      padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 500;
+      border: 1px solid var(--border); background: var(--bg-card);
+      color: var(--text-secondary); cursor: pointer; transition: var(--transition);
+    }
+    .os-tab:hover { border-color: rgba(0,212,255,0.3); }
+    .os-tab.active {
+      background: rgba(0,212,255,0.1); border-color: rgba(0,212,255,0.3);
+      color: var(--accent);
+    }
+    .os-content { display: none; }
+    .os-content.active { display: block; }
+
+    /* ---- Choice Cards ---- */
+    .choice-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px; margin: 20px 0;
+    }
+    .choice-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px; position: relative;
+      transition: var(--transition);
+    }
+    .choice-card:hover { border-color: rgba(0,212,255,0.3); }
+    .choice-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .choice-card .badge {
+      display: inline-block; padding: 2px 10px; border-radius: 100px;
+      font-size: 11px; font-weight: 600; margin-bottom: 12px;
+    }
+    .badge-recommended { background: rgba(16,185,129,0.15); color: var(--success); }
+    .badge-advanced { background: rgba(245,158,11,0.15); color: var(--warning); }
+    .choice-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 0; }
+
+    /* ---- Checklist ---- */
+    .checklist { list-style: none; margin: 16px 0; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0; font-size: 14px; color: var(--text-secondary);
+    }
+    .checklist .check {
+      width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0;
+      background: rgba(16,185,129,0.1); color: var(--success);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; margin-top: 2px;
+    }
+
+    /* ---- CTA ---- */
+    .cta-section {
+      padding: 60px 0; text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-family: var(--font-heading); font-size: 28px; font-weight: 700;
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .cta-section p { color: var(--text-secondary); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: var(--radius-md);
+      font-family: var(--font-sans); font-size: 15px; font-weight: 600;
+      text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer;
+    }
+    .btn:hover { text-decoration: none; transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--gradient); color: #fff;
+      box-shadow: 0 0 30px rgba(0,212,255,0.25);
+    }
+    .btn-primary:hover { box-shadow: 0 0 50px rgba(0,212,255,0.35); }
+    .btn-secondary {
+      background: var(--bg-card); color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); }
+
+    /* ---- Footer ---- */
+    .footer {
+      padding: 40px 0; text-align: center;
+      color: var(--text-tertiary); font-size: 13px;
+    }
+    .footer a { color: var(--accent); }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 640px) {
+      .hero { padding: 60px 0 36px; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .prereq-grid { grid-template-columns: 1fr; }
+      .choice-grid { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .nav-right .nav-link { display: none; }
+      .os-tabs { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="images/logo-icon.png" alt="BizBrain OS" width="28" height="28">
+        BizBrain<span class="accent">OS</span>
+      </a>
+      <div class="nav-right">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/setup" class="nav-link">Quick Setup</a>
+        <a href="https://github.com/TechIntegrationLabs/bizbrain-os" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Full <span class="gradient">Install Guide</span></h1>
+      <p class="subtitle">
+        Everything you need to go from zero to a working BizBrain &mdash; including installing
+        Claude Code, setting up your Anthropic API key, and choosing the right setup method
+        for your situation. Takes about 10 minutes.
+      </p>
+      <div class="alt-path">
+        Already have Claude Code?&nbsp; <a href="/setup">Skip to Quick Setup &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="toc">
+    <div class="container">
+      <h2>What We'll Cover</h2>
+      <div class="toc-grid">
+        <a href="#prerequisites" class="toc-item"><span class="toc-num">1</span> Prerequisites</a>
+        <a href="#claude-code" class="toc-item"><span class="toc-num">2</span> Install Claude Code</a>
+        <a href="#api-key" class="toc-item"><span class="toc-num">3</span> Get Your API Key</a>
+        <a href="#install-bizbrain" class="toc-item"><span class="toc-num">4</span> Install BizBrain OS</a>
+        <a href="#first-session" class="toc-item"><span class="toc-num">5</span> Your First Session</a>
+        <a href="#next-steps" class="toc-item"><span class="toc-num">6</span> Next Steps</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 1: Prerequisites -->
+  <section class="guide-section" id="prerequisites">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">1</span>
+        <h2>Prerequisites</h2>
+      </div>
+      <p>Before you start, make sure you have these installed. If you're missing any, follow the links to install them &mdash; each takes just a minute or two.</p>
+
+      <div class="prereq-grid">
+        <div class="prereq-card">
+          <h4>Node.js</h4>
+          <div class="version">v18 or newer</div>
+          <p>JavaScript runtime needed to run the BizBrain installer and optional dashboard.</p>
+          <a href="https://nodejs.org" target="_blank" rel="noopener">Download Node.js &rarr;</a>
+        </div>
+        <div class="prereq-card">
+          <h4>Git</h4>
+          <div class="version">Any version</div>
+          <p>Version control for backing up your Brain and pulling updates.</p>
+          <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Download Git &rarr;</a>
+        </div>
+        <div class="prereq-card">
+          <h4>Terminal / Command Line</h4>
+          <div class="version">Built-in</div>
+          <p><strong>Mac:</strong> Terminal app. <strong>Windows:</strong> PowerShell or Windows Terminal. <strong>Linux:</strong> Any terminal.</p>
+        </div>
+      </div>
+
+      <h3>Check Your Versions</h3>
+      <p>Open your terminal and run these to confirm everything is installed:</p>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot r"></span>
+          <span class="terminal-dot y"></span>
+          <span class="terminal-dot g"></span>
+          <span class="terminal-label">Terminal</span>
+        </div>
+        <pre><span class="prompt">$</span> <span class="cmd">node --version</span>
+<span class="output">v20.11.0</span>    <span class="comment"># needs to be 18+</span>
+
+<span class="prompt">$</span> <span class="cmd">git --version</span>
+<span class="output">git version 2.43.0</span>    <span class="comment"># any version works</span></pre>
+      </div>
+
+      <div class="callout callout-info">
+        <strong>Don't have Node.js?</strong>
+        The easiest way to install it is from <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a> &mdash; download the LTS version and run the installer. It takes about 2 minutes.
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 2: Install Claude Code -->
+  <section class="guide-section" id="claude-code">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">2</span>
+        <h2>Install Claude Code</h2>
+      </div>
+      <p>Claude Code is the AI engine that powers BizBrain OS. It's a command-line tool made by Anthropic that gives you a powerful AI assistant right in your terminal.</p>
+
+      <h3>Install via npm</h3>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot r"></span>
+          <span class="terminal-dot y"></span>
+          <span class="terminal-dot g"></span>
+          <span class="terminal-label">Terminal</span>
+        </div>
+        <pre><span class="prompt">$</span> <span class="cmd">npm install -g @anthropic-ai/claude-code</span>
+<span class="output">added 1 package in 12s</span></pre>
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>Permission error on Mac/Linux?</strong>
+        If you get an <code>EACCES</code> error, try: <code>sudo npm install -g @anthropic-ai/claude-code</code>
+      </div>
+
+      <h3>Verify Installation</h3>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot r"></span>
+          <span class="terminal-dot y"></span>
+          <span class="terminal-dot g"></span>
+          <span class="terminal-label">Terminal</span>
+        </div>
+        <pre><span class="prompt">$</span> <span class="cmd">claude --version</span>
+<span class="output">claude-code v1.x.x</span>    <span class="comment"># you should see a version number</span></pre>
+      </div>
+
+      <div class="callout callout-info">
+        <strong>Official docs</strong>
+        For the latest installation instructions and troubleshooting, see the <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code documentation</a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 3: API Key -->
+  <section class="guide-section" id="api-key">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">3</span>
+        <h2>Get Your Anthropic API Key</h2>
+      </div>
+      <p>Claude Code needs an API key to work. You'll get this from the Anthropic Console. It takes about 2 minutes.</p>
+
+      <h3>Create an Account</h3>
+      <p>Go to <a href="https://console.anthropic.com" target="_blank" rel="noopener"><strong>console.anthropic.com</strong></a> and sign up (or log in if you already have an account).</p>
+
+      <h3>Add Billing</h3>
+      <p>Navigate to <strong>Settings &rarr; Billing</strong> and add a payment method. Claude Code is pay-per-use &mdash; typical usage for BizBrain OS costs a few dollars per month depending on how actively you use it.</p>
+
+      <div class="callout callout-info">
+        <strong>Cost Expectations</strong>
+        Light usage (a few sessions per day) typically runs $5&ndash;15/month. Heavy usage might be $30&ndash;50/month. You can set spending limits in the console to control costs.
+      </div>
+
+      <h3>Create an API Key</h3>
+      <ol style="color: var(--text-secondary); padding-left: 20px; margin-bottom: 16px;">
+        <li style="margin-bottom: 8px;">In the Anthropic Console, go to <strong>Settings &rarr; API Keys</strong></li>
+        <li style="margin-bottom: 8px;">Click <strong>"Create Key"</strong></li>
+        <li style="margin-bottom: 8px;">Give it a name like <code>bizbrain</code></li>
+        <li style="margin-bottom: 8px;">Copy the key (starts with <code>sk-ant-...</code>)</li>
+      </ol>
+
+      <div class="callout callout-warning">
+        <strong>Save your key somewhere safe</strong>
+        You'll only see the full key once. Store it in a password manager or secure note. Never share it publicly or commit it to Git.
+      </div>
+
+      <h3>Connect Claude Code to Your Key</h3>
+      <p>The first time you run <code>claude</code>, it will ask for your API key. Paste it in and you're set. Alternatively, you can set it as an environment variable:</p>
+
+      <div class="os-tabs">
+        <button class="os-tab active" data-os="mac">Mac / Linux</button>
+        <button class="os-tab" data-os="win">Windows</button>
+      </div>
+
+      <div class="os-content active" data-os="mac">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot r"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+            <span class="terminal-label">~/.zshrc or ~/.bashrc</span>
+          </div>
+          <pre><span class="comment"># Add this line to your shell config:</span>
+<span class="cmd">export ANTHROPIC_API_KEY="sk-ant-your-key-here"</span>
+
+<span class="comment"># Then reload:</span>
+<span class="prompt">$</span> <span class="cmd">source ~/.zshrc</span></pre>
+        </div>
+      </div>
+      <div class="os-content" data-os="win">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot r"></span>
+            <span class="terminal-dot y"></span>
+            <span class="terminal-dot g"></span>
+            <span class="terminal-label">PowerShell</span>
+          </div>
+          <pre><span class="comment"># Set for current session:</span>
+<span class="prompt">></span> <span class="cmd">$env:ANTHROPIC_API_KEY = "sk-ant-your-key-here"</span>
+
+<span class="comment"># Or set permanently (System Environment Variables):</span>
+<span class="comment"># Settings > System > About > Advanced > Environment Variables</span>
+<span class="comment"># Add ANTHROPIC_API_KEY with your key value</span></pre>
+        </div>
+      </div>
+
+      <div class="callout callout-success">
+        <strong>Test it</strong>
+        Run <code>claude</code> in your terminal. If you see a prompt waiting for input, you're connected and ready to go.
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 4: Install BizBrain OS -->
+  <section class="guide-section" id="install-bizbrain">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">4</span>
+        <h2>Install BizBrain OS</h2>
+      </div>
+      <p>Now for the exciting part. Choose the installation method that fits your situation:</p>
+
+      <div class="choice-grid">
+        <div class="choice-card">
+          <span class="badge badge-recommended">Recommended</span>
+          <h4>Quick Setup (Copy &amp; Paste)</h4>
+          <p>Copy one prompt, paste into Claude Code, and a guided wizard interviews you and builds your entire Brain. Takes 5 minutes. Perfect for first-timers.</p>
+          <div style="margin-top: 16px;">
+            <a href="/setup" class="btn btn-primary" style="padding: 10px 20px; font-size: 14px;">Go to Quick Setup &rarr;</a>
+          </div>
+        </div>
+        <div class="choice-card">
+          <span class="badge badge-recommended">Recommended</span>
+          <h4>One-Command Install (Full System)</h4>
+          <p>Installs the complete BizBrain OS with 27+ modules, web dashboard, voice input, auto-capture, and all advanced features.</p>
+          <div class="terminal" style="margin-top: 12px; margin-bottom: 0;">
+            <div class="terminal-bar">
+              <span class="terminal-dot r"></span>
+              <span class="terminal-dot y"></span>
+              <span class="terminal-dot g"></span>
+            </div>
+            <pre><span class="prompt">$</span> <span class="cmd">npx create-bizbrain</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="choice-grid">
+        <div class="choice-card">
+          <span class="badge badge-advanced">Contributors</span>
+          <h4>Git Clone</h4>
+          <p>Clone the repo directly. Best for developers who want to contribute or customize the source code.</p>
+          <div class="terminal" style="margin-top: 12px; margin-bottom: 0;">
+            <div class="terminal-bar">
+              <span class="terminal-dot r"></span>
+              <span class="terminal-dot y"></span>
+              <span class="terminal-dot g"></span>
+            </div>
+            <pre><span class="prompt">$</span> <span class="cmd">git clone https://github.com/TechIntegrationLabs/bizbrain-os.git</span>
+<span class="prompt">$</span> <span class="cmd">cd bizbrain-os</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <h3>What Happens During Installation</h3>
+      <p>No matter which method you choose, the setup process will:</p>
+      <ul class="checklist">
+        <li><span class="check">&#10003;</span> Ask you about your business, clients, projects, and goals</li>
+        <li><span class="check">&#10003;</span> Create your complete folder structure (Clients, Projects, Operations, Knowledge, etc.)</li>
+        <li><span class="check">&#10003;</span> Generate a personalized <code>CLAUDE.md</code> &mdash; the AI brain config that Claude reads every session</li>
+        <li><span class="check">&#10003;</span> Set up slash commands (<code>/inbox</code>, <code>/todo</code>, <code>/client</code>, <code>/status</code>, and more)</li>
+        <li><span class="check">&#10003;</span> Optionally analyze your existing documents and learn about your business</li>
+        <li><span class="check">&#10003;</span> Suggest custom AI workflows tailored to your specific situation</li>
+        <li><span class="check">&#10003;</span> Set up Git backup (optional)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Step 5: First Session -->
+  <section class="guide-section" id="first-session">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">5</span>
+        <h2>Your First Session</h2>
+      </div>
+      <p>Once setup is complete, here's how to start using your BizBrain every day:</p>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot r"></span>
+          <span class="terminal-dot y"></span>
+          <span class="terminal-dot g"></span>
+          <span class="terminal-label">Daily usage</span>
+        </div>
+        <pre><span class="comment"># Navigate to your Brain folder</span>
+<span class="prompt">$</span> <span class="cmd">cd ~/BizBrain</span>   <span class="comment"># or wherever you created it</span>
+
+<span class="comment"># Start Claude Code</span>
+<span class="prompt">$</span> <span class="cmd">claude</span>
+
+<span class="comment"># Claude automatically reads your CLAUDE.md and knows everything.</span>
+<span class="comment"># Try these commands:</span>
+
+<span class="prompt">></span> <span class="cmd">/status</span>          <span class="comment"># see your business dashboard</span>
+<span class="prompt">></span> <span class="cmd">/todo</span>            <span class="comment"># view your to-do list</span>
+<span class="prompt">></span> <span class="cmd">/todo add Follow up with client about proposal</span>
+<span class="prompt">></span> <span class="cmd">/client Acme</span>     <span class="comment"># look up a client</span>
+<span class="prompt">></span> <span class="cmd">/inbox</span>           <span class="comment"># process files you dropped in _inbox/</span>
+<span class="prompt">></span> <span class="cmd">/find invoice</span>    <span class="comment"># search across all your files</span></pre>
+      </div>
+
+      <h3>Things You Can Just Say</h3>
+      <p>Beyond slash commands, you can talk naturally:</p>
+      <ul class="checklist">
+        <li><span class="check">&#10003;</span> "Add a note to Acme Corp: Met with Sarah, she wants the proposal by Friday"</li>
+        <li><span class="check">&#10003;</span> "Help me write an email to the team about the project deadline"</li>
+        <li><span class="check">&#10003;</span> "What are my priorities for today?"</li>
+        <li><span class="check">&#10003;</span> "Research competitors in the [your industry] space"</li>
+        <li><span class="check">&#10003;</span> "Create a new project for the website redesign"</li>
+        <li><span class="check">&#10003;</span> "Commit my changes" (saves a snapshot to Git)</li>
+      </ul>
+
+      <div class="callout callout-success">
+        <strong>The more you use it, the better it gets</strong>
+        Every file you add, every note you save, every client interaction you record &mdash; it all compounds. Your AI assistant gets more useful every single day because it has more context to draw from.
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 6: Next Steps -->
+  <section class="guide-section" id="next-steps">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">6</span>
+        <h2>Next Steps</h2>
+      </div>
+      <p>You're up and running. Here's a suggested timeline for getting the most out of BizBrain OS:</p>
+
+      <h3>Week 1&ndash;2: Build the Habit</h3>
+      <ul class="checklist">
+        <li><span class="check">&#10003;</span> Start every work session by opening Claude in your Brain folder</li>
+        <li><span class="check">&#10003;</span> Use <code>/status</code> each morning to see where you left off</li>
+        <li><span class="check">&#10003;</span> Use <code>/todo add</code> throughout the day to capture tasks</li>
+        <li><span class="check">&#10003;</span> Drop documents in <code>_inbox/</code> and run <code>/inbox</code> to organize them</li>
+      </ul>
+
+      <h3>Week 3&ndash;4: Expand</h3>
+      <ul class="checklist">
+        <li><span class="check">&#10003;</span> Set up Git &amp; GitHub for automatic backups</li>
+        <li><span class="check">&#10003;</span> Add your first MCP plugin (Brave Search is the easiest)</li>
+        <li><span class="check">&#10003;</span> Update your <code>CLAUDE.md</code> as your business evolves</li>
+      </ul>
+
+      <h3>Month 2+: Go Deeper</h3>
+      <ul class="checklist">
+        <li><span class="check">&#10003;</span> Create custom slash commands for your specific workflows</li>
+        <li><span class="check">&#10003;</span> Explore the full BizBrain OS modules (27+ available)</li>
+        <li><span class="check">&#10003;</span> Connect to OpenClaw for autonomous AI agents</li>
+        <li><span class="check">&#10003;</span> Join the community on <a href="https://github.com/TechIntegrationLabs/bizbrain-os/discussions" target="_blank" rel="noopener">GitHub Discussions</a></li>
+      </ul>
+
+      <div class="callout callout-info">
+        <strong>Need help?</strong>
+        Reach out at <a href="mailto:will@bizbrain-os.com">will@bizbrain-os.com</a> or open an issue on <a href="https://github.com/TechIntegrationLabs/bizbrain-os/issues" target="_blank" rel="noopener">GitHub</a>. BizBrain OS was created by William Welsh at Tech Integration Labs and is actively maintained.
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Build Your Brain?</h2>
+      <p>Choose your path and get started in under 10 minutes.</p>
+      <div class="cta-buttons">
+        <a href="/setup" class="btn btn-primary">Quick Setup (Copy &amp; Paste)</a>
+        <a href="https://github.com/TechIntegrationLabs/bizbrain-os" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        <a href="/">BizBrain OS</a> &middot;
+        <a href="/setup">Quick Setup</a> &middot;
+        <a href="https://github.com/TechIntegrationLabs/bizbrain-os" target="_blank">GitHub</a> &middot;
+        <a href="https://github.com/TechIntegrationLabs/bizbrain-os/wiki" target="_blank">Docs</a>
+        <br>
+        Open Source (AGPL v3) &middot; Built by <strong>Tech Integration Labs</strong>
+        &middot; <a href="mailto:will@bizbrain-os.com">will@bizbrain-os.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+// ---- Theme Toggle ----
+const toggle = document.getElementById('theme-toggle');
+const saved = localStorage.getItem('bizbrain-theme');
+if (saved) document.documentElement.setAttribute('data-theme', saved);
+toggle.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('bizbrain-theme', next);
+});
+
+// ---- OS Tabs ----
+document.querySelectorAll('.os-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const os = tab.dataset.os;
+    document.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.os-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`.os-content[data-os="${os}"]`).classList.add('active');
+  });
+});
+  </script>
+</body>
+</html>

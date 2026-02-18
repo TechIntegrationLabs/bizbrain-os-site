@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About the Creator &mdash; BizBrain OS</title>
+  <meta name="description" content="Meet William Welsh — mechatronics engineer turned AI systems architect. The creator of BizBrain OS and founder of Tech Integration Labs.">
+  <meta property="og:title" content="About the Creator &mdash; BizBrain OS">
+  <meta property="og:description" content="From haptic VR props to AI-powered business systems — the story behind BizBrain OS.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://wjwelsh.com/assets/images/wjwheadshot.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/logo-icon.png">
+  <link rel="apple-touch-icon" href="images/logo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ---- Variables (matching main site) ---- */
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --bg-card: #141414;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-tertiary: #666666;
+      --accent: #00d4ff;
+      --accent-secondary: #00a3cc;
+      --accent-glow: rgba(0, 212, 255, 0.15);
+      --gradient: linear-gradient(135deg, #00d4ff 0%, #00a3cc 100%);
+      --success: #10b981;
+      --border: #1e1e1e;
+      --border-light: #2a2a2a;
+      --font-heading: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.3);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --bg-tertiary: #f0f1f3;
+      --bg-card: #ffffff;
+      --text-primary: #111111;
+      --text-secondary: #555555;
+      --text-tertiary: #888888;
+      --accent: #0099cc;
+      --accent-glow: rgba(0, 153, 204, 0.1);
+      --border: #e2e4e8;
+      --border-light: #eaecf0;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    /* ---- Base ---- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ---- Layout ---- */
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---- Nav ---- */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 0;
+    }
+    [data-theme="light"] .nav { background: rgba(255,255,255,0.9); border-bottom-color: rgba(0,0,0,0.06); }
+    .nav-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-heading); font-weight: 700; font-size: 18px;
+      color: var(--text-primary); text-decoration: none;
+    }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; }
+    .nav-logo .accent { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-link {
+      font-size: 14px; color: var(--text-secondary); padding: 6px 12px;
+      border-radius: 6px; transition: var(--transition); text-decoration: none;
+    }
+    .nav-link:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); text-decoration: none; }
+    [data-theme="light"] .nav-link:hover { background: rgba(0,0,0,0.04); }
+    .theme-toggle {
+      background: none; border: 1px solid var(--border); color: var(--text-secondary);
+      width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: var(--transition);
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    [data-theme="dark"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: block; }
+
+    /* ---- Hero ---- */
+    .hero {
+      position: relative; padding: 80px 0 60px; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, var(--accent-glow), transparent);
+      pointer-events: none;
+    }
+    .hero-content {
+      display: flex; align-items: center; gap: 40px;
+    }
+    .hero-photo {
+      width: 160px; height: 160px; border-radius: var(--radius-xl);
+      border: 3px solid var(--border-light);
+      object-fit: cover; flex-shrink: 0;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-text h1 {
+      font-family: var(--font-heading); font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800; line-height: 1.2; margin-bottom: 8px; letter-spacing: -0.03em;
+    }
+    .hero-text .role {
+      font-size: 16px; color: var(--accent); font-weight: 500; margin-bottom: 12px;
+    }
+    .hero-text .tagline {
+      font-size: 15px; color: var(--text-secondary); line-height: 1.6;
+    }
+    .hero-links {
+      display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;
+    }
+    .hero-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500;
+      border: 1px solid var(--border); color: var(--text-secondary);
+      transition: var(--transition); text-decoration: none;
+    }
+    .hero-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+    /* ---- Section ---- */
+    .about-section {
+      padding: 48px 0; border-bottom: 1px solid var(--border);
+    }
+    .about-section:last-of-type { border-bottom: none; }
+    .about-section h2 {
+      font-family: var(--font-heading); font-size: 24px; font-weight: 700;
+      margin-bottom: 20px; letter-spacing: -0.02em;
+    }
+    .about-section p {
+      color: var(--text-secondary); margin-bottom: 16px; font-size: 15px; line-height: 1.8;
+    }
+    .about-section p strong { color: var(--text-primary); }
+
+    /* ---- Timeline ---- */
+    .timeline { margin: 24px 0; }
+    .timeline-item {
+      display: flex; gap: 20px; padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-date {
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent);
+      font-weight: 500; min-width: 100px; flex-shrink: 0; padding-top: 2px;
+    }
+    .timeline-content h3 {
+      font-size: 16px; font-weight: 600; margin-bottom: 4px;
+    }
+    .timeline-content .org {
+      font-size: 13px; color: var(--accent); font-weight: 500; margin-bottom: 8px;
+    }
+    .timeline-content p {
+      font-size: 14px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.6;
+    }
+
+    /* ---- Project Cards ---- */
+    .project-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px; margin: 20px 0;
+    }
+    .project-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 20px;
+      transition: var(--transition);
+    }
+    .project-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-2px); }
+    .project-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .project-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0; }
+    .project-card .tag {
+      display: inline-block; padding: 2px 8px; border-radius: 4px;
+      font-size: 11px; font-weight: 500; margin-top: 10px;
+      background: rgba(0,212,255,0.08); color: var(--accent);
+    }
+
+    /* ---- Stats ---- */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px; margin: 20px 0;
+    }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 20px; text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-heading); font-size: 32px; font-weight: 800;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+    /* ---- Quote ---- */
+    .quote {
+      padding: 28px 32px; margin: 24px 0;
+      border-left: 3px solid var(--accent);
+      background: rgba(0,212,255,0.04);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      font-size: 17px; font-style: italic; color: var(--text-secondary); line-height: 1.7;
+    }
+
+    /* ---- CTA ---- */
+    .cta {
+      padding: 60px 0; text-align: center;
+    }
+    .cta h2 {
+      font-family: var(--font-heading); font-size: 28px; font-weight: 700;
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .cta p { color: var(--text-secondary); margin-bottom: 24px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: var(--radius-md);
+      font-family: var(--font-sans); font-size: 15px; font-weight: 600;
+      text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer;
+    }
+    .btn:hover { text-decoration: none; transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--gradient); color: #fff;
+      box-shadow: 0 0 30px rgba(0,212,255,0.25);
+    }
+    .btn-primary:hover { box-shadow: 0 0 50px rgba(0,212,255,0.35); }
+    .btn-secondary {
+      background: var(--bg-card); color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); }
+
+    /* ---- Footer ---- */
+    .footer {
+      padding: 40px 0; text-align: center;
+      color: var(--text-tertiary); font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+    .footer a { color: var(--accent); }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 640px) {
+      .hero { padding: 60px 0 40px; }
+      .hero-content { flex-direction: column; text-align: center; }
+      .hero-photo { width: 120px; height: 120px; }
+      .hero-links { justify-content: center; }
+      .timeline-item { flex-direction: column; gap: 4px; }
+      .timeline-date { min-width: auto; }
+      .project-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .nav-right .nav-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="images/logo-icon.png" alt="BizBrain OS" width="28" height="28">
+        BizBrain<span class="accent">OS</span>
+      </a>
+      <div class="nav-right">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/install" class="nav-link">Install</a>
+        <a href="/setup" class="nav-link">Quick Setup</a>
+        <a href="https://github.com/TechIntegrationLabs/bizbrain-os" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <img src="https://wjwelsh.com/assets/images/wjwheadshot.png" alt="William Welsh" class="hero-photo">
+        <div class="hero-text">
+          <h1>William Welsh</h1>
+          <div class="role">Creator of BizBrain OS &middot; Founder, Tech Integration Labs</div>
+          <p class="tagline">
+            Mechatronics engineer turned AI systems architect. I build the tools
+            that make AI genuinely useful for real businesses.
+          </p>
+          <div class="hero-links">
+            <a href="mailto:will@bizbrain-os.com" class="hero-link">will@bizbrain-os.com</a>
+            <a href="https://github.com/TechIntegrationLabs" target="_blank" rel="noopener" class="hero-link">GitHub</a>
+            <a href="https://wjwelsh.com" target="_blank" rel="noopener" class="hero-link">wjwelsh.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Short Version -->
+  <section class="about-section">
+    <div class="container">
+      <h2>The Short Version</h2>
+      <p>
+        I've spent my career building systems that connect the digital and physical worlds &mdash; haptic VR props at The VOID,
+        full-scale animatronics and show-control systems at Dreamwalk, and now AI-powered business operating systems at Tech Integration Labs.
+        The golden thread through all of it: <strong>taking something complex and making it actually work for real people.</strong>
+      </p>
+      <p>
+        BizBrain OS exists because I got tired of watching AI tools fail businesses. Not because the AI wasn't capable &mdash;
+        but because it had no context. Every session started from zero. No memory of your clients, your projects, your workflows,
+        your preferences. I spent years building my own structured context system, iterating daily, and eventually realized
+        the system itself was the product. <strong>BizBrain OS is that system, open-sourced.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- By the Numbers -->
+  <section class="about-section">
+    <div class="container">
+      <h2>By the Numbers</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">180+</div>
+          <div class="stat-label">GitHub Repos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">27+</div>
+          <div class="stat-label">BizBrain Modules</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Client Systems Built</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Years of Iteration</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Full Story -->
+  <section class="about-section">
+    <div class="container">
+      <h2>The Full Story</h2>
+
+      <p>
+        I'm not a traditional software engineer. I started in mechanical engineering, drifted into electrical systems and robotics,
+        and eventually carved out my own path in mechatronics &mdash; the intersection of hardware, software, and everything in between.
+        I spent about six years in college across multiple schools, not chasing a degree but chasing the specific knowledge I needed
+        to build real things. That unconventional route forced me to learn on the fly, build under pressure, and develop a mindset
+        built on execution over theory.
+      </p>
+
+      <p>
+        That mindset showed up everywhere I worked. At <strong>The VOID</strong>, I started as a carpenter. Within days I was promoted
+        into an engineering role. Six months later I was leading the engineering team, designing the haptic props and physical systems
+        that brought location-based VR to life. Out of over 350 employees, I was eventually listed on the company's Wikipedia page
+        as one of four key people, alongside the three founders.
+      </p>
+
+      <p>
+        At <strong>Dreamwalk</strong>, I was hired as a Robotics Engineer despite having never built robots before. What I had was a
+        reputation for figuring things out. Alongside my teammates Guy and Calvin Francis, we designed and built the robotics,
+        interactive control systems, lighting, and effects that powered the entire experience. I created "BOB the Talking Fish" &mdash;
+        a real-time conversational animatronic powered by GPT-4 and ElevenLabs &mdash; and designed custom ESPHome relay PCBs that
+        now drive lighting, fog, pneumatics, and show-control hardware across the venue.
+      </p>
+
+      <div class="quote">
+        "If I can imagine it, I can now code it. ChatGPT blew the software ceiling off for me &mdash;
+        and I've been building nonstop ever since."
+      </div>
+
+      <p>
+        When GPT-3.5 dropped, I became obsessed. By mid-2024, I went all-in on AI. I founded <strong>Tech Integration Labs</strong>
+        and started helping small and mid-sized businesses bolt AI onto their existing operations &mdash; often delivering working
+        prototypes in under 24 hours. I built content engines, workflow orchestrators, SaaS platforms, and AI-powered tools
+        for clients across industries from dental practices to construction companies to cultural centers.
+      </p>
+
+      <p>
+        But the real breakthrough was the system I built for myself. Managing a growing roster of clients, projects, and repos
+        required a context layer that no existing tool provided. I needed AI that <em>knew</em> my business &mdash; every client,
+        every project, every workflow, every preference &mdash; and picked up exactly where I left off every single session.
+        So I built it. And after years of daily iteration, <strong>that system became BizBrain OS.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Career Timeline -->
+  <section class="about-section">
+    <div class="container">
+      <h2>Career Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2024 &ndash; Now</div>
+          <div class="timeline-content">
+            <h3>Founder &amp; Technical Director</h3>
+            <div class="org">Tech Integration Labs</div>
+            <p>
+              Architecting AI-driven business systems for SMBs. Built BizBrain OS, OpenClaw (autonomous AI agents),
+              BuildTrack (construction OS), GEOViz (LLM visibility tracker), ContentEngine, and 180+ repos
+              spanning full-stack SaaS, desktop apps (Tauri v2), and AI automation platforms. Stack: React, TypeScript,
+              Next.js, Supabase, Tailwind, Rust, Claude Code, and too many others to list.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2021 &ndash; 2024</div>
+          <div class="timeline-content">
+            <h3>Immersive Systems Engineer</h3>
+            <div class="org">Dreamwalk &middot; Orem, Utah</div>
+            <p>
+              Robotics, show-control, interactive lighting, and animatronics. Built custom PCBs, integrated
+              AI tools for real-time character dialogue and operational automation. Created BOB the Talking Fish &mdash;
+              a GPT-4 powered conversational animatronic.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2018 &ndash; 2021</div>
+          <div class="timeline-content">
+            <h3>Mechatronics Design Engineer</h3>
+            <div class="org">The VOID</div>
+            <p>
+              Designed haptic VR props, wearable feedback devices, and interactive set pieces for location-based
+              VR experiences. Led the engineering team. Recognized as one of four key people in the company's history.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What I'm Building Now -->
+  <section class="about-section">
+    <div class="container">
+      <h2>What I'm Building Now</h2>
+      <p>All of these are active, most ship updates daily.</p>
+      <div class="project-grid">
+        <div class="project-card">
+          <h3>BizBrain OS</h3>
+          <p>The open-source AI context layer for business. 27+ modules, local-first, compounding daily.</p>
+          <span class="tag">Open Source</span>
+        </div>
+        <div class="project-card">
+          <h3>OpenClaw</h3>
+          <p>Autonomous AI agent framework. Multi-agent orchestration, tool use, and task execution.</p>
+          <span class="tag">AI Agents</span>
+        </div>
+        <div class="project-card">
+          <h3>BuildTrack</h3>
+          <p>Construction operating system. Project management, budgets, schedules, and team coordination for builders.</p>
+          <span class="tag">SaaS</span>
+        </div>
+        <div class="project-card">
+          <h3>GEOViz</h3>
+          <p>Track brand visibility in AI/LLM responses across ChatGPT, Claude, Gemini, and Perplexity.</p>
+          <span class="tag">Analytics</span>
+        </div>
+        <div class="project-card">
+          <h3>ContentEngine</h3>
+          <p>AI-powered content production. Multi-channel publishing, brand voice, and automated content workflows.</p>
+          <span class="tag">Content AI</span>
+        </div>
+        <div class="project-card">
+          <h3>Client Systems</h3>
+          <p>Custom AI-powered tools for dental practices, construction firms, cultural centers, pest control, and more.</p>
+          <span class="tag">Client Work</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why BizBrain -->
+  <section class="about-section">
+    <div class="container">
+      <h2>Why I Built BizBrain OS</h2>
+      <div class="quote">
+        Every AI tool has the same blind spot &mdash; it doesn't know your business. BizBrain OS fixes that.
+        Not with another dashboard or chatbot, but with a structured context layer that teaches AI everything
+        about your clients, projects, workflows, and preferences. It compounds daily. It runs locally.
+        And it makes every AI interaction dramatically more useful because the AI finally has the context it needs.
+      </div>
+      <p>
+        I built BizBrain OS because I needed it. Managing a dozen clients, hundreds of repos, and thousands of
+        files across multiple projects &mdash; I couldn't afford to re-explain my business to AI every session.
+        The system I built for myself worked so well that I open-sourced it. It's not theoretical. It's the
+        exact system I use every single day to run Tech Integration Labs.
+      </p>
+      <p>
+        If you've ever wished AI just <em>knew</em> your business already &mdash; that's what this is.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Let's Build Something</h2>
+      <p>Try BizBrain OS, reach out with a project, or just say hello.</p>
+      <div class="cta-buttons">
+        <a href="mailto:will@bizbrain-os.com" class="btn btn-primary">Get in Touch</a>
+        <a href="/setup" class="btn btn-secondary">Try BizBrain OS</a>
+        <a href="https://github.com/TechIntegrationLabs" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        <a href="/">BizBrain OS</a> &middot;
+        <a href="/install">Install</a> &middot;
+        <a href="/setup">Quick Setup</a> &middot;
+        <a href="https://github.com/TechIntegrationLabs/bizbrain-os" target="_blank">GitHub</a>
+        <br>
+        Open Source (AGPL v3) &middot; Built by <strong>Tech Integration Labs</strong>
+        &middot; <a href="mailto:will@bizbrain-os.com">will@bizbrain-os.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+// ---- Theme Toggle ----
+const toggle = document.getElementById('theme-toggle');
+const saved = localStorage.getItem('bizbrain-theme');
+if (saved) document.documentElement.setAttribute('data-theme', saved);
+toggle.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('bizbrain-theme', next);
+});
+  </script>
+</body>
+</html>
