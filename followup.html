@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Follow-Up Prompt &mdash; BizBrain OS</title>
+  <meta name="description" content="Already using BizBrain OS? This Follow-Up Prompt audits your Brain, finds gaps, suggests new modules, and helps you level up your AI business operating system.">
+  <meta property="og:title" content="Follow-Up Prompt &mdash; BizBrain OS">
+  <meta property="og:description" content="Audit, optimize, and evolve your BizBrain. One prompt to level up your AI business operating system.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/logo-icon.png">
+  <link rel="apple-touch-icon" href="images/logo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ---- Variables (matching main site) ---- */
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --bg-card: #141414;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-tertiary: #666666;
+      --accent: #00d4ff;
+      --accent-secondary: #00a3cc;
+      --accent-glow: rgba(0, 212, 255, 0.15);
+      --gradient: linear-gradient(135deg, #00d4ff 0%, #00a3cc 100%);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --purple: #a855f7;
+      --border: #1e1e1e;
+      --border-light: #2a2a2a;
+      --font-heading: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.3);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --bg-tertiary: #f0f1f3;
+      --bg-card: #ffffff;
+      --text-primary: #111111;
+      --text-secondary: #555555;
+      --text-tertiary: #888888;
+      --accent: #0099cc;
+      --accent-glow: rgba(0, 153, 204, 0.1);
+      --border: #e2e4e8;
+      --border-light: #eaecf0;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    /* ---- Base ---- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ---- Layout ---- */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---- Nav ---- */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 0;
+    }
+    [data-theme="light"] .nav { background: rgba(255,255,255,0.9); border-bottom-color: rgba(0,0,0,0.06); }
+    .nav-inner {
+      max-width: 960px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-heading); font-weight: 700; font-size: 18px;
+      color: var(--text-primary); text-decoration: none;
+    }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; }
+    .nav-logo .accent { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-link {
+      font-size: 14px; color: var(--text-secondary); padding: 6px 12px;
+      border-radius: 6px; transition: var(--transition); text-decoration: none;
+    }
+    .nav-link:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); text-decoration: none; }
+    [data-theme="light"] .nav-link:hover { background: rgba(0,0,0,0.04); }
+    .theme-toggle {
+      background: none; border: 1px solid var(--border); color: var(--text-secondary);
+      width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: var(--transition);
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    [data-theme="dark"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: block; }
+
+    /* ---- Hero ---- */
+    .hero {
+      position: relative; padding: 80px 0 60px; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(168,85,247,0.12), transparent);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 500;
+      background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2);
+      color: var(--purple); margin-bottom: 24px;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--purple); animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .hero h1 {
+      font-family: var(--font-heading); font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800; line-height: 1.15; margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero .subtitle {
+      font-size: 18px; color: var(--text-secondary); max-width: 640px;
+      line-height: 1.7; margin-bottom: 36px;
+    }
+    .hero .credit {
+      font-size: 14px; color: var(--text-tertiary); margin-top: 20px;
+    }
+    .hero .credit strong { color: var(--text-secondary); }
+
+    /* ---- Copy Button ---- */
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 36px; border: none; border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); color: #fff;
+      font-family: var(--font-sans); font-size: 17px; font-weight: 600;
+      cursor: pointer; transition: all 0.3s ease;
+      box-shadow: 0 0 30px rgba(168,85,247,0.25);
+    }
+    .copy-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(168,85,247,0.35); }
+    .copy-btn.copied {
+      background: linear-gradient(135deg, #059669, #10b981);
+      box-shadow: 0 0 30px rgba(16,185,129,0.3);
+    }
+    .copy-btn svg { width: 20px; height: 20px; }
+
+    /* ---- When to Use ---- */
+    .when-section {
+      padding: 60px 0; border-bottom: 1px solid var(--border);
+    }
+    .when-section h2 {
+      font-family: var(--font-heading); font-size: 28px; font-weight: 700;
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .when-section .lead { color: var(--text-secondary); margin-bottom: 28px; font-size: 16px; }
+    .when-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .when-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px; text-align: center;
+      transition: var(--transition);
+    }
+    .when-card:hover { border-color: rgba(168,85,247,0.3); transform: translateY(-2px); }
+    .when-icon { font-size: 28px; margin-bottom: 12px; }
+    .when-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .when-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ---- Features Grid ---- */
+    .features { padding: 60px 0; border-bottom: 1px solid var(--border); }
+    .features h2 {
+      font-family: var(--font-heading); font-size: 28px; font-weight: 700;
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .features .lead { color: var(--text-secondary); margin-bottom: 36px; font-size: 16px; }
+    .feat-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .feat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 20px;
+    }
+    .feat-card h3 {
+      font-size: 15px; font-weight: 600; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .feat-card h3 .icon { color: var(--purple); font-size: 18px; }
+    .feat-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ---- Prompt Preview ---- */
+    .preview { padding: 60px 0; border-bottom: 1px solid var(--border); }
+    .preview h2 {
+      font-family: var(--font-heading); font-size: 28px; font-weight: 700;
+      margin-bottom: 24px; letter-spacing: -0.02em;
+    }
+    .preview-box {
+      background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .preview-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; background: var(--bg-tertiary);
+      border-bottom: 1px solid var(--border);
+    }
+    .preview-header span { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
+    .preview-copy-sm {
+      padding: 5px 14px; border-radius: 6px; font-size: 12px; font-weight: 500;
+      border: 1px solid rgba(168,85,247,0.3); background: rgba(168,85,247,0.08);
+      color: var(--purple); cursor: pointer; transition: var(--transition);
+    }
+    .preview-copy-sm:hover { background: rgba(168,85,247,0.15); }
+    .preview-copy-sm.copied { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); color: #6ee7b7; }
+    .preview-body {
+      padding: 20px; max-height: 500px; overflow-y: auto;
+      font-family: var(--font-mono); font-size: 12px; line-height: 1.7;
+      color: var(--text-secondary); white-space: pre-wrap; word-wrap: break-word;
+    }
+
+    /* ---- Journey ---- */
+    .journey { padding: 60px 0; border-bottom: 1px solid var(--border); }
+    .journey h2 {
+      font-family: var(--font-heading); font-size: 28px; font-weight: 700;
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .journey .lead { color: var(--text-secondary); margin-bottom: 28px; font-size: 16px; }
+    .journey-steps { display: flex; flex-direction: column; gap: 0; }
+    .journey-step {
+      display: flex; gap: 20px; align-items: flex-start; padding: 16px 0;
+    }
+    .journey-marker {
+      display: flex; flex-direction: column; align-items: center; flex-shrink: 0;
+    }
+    .journey-dot {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    }
+    .journey-dot.cyan { background: var(--accent); }
+    .journey-dot.purple { background: var(--purple); }
+    .journey-dot.green { background: var(--success); }
+    .journey-line { width: 2px; height: 40px; background: var(--border); margin: 4px 0; }
+    .journey-content h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+    .journey-content p { font-size: 13px; color: var(--text-secondary); }
+    .journey-content .tag {
+      display: inline-block; padding: 2px 10px; border-radius: 100px;
+      font-size: 11px; font-weight: 600; margin-left: 8px;
+    }
+    .tag-done { background: rgba(0,212,255,0.1); color: var(--accent); }
+    .tag-now { background: rgba(168,85,247,0.1); color: var(--purple); }
+    .tag-next { background: rgba(16,185,129,0.1); color: var(--success); }
+
+    /* ---- Footer ---- */
+    .footer {
+      padding: 40px 0; text-align: center;
+      color: var(--text-tertiary); font-size: 13px;
+    }
+    .footer a { color: var(--accent); }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 640px) {
+      .hero { padding: 60px 0 40px; }
+      .copy-btn { width: 100%; justify-content: center; font-size: 15px; padding: 14px 24px; }
+      .when-grid { grid-template-columns: 1fr; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .nav-right .nav-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="images/logo-icon.png" alt="BizBrain OS" width="28" height="28">
+        BizBrain<span class="accent">OS</span>
+      </a>
+      <div class="nav-right">
+        <a href="/" class="nav-link">Home</a>
+        <a href="setup.html" class="nav-link">Quick Setup</a>
+        <a href="install.html" class="nav-link">Get Started</a>
+        <a href="https://github.com/TechIntegrationLabs/bizbrain-os" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge"><span class="dot"></span> For existing BizBrain users</div>
+      <h1>Level Up Your<br><span class="gradient">Business Brain.</span></h1>
+      <p class="subtitle">
+        You've been using BizBrain OS for a while now. This Follow-Up Prompt audits your Brain,
+        identifies gaps, suggests new modules and automations, and helps you evolve your setup
+        from good to extraordinary &mdash; all in about 10 minutes.
+      </p>
+      <p style="font-size: 14px; color: var(--text-tertiary); margin-bottom: 28px;">
+        Don't have a BizBrain yet? <a href="setup.html">Start with Quick Setup</a> first.
+      </p>
+
+      <button class="copy-btn" id="copy-main" onclick="copyPrompt(this)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+          <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+        </svg>
+        <span>Copy Follow-Up Prompt to Clipboard</span>
+      </button>
+
+      <p class="credit">
+        Part of <strong><a href="/" style="color: var(--text-secondary); text-decoration: none;">BizBrain OS</a></strong>
+        by <strong><a href="about.html" style="color: var(--text-secondary); text-decoration: none;">William Welsh</a></strong>
+        at <strong>Tech Integration Labs</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- When to Use -->
+  <section class="when-section">
+    <div class="container">
+      <h2>When Should You Run This?</h2>
+      <p class="lead">Use this prompt whenever your Brain could use a tune-up. Most users run it monthly.</p>
+      <div class="when-grid">
+        <div class="when-card">
+          <div class="when-icon">&#128197;</div>
+          <h3>After 1 Week</h3>
+          <p>Initial clean-up. Fill gaps from quick setup, organize inbox, refine CLAUDE.md.</p>
+        </div>
+        <div class="when-card">
+          <div class="when-icon">&#128640;</div>
+          <h3>After 1 Month</h3>
+          <p>Add new modules, create custom slash commands, optimize workflows you've discovered.</p>
+        </div>
+        <div class="when-card">
+          <div class="when-icon">&#127775;</div>
+          <h3>After 3+ Months</h3>
+          <p>Deep audit. Archive stale data, upgrade to full system, add advanced automations.</p>
+        </div>
+        <div class="when-card">
+          <div class="when-icon">&#128260;</div>
+          <h3>Anytime</h3>
+          <p>Business changed? New clients, new tools, new goals? Run it to realign your Brain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What It Does -->
+  <section class="features">
+    <div class="container">
+      <h2>What the Follow-Up Prompt Does</h2>
+      <p class="lead">A comprehensive audit and enhancement in one conversation.</p>
+      <div class="feat-grid">
+        <div class="feat-card">
+          <h3><span class="icon">&#9670;</span> Brain Health Audit</h3>
+          <p>Scans your entire folder structure, identifies empty folders, stale files, missing modules, and scores your Brain's health out of 100.</p>
+        </div>
+        <div class="feat-card">
+          <h3><span class="icon">&#9670;</span> CLAUDE.md Optimization</h3>
+          <p>Reviews your AI brain config for completeness, accuracy, and missed opportunities. Suggests sections to add based on how you've been using it.</p>
+        </div>
+        <div class="feat-card">
+          <h3><span class="icon">&#9670;</span> New Module Recommendations</h3>
+          <p>Based on your business type and usage patterns, suggests modules you haven't activated yet &mdash; with one-click setup for each.</p>
+        </div>
+        <div class="feat-card">
+          <h3><span class="icon">&#9670;</span> Custom Slash Commands</h3>
+          <p>Analyzes your workflow patterns and creates personalized slash commands for tasks you do repeatedly.</p>
+        </div>
+        <div class="feat-card">
+          <h3><span class="icon">&#9670;</span> Data Enrichment</h3>
+          <p>Scans for new documents, emails, or files you've added and integrates them into the right client/project folders.</p>
+        </div>
+        <div class="feat-card">
+          <h3><span class="icon">&#9670;</span> Upgrade Path</h3>
+          <p>If you used Quick Setup, shows what you'd gain from the full <code>npx create-bizbrain</code> system &mdash; with easy migration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BizBrain Journey -->
+  <section class="journey">
+    <div class="container">
+      <h2>Your BizBrain Journey</h2>
+      <p class="lead">Three prompts. From zero to an AI business operating system that compounds daily.</p>
+      <div class="journey-steps">
+        <div class="journey-step">
+          <div class="journey-marker">
+            <div class="journey-dot cyan"></div>
+            <div class="journey-line"></div>
+          </div>
+          <div class="journey-content">
+            <h3>Quick Setup Prompt <span class="tag tag-done">Day 1</span></h3>
+            <p>Copy one prompt, paste into Claude Code. It interviews you and builds your entire Brain. <a href="setup.html">Go to Quick Setup &rarr;</a></p>
+          </div>
+        </div>
+        <div class="journey-step">
+          <div class="journey-marker">
+            <div class="journey-dot purple"></div>
+            <div class="journey-line"></div>
+          </div>
+          <div class="journey-content">
+            <h3>Follow-Up Prompt <span class="tag tag-now">You are here</span></h3>
+            <p>Audit, optimize, and evolve your Brain. Add modules, create automations, fill gaps.</p>
+          </div>
+        </div>
+        <div class="journey-step">
+          <div class="journey-marker">
+            <div class="journey-dot green"></div>
+          </div>
+          <div class="journey-content">
+            <h3>Full System Upgrade <span class="tag tag-next">Power users</span></h3>
+            <p>Run <code>npx create-bizbrain</code> to upgrade to the full 27+ module system with web dashboard, auto-capture, and OpenClaw integration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prompt Preview -->
+  <section class="preview">
+    <div class="container">
+      <h2>Prompt Preview</h2>
+      <div class="preview-box">
+        <div class="preview-header">
+          <span id="char-count"></span>
+          <button class="preview-copy-sm" id="copy-sm" onclick="copyPrompt(this)">Copy</button>
+        </div>
+        <pre class="preview-body" id="prompt-display"></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        <a href="/">BizBrain OS</a> &middot;
+        <a href="setup.html">Quick Setup</a> &middot;
+        <a href="install.html">Get Started</a> &middot;
+        <a href="https://github.com/TechIntegrationLabs/bizbrain-os" target="_blank">GitHub</a> &middot;
+        <a href="https://github.com/TechIntegrationLabs/bizbrain-os/wiki" target="_blank">Docs</a>
+        <br>
+        Open Source (AGPL v3) &middot; Built by <strong>Tech Integration Labs</strong>
+        &middot; <a href="mailto:will@bizbrain-os.com">will@bizbrain-os.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+// ---- Theme Toggle ----
+const toggle = document.getElementById('theme-toggle');
+const saved = localStorage.getItem('bizbrain-theme');
+if (saved) document.documentElement.setAttribute('data-theme', saved);
+toggle.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('bizbrain-theme', next);
+});
+
+// ---- The Prompt ----
+const PROMPT_TEXT = `You are a BizBrain OS Follow-Up Wizard — the AI-guided audit, optimization, and enhancement system for existing BizBrain OS installations. Created by William Welsh at Tech Integration Labs.
+
+This prompt is designed for users who already have a BizBrain set up (via Quick Setup or npx create-bizbrain) and want to level it up. Your job is to thoroughly analyze their existing Brain, find gaps, suggest improvements, create new capabilities, and help them evolve their setup.
+
+Work through each phase IN ORDER. Be genuinely helpful, specific, and action-oriented. Don't just suggest — actually make the changes (with permission). Address them by name once you learn it from their CLAUDE.md.
+
+---
+
+## PHASE 1: BRAIN HEALTH AUDIT
+
+Start by reading and analyzing their existing Brain:
+
+1. **Read CLAUDE.md** — understand their business, clients, projects, preferences
+2. **Scan the folder structure** — list all top-level and key nested directories
+3. **Check for empty or sparse folders** — identify folders with no content
+4. **Count files** — total files, files by folder, last-modified dates
+5. **Check slash commands** — list existing .claude/commands/ files, assess coverage
+6. **Check settings** — review .claude/settings.json for MCP configs
+7. **Look for stale data** — files not modified in 30+ days, outdated status info
+8. **Check for inbox backlog** — files sitting in _inbox/ unprocessed
+
+Present a **Brain Health Report**:
+
+\`\`\`
+BIZBRAIN HEALTH REPORT
+======================
+Owner:          [from CLAUDE.md]
+Business:       [from CLAUDE.md]
+Brain Location: [current directory]
+Setup Method:   [Quick Setup / npx / manual]
+Brain Age:      [estimated from file dates]
+
+STRUCTURE SCORE: [X/100]
+├── Folder coverage:     [X/10] — [N] folders present, [N] empty
+├── CLAUDE.md quality:   [X/10] — [assessment]
+├── Slash commands:      [X/10] — [N] commands active
+├── Client records:      [X/10] — [N] clients, [N] with full details
+├── Project tracking:    [X/10] — [N] projects, [N] with status
+├── Operations setup:    [X/10] — todos, accounts, templates
+├── Knowledge base:      [X/10] — procedures, industry docs
+├── Git backup:          [X/10] — [status]
+├── MCP integrations:    [X/10] — [N] MCPs configured
+└── Data freshness:      [X/10] — [oldest update, newest update]
+
+TOP ISSUES:
+1. [most impactful gap]
+2. [second most impactful gap]
+3. [third most impactful gap]
+
+STRENGTHS:
+1. [what they're doing well]
+2. [another strength]
+\`\`\`
+
+Ask: **"[Name], here's your Brain health report. Want me to walk through the improvements, or should I jump straight to fixing things?"**
+
+---
+
+## PHASE 2: CLAUDE.md OPTIMIZATION
+
+Analyze their CLAUDE.md in depth:
+
+1. **Missing sections** — compare against the ideal structure:
+   - About Me / Business info
+   - Folder Structure guide
+   - Client list with status
+   - Project list with status
+   - Accounts & Services
+   - How Claude Should Help Me (priorities, behaviors, preferences)
+   - Slash Commands reference
+   - File Organization Rules
+   - Notes for Claude
+
+2. **Stale information** — clients/projects that may have changed status, outdated descriptions
+
+3. **Missing intelligence** — things you can infer from their files that aren't in CLAUDE.md:
+   - Clients mentioned in documents but not listed
+   - Tools/services used but not documented
+   - Patterns in their work (weekly reports, recurring tasks)
+
+4. **Optimization opportunities:**
+   - Is the tone/voice section specific enough?
+   - Are the "How Claude Should Help" instructions detailed and actionable?
+   - Are there enough concrete examples?
+
+Present findings and offer to update. **Make specific, concrete suggestions** — not vague advice. Show exactly what you'd add/change.
+
+---
+
+## PHASE 3: MODULE RECOMMENDATIONS
+
+Based on their business type and current usage, recommend modules they don't have yet. For each recommendation:
+
+1. **What it is** — one-sentence description
+2. **Why it matters for them** — specific to their business
+3. **What it looks like** — concrete example of how they'd use it
+4. **Setup effort** — "I can create this right now" or "needs [X] first"
+
+**Module categories to evaluate:**
+
+- **Content Generation** — blog posts, emails, social media, client reports
+- **Financial Tracking** — invoices, expenses, revenue tracking, forecasts
+- **CRM Enhancement** — lead tracking, follow-up reminders, client health scores
+- **Knowledge Management** — SOPs, industry research, competitive analysis
+- **Automation** — recurring reports, scheduled tasks, trigger-based workflows
+- **Communication** — email templates, client update drafts, meeting prep
+- **Analytics** — usage patterns, project velocity, revenue trends
+- **Integration** — connecting with external tools (Notion, Slack, etc.)
+
+Ask: **"Which of these would be most valuable? I can set up any of them right now."**
+
+For each they choose, **actually create it** — files, slash commands, CLAUDE.md updates, the works.
+
+---
+
+## PHASE 4: CUSTOM SLASH COMMANDS
+
+Analyze their workflow and create personalized slash commands:
+
+1. **Review existing commands** — what do they have, what's missing?
+2. **Analyze usage patterns** — what tasks do they seem to do repeatedly?
+3. **Suggest 3-5 new commands** specific to their business. Examples:
+
+   - \`/morning\` — "Show my priorities, any overdue items, and client updates for today"
+   - \`/weekly-review\` — "Generate a summary of this week: completed tasks, client activity, revenue, and next week's priorities"
+   - \`/client-prep [name]\` — "Pull everything about this client: recent interactions, open items, pending invoices, context for a meeting"
+   - \`/draft-email [client] [topic]\` — "Draft a professional email using my voice and this client's history"
+   - \`/pipeline\` — "Show all active deals/projects with status, value, and next steps"
+   - \`/research [topic]\` — "Research this topic, save findings to Knowledge/, and suggest how it applies to my business"
+
+For each command they want, **create the file immediately** in \`.claude/commands/\`.
+
+---
+
+## PHASE 5: DATA ENRICHMENT
+
+Help them enrich their Brain with new information:
+
+1. **Check inbox** — process any files in \`_inbox/\`
+2. **Ask about new developments:**
+   - "Any new clients since you set this up?"
+   - "Any projects completed or started?"
+   - "Any new tools or services you've added?"
+   - "Anything about your business that's changed?"
+3. **Scan for unintegrated files** — documents in the Brain folder that aren't properly categorized
+4. **Update client records** — add missing contact details, recent notes
+5. **Update project statuses** — mark completed projects, update active ones
+6. **Refresh accounts registry** — add new services, remove old ones
+
+Make all updates with their confirmation.
+
+---
+
+## PHASE 6: ADVANCED FEATURES
+
+Based on their experience level and needs, offer advanced features:
+
+### If they don't have Git backup:
+Set up Git + GitHub for version control and backup.
+
+### If they don't have MCPs:
+Recommend and configure relevant MCPs:
+- **Brave Search** — web research from within Claude
+- **Memory** — persistent memory across sessions
+- **Notion/Slack/etc.** — based on their tools
+
+### If they're still on Quick Setup:
+Explain the benefits of upgrading to the full system:
+- Web dashboard for visual overview
+- Auto-capture from conversations
+- Entity watchdog for automatic record-keeping
+- Voice input support
+- 27+ modules vs basic setup
+- OpenClaw integration for autonomous AI agents
+
+Offer: \`npx create-bizbrain\` for the full upgrade (it detects and preserves existing Brain data).
+
+### If they're already on full system:
+Suggest advanced workflows:
+- Custom agents for specific business processes
+- Automated reporting pipelines
+- Integration with external APIs
+- Multi-brain setup for separate business units
+
+---
+
+## PHASE 7: SUMMARY & NEXT STEPS
+
+Present a completion summary:
+
+\`\`\`
+FOLLOW-UP COMPLETE
+==================
+Brain Health: [before] → [after] / 100
+
+Changes Made:
+  [✓] [list each change]
+  [✓] ...
+
+New Capabilities:
+  [✓] [list new commands/modules]
+  [✓] ...
+
+Suggested for Next Time:
+  [ ] [thing to revisit later]
+  [ ] ...
+\`\`\`
+
+Then say:
+
+**"[Name], your Brain just got significantly smarter. Here's what I'd suggest for your next follow-up:"**
+
+1. **Run this again in [timeframe]** — based on how active their business is
+2. **Try your new commands** — suggest which to use first
+3. **Keep dropping files in _inbox/** — consistent feeding makes the Brain smarter
+4. **Consider [specific next step]** — personalized to their situation
+
+End with:
+
+**"Your AI context compounds daily. The more you use it, the more it understands you. Every follow-up like this one makes the compounding faster. See you next time, [Name]."**
+
+---
+
+## IMPORTANT RULES
+
+- **Read before suggesting** — always analyze their actual files before recommending changes
+- **Be specific, not generic** — every suggestion should reference something concrete about their business
+- **Do the work** — don't just suggest; create files, update CLAUDE.md, build commands
+- **Confirm before overwriting** — never replace existing content without asking
+- **Celebrate what's working** — don't just focus on gaps; acknowledge what they've done well
+- **Score fairly** — the health score should be honest but encouraging
+- **Preserve attribution** — maintain BizBrain OS attribution in all files you create/update
+
+---
+
+## ATTRIBUTION
+
+Add this comment to any new files created:
+\`\`\`
+<!-- BizBrain OS Follow-Up | bizbrainos.com | by William Welsh / Tech Integration Labs -->
+\`\`\`
+
+Now begin Phase 1. Read the CLAUDE.md and start the Brain Health Audit.`;
+
+// ---- Display & Copy ----
+document.getElementById('prompt-display').textContent = PROMPT_TEXT;
+document.getElementById('char-count').textContent =
+  'Prompt Preview (' + Math.round(PROMPT_TEXT.length / 1000) + 'k characters)';
+
+// ---- Analytics ----
+function trackCopy() {
+  try {
+    if (window.plausible) {
+      window.plausible('Prompt Copied', { props: { source: 'follow-up' } });
+    }
+    console.log('[BizBrain OS] Follow-up prompt copied');
+  } catch (e) { /* silent */ }
+}
+
+function copyPrompt(btn) {
+  trackCopy();
+  navigator.clipboard.writeText(PROMPT_TEXT).then(() => {
+    btn.classList.add('copied');
+    if (btn.querySelector('span')) btn.querySelector('span').textContent = 'Copied to Clipboard!';
+    else btn.textContent = 'Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      if (btn.querySelector('span')) btn.querySelector('span').textContent = 'Copy Follow-Up Prompt to Clipboard';
+      else btn.textContent = 'Copy';
+    }, 3000);
+  }).catch(() => {
+    var ta = document.createElement('textarea');
+    ta.value = PROMPT_TEXT;
+    ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.classList.add('copied');
+    if (btn.querySelector('span')) btn.querySelector('span').textContent = 'Copied to Clipboard!';
+    else btn.textContent = 'Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      if (btn.querySelector('span')) btn.querySelector('span').textContent = 'Copy Follow-Up Prompt to Clipboard';
+      else btn.textContent = 'Copy';
+    }, 3000);
+  });
+}
+  </script>
+</body>
+</html>
