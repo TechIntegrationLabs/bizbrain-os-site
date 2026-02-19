@@ -139,6 +139,46 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(0, 0, 0, 0.06);
 }
 
+/* Claude orange whiteboard annotation style */
+.claude-note {
+  font-family: 'Caveat', 'Segoe Script', 'Comic Sans MS', cursive;
+  color: #e87b35;
+  font-size: 1.1em;
+  font-weight: 700;
+  transform: rotate(-1deg);
+  display: inline-block;
+  position: relative;
+  padding: 2px 6px;
+}
+.claude-note::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(232, 123, 53, 0.4);
+  border-radius: 2px;
+}
+
+/* Recommended badge */
+.badge-recommended {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 20px;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
 /* ---- Scroll Progress Bar ---- */
 .scroll-progress {
   position: fixed;
@@ -533,6 +573,55 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(0, 212, 255, 0.2);
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* XL button variant */
+.btn-xl {
+  padding: 16px 36px;
+  font-size: 1.05rem;
+  flex-direction: column;
+  gap: 4px;
+}
+.btn-sub {
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.8;
+  letter-spacing: 0;
+}
+
+/* "Already have Claude Code?" quick-setup section */
+.hero-quicksetup {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.hero-quicksetup-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f59e0b;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+.btn-quicksetup {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  transition: all 0.3s var(--ease-out-quart);
+  cursor: pointer;
+}
+.btn-quicksetup:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
 }
 
 /* Hero stats */
@@ -1172,6 +1261,18 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
 }
 
+/* Compounding title treatment */
+.compound-big {
+  display: block;
+  font-size: 1.8em;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
 /* ---- Section Images ---- */
 .section-image {
   max-width: 100%;
@@ -1640,6 +1741,16 @@ h1, h2, h3, h4, h5, h6 {
 .growth-chart.active .milestone-dot:nth-child(5) { animation-delay: 1.5s; }
 .growth-chart.active .milestone-dot:nth-child(6) { animation-delay: 1.8s; }
 
+/* Competitor curve animation */
+.competitor-curve {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+}
+.growth-chart.active .competitor-curve {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.5s ease 1.4s;
+}
+
 /* Time Slider */
 .time-slider-container {
   max-width: 680px;
@@ -1761,6 +1872,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ---- OpenClaw Companion ---- */
+.openclaw-logo-inline {
+  height: 1.2em;
+  width: auto;
+  vertical-align: middle;
+  margin-right: 6px;
+  display: inline-block;
+}
 .openclaw-section { background: var(--bg-primary); }
 .openclaw-diagram {
   display: flex;
