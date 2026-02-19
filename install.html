@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Get Started &mdash; BizBrain OS</title>
-  <meta name="description" content="Get BizBrain OS running in under 10 minutes. Step 1: Install Claude Code. Step 2: Run the Quick Setup prompt. That's it.">
+  <meta name="description" content="Get BizBrain OS running in under 10 minutes. Download the standalone installer or use npx. Zero prerequisites required.">
   <meta property="og:title" content="Get Started &mdash; BizBrain OS">
   <meta property="og:description" content="Two steps. Ten minutes. Your AI-powered business operating system, configured and ready.">
   <meta property="og:type" content="website">
@@ -199,31 +199,94 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <h1>Two steps. <span class="gradient">Ten minutes.</span></h1>
+      <h1>One download. <span class="gradient">Five minutes.</span></h1>
       <p class="subtitle">
-        Get Claude Code running, then paste one prompt. That's the entire setup.
+        Download the standalone installer &mdash; it handles everything. Or use npx if you already have Node.js.
       </p>
     </div>
   </section>
 
-  <!-- Two-step overview -->
+  <!-- Install options overview -->
   <section class="steps-overview">
     <div class="container">
-      <div class="steps-grid">
-        <a href="#step-1" class="step-card" style="text-decoration:none;color:inherit">
-          <span class="badge badge-prereq">Prerequisite</span>
-          <div class="step-num">1</div>
-          <h3>Install Claude Code</h3>
-          <p>Install Git, Node.js, and Claude Code. Get logged in and verified.</p>
-        </a>
-        <div class="steps-arrow">&rarr;</div>
-        <a href="#step-2" class="step-card active" style="text-decoration:none;color:inherit">
+      <div class="steps-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 14px;">
+        <a href="#standalone" class="step-card active" style="text-decoration:none;color:inherit">
           <span class="badge badge-main">Recommended</span>
-          <div class="step-num">2</div>
-          <h3>Quick Setup Prompt</h3>
-          <p>Copy one prompt, paste it into Claude Code. It builds your entire Brain.</p>
+          <div class="step-num" style="font-size:22px">&#x1F4E6;</div>
+          <h3>Standalone Installer</h3>
+          <p>Download one file, run it. Installs everything automatically &mdash; no prerequisites needed.</p>
+        </a>
+        <a href="#npx" class="step-card" style="text-decoration:none;color:inherit">
+          <span class="badge badge-prereq">Developers</span>
+          <div class="step-num" style="font-size:22px">&#x1F4BB;</div>
+          <h3>npx create-bizbrain</h3>
+          <p>Already have Node.js? One command to clone, configure, and personalize.</p>
+        </a>
+        <a href="#step-1" class="step-card" style="text-decoration:none;color:inherit">
+          <span class="badge badge-prereq">Manual</span>
+          <div class="step-num" style="font-size:22px">&#x1F527;</div>
+          <h3>Manual Setup</h3>
+          <p>Install Git, Node.js, and Claude Code individually, then paste one prompt.</p>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- Standalone installer download -->
+  <section class="guide-section" id="standalone">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num" style="background:rgba(16,185,129,0.15);color:var(--success)">&#x2605;</span>
+        <h2>Standalone Installer</h2>
+      </div>
+      <p>Download a single file for your OS. <strong>No Node.js, no Git, no prerequisites.</strong> The installer handles everything:</p>
+      <ul class="checklist">
+        <li><span class="check">&#10003;</span> Auto-installs Git, Node.js, and Claude Code if missing</li>
+        <li><span class="check">&#10003;</span> Walks you through a quick business onboarding (name, industry, tools)</li>
+        <li><span class="check">&#10003;</span> Clones and configures BizBrain OS with your info pre-populated</li>
+        <li><span class="check">&#10003;</span> Optionally import existing business files via drag-and-drop</li>
+        <li><span class="check">&#10003;</span> Generates a personalized setup prompt for Claude Code</li>
+      </ul>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 24px 0;">
+        <a href="https://github.com/TechIntegrationLabs/create-bizbrain/releases/latest/download/bizbrain-setup.exe" class="btn btn-primary" style="justify-content:center;">
+          &#x1F5A5; Windows (.exe)
+        </a>
+        <a href="https://github.com/TechIntegrationLabs/create-bizbrain/releases/latest/download/bizbrain-setup-macos" class="btn btn-secondary" style="justify-content:center;">
+          &#x1F34E; macOS
+        </a>
+        <a href="https://github.com/TechIntegrationLabs/create-bizbrain/releases/latest/download/bizbrain-setup-linux" class="btn btn-secondary" style="justify-content:center;">
+          &#x1F427; Linux
+        </a>
+      </div>
+
+      <div class="callout callout-info">
+        <strong>What happens when you run it?</strong>
+        The installer walks you through a friendly 5-minute setup: checks for prerequisites (installs any missing ones), asks about your business, downloads BizBrain OS, imports any files you want, and generates a personalized start page with a ready-to-paste Claude Code prompt.
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>macOS/Linux users:</strong>
+        After downloading, you may need to make it executable: <code>chmod +x bizbrain-setup-macos</code> then <code>./bizbrain-setup-macos</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- npx option -->
+  <section class="guide-section" id="npx">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-num">2</span>
+        <h2>npx create-bizbrain</h2>
+      </div>
+      <p>If you already have <strong>Node.js 18+</strong> and <strong>Git</strong> installed, one command does it all:</p>
+      <div class="terminal">
+        <div class="terminal-bar"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span><span class="terminal-label">Terminal</span></div>
+        <pre><span class="prompt">$</span> <span class="cmd">npx create-bizbrain</span>
+<span class="output">  Running the same onboarding wizard as the standalone installer.</span>
+<span class="output">  Interactive mode: asks about your business, imports files, generates your Brain.</span></pre>
+      </div>
+      <p>Options: <code>--yes</code> (non-interactive), <code>--minimal</code> (core only), <code>--full</code> (all 27 modules), <code>--skip-ingestion</code> (skip file import).</p>
     </div>
   </section>
 
@@ -366,11 +429,12 @@
 
       <div class="setup-cta">
         <h3>Quick Setup Prompt</h3>
-        <p>Copy one prompt, paste into Claude Code. It builds your entire business Brain in about 5 minutes.</p>
+        <p>If you already have Claude Code installed, copy one prompt and paste it to build your Brain manually.</p>
         <a href="setup.html" class="btn btn-primary btn-primary-lg">Go to Quick Setup &rarr;</a>
         <div class="alt-methods">
-          <strong style="color: var(--text-secondary); font-size: 14px;">Other options:</strong><br>
-          Developers / Power Users: <code>npx create-bizbrain</code> (full 27+ module system) &nbsp;&middot;&nbsp;
+          <strong style="color: var(--text-secondary); font-size: 14px;">Faster options:</strong><br>
+          <a href="#standalone">Standalone installer</a> (recommended &mdash; handles everything) &nbsp;&middot;&nbsp;
+          <a href="#npx"><code>npx create-bizbrain</code></a> (for devs with Node.js) &nbsp;&middot;&nbsp;
           Contributors: <a href="https://github.com/TechIntegrationLabs/bizbrain-os" target="_blank" rel="noopener">git clone</a>
           <br>
           Already have a Brain? <a href="followup.html" style="color: #a855f7;">Follow-Up Prompt</a> (audit &amp; enhance)
