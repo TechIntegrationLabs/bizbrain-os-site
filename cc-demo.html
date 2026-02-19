@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Command Center Demo &mdash; BizBrain OS</title>
+  <meta name="description" content="Interactive demo of the BizBrain OS Command Center — explore 27 modules, manage projects, entities, communications, content pipelines and more. Works standalone with Claude Code.">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/logo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a12;
+      --bg-raised: #0f0f1a;
+      --bg-sidebar: #0c0c16;
+      --surface: rgba(255,255,255,0.035);
+      --surface-hover: rgba(255,255,255,0.06);
+      --surface-active: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(0,212,255,0.3);
+      --accent: #00d4ff;
+      --accent-dim: rgba(0,212,255,0.1);
+      --accent-mid: rgba(0,212,255,0.18);
+      --text-1: #f1f5f9;
+      --text-2: #94a3b8;
+      --text-3: #64748b;
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.12);
+      --yellow: #eab308;
+      --yellow-dim: rgba(234,179,8,0.1);
+      --red: #ef4444;
+      --red-dim: rgba(239,68,68,0.1);
+      --blue: #3b82f6;
+      --blue-dim: rgba(59,130,246,0.12);
+      --purple: #a855f7;
+      --purple-dim: rgba(168,85,247,0.1);
+      --orange: #f97316;
+      --orange-dim: rgba(249,115,22,0.1);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --radius-lg: 16px;
+      --sidebar-w: 240px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---- Scrollbar ---- */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+    /* ---- Banner ---- */
+    .banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 10px 24px;
+      background: var(--accent-dim);
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-2);
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .banner a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .banner a:hover { text-decoration: underline; }
+    .banner .sep { color: var(--text-3); }
+    .banner strong { color: var(--text-1); }
+
+    /* ---- App Shell ---- */
+    .app {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-areas:
+        "topbar topbar"
+        "sidebar main";
+      height: calc(100vh - 39px);
+    }
+
+    /* ---- TopBar ---- */
+    .topbar {
+      grid-area: topbar;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      height: 56px;
+      background: var(--bg-raised);
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; }
+    .topbar-icon {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #000;
+      flex-shrink: 0;
+    }
+    .topbar-icon svg { width: 16px; height: 16px; }
+    .topbar-name { font-weight: 700; font-size: 15px; color: var(--accent); white-space: nowrap; }
+    .topbar-path { font-size: 11px; color: var(--text-3); font-family: var(--mono); }
+
+    .topbar-center { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+
+    /* Toggle */
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 4px 16px;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.3s;
+    }
+    .toggle-wrap:hover { border-color: var(--border-hover); }
+    .toggle-label {
+      font-size: 12px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .toggle-label.fresh { color: var(--yellow); }
+    .toggle-label.mature { color: var(--green); }
+    .toggle-label.dim { color: var(--text-3); }
+    .toggle-track {
+      width: 40px;
+      height: 20px;
+      background: var(--yellow-dim);
+      border-radius: 10px;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .toggle-track.mature { background: var(--green-dim); }
+    .toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--yellow);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .toggle-thumb.mature {
+      left: 22px;
+      background: var(--green);
+    }
+
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+    .topbar-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .status-dot.green { background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.5); }
+    .status-dot.yellow { background: var(--yellow); box-shadow: 0 0 6px rgba(234,179,8,0.5); }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    .topbar-back {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 12px;
+      font-family: var(--font);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+    }
+    .topbar-back:hover { background: var(--surface); }
+
+    /* ---- Sidebar ---- */
+    .sidebar {
+      grid-area: sidebar;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 12px 0;
+      transition: width 0.3s, transform 0.3s;
+    }
+    .sidebar-section { margin-bottom: 4px; }
+    .sidebar-title {
+      padding: 8px 20px 4px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 20px;
+      font-size: 13px;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.15s;
+      border-left: 2px solid transparent;
+      text-decoration: none;
+    }
+    .sidebar-item:hover {
+      background: var(--surface);
+      color: var(--text-1);
+    }
+    .sidebar-item.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-left-color: var(--accent);
+      font-weight: 600;
+    }
+    .sidebar-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.6; }
+    .sidebar-item.active svg { opacity: 1; }
+    .sidebar-badge {
+      margin-left: auto;
+      background: var(--surface);
+      color: var(--text-3);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 8px;
+      min-width: 18px;
+      text-align: center;
+    }
+    .sidebar-item.active .sidebar-badge {
+      background: var(--accent-mid);
+      color: var(--accent);
+    }
+
+    /* ---- Main Content ---- */
+    .main {
+      grid-area: main;
+      overflow-y: auto;
+      padding: 24px 28px;
+      position: relative;
+    }
+    .view {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Fade transition for toggle */
+    .main.fading .view { animation: none; opacity: 0.3; transition: opacity 0.15s; }
+
+    /* ---- View Header ---- */
+    .view-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .view-title { font-size: 20px; font-weight: 700; }
+    .view-subtitle { font-size: 13px; color: var(--text-3); margin-top: 2px; }
+    .view-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ---- Buttons ---- */
+    .btn-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-sm:hover { border-color: var(--border-hover); color: var(--text-1); }
+    .btn-sm.accent { background: var(--accent-dim); color: var(--accent); border-color: rgba(0,212,255,0.2); }
+    .btn-sm.accent:hover { background: var(--accent-mid); }
+    .btn-sm.green { background: var(--green-dim); color: var(--green); border-color: rgba(34,197,94,0.2); }
+
+    /* ---- Stat Cards ---- */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: var(--border-hover); }
+    .stat-card-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .stat-card-value { font-size: 28px; font-weight: 800; }
+    .stat-card-sub { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+    /* ---- Cards Grid ---- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      cursor: default;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: var(--border-hover); transform: translateY(-1px); }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .card-title { font-size: 14px; font-weight: 700; }
+    .card-desc { font-size: 12px; color: var(--text-3); line-height: 1.5; }
+    .card-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 10px; }
+
+    /* ---- Tags/Badges ---- */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .tag.green { background: var(--green-dim); color: var(--green); }
+    .tag.yellow { background: var(--yellow-dim); color: var(--yellow); }
+    .tag.red { background: var(--red-dim); color: var(--red); }
+    .tag.blue { background: var(--blue-dim); color: var(--blue); }
+    .tag.accent { background: var(--accent-dim); color: var(--accent); }
+    .tag.purple { background: var(--purple-dim); color: var(--purple); }
+    .tag.orange { background: var(--orange-dim); color: var(--orange); }
+    .tag.gray { background: var(--surface); color: var(--text-3); }
+
+    .health-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .health-dot.green { background: var(--green); box-shadow: 0 0 4px rgba(34,197,94,0.4); }
+    .health-dot.yellow { background: var(--yellow); box-shadow: 0 0 4px rgba(234,179,8,0.4); }
+    .health-dot.red { background: var(--red); box-shadow: 0 0 4px rgba(239,68,68,0.4); }
+
+    /* ---- List Items ---- */
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 6px;
+      transition: border-color 0.2s;
+    }
+    .list-item:hover { border-color: var(--border-hover); }
+    .list-item-content { flex: 1; min-width: 0; }
+    .list-item-title { font-size: 13px; font-weight: 600; }
+    .list-item-sub { font-size: 11px; color: var(--text-3); }
+    .list-item-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+    /* ---- Tabs (sub-tabs within views) ---- */
+    .sub-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .sub-tab {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-3);
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: var(--font);
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .sub-tab:hover { color: var(--text-2); }
+    .sub-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .sub-tab .tab-count {
+      font-size: 10px;
+      background: var(--surface);
+      padding: 1px 5px;
+      border-radius: 6px;
+      margin-left: 4px;
+    }
+    .sub-tab.active .tab-count { background: var(--accent-dim); color: var(--accent); }
+
+    /* ---- Empty State ---- */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      text-align: center;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      margin: 20px 0;
+    }
+    .empty-state svg { width: 48px; height: 48px; color: var(--text-3); margin-bottom: 16px; opacity: 0.4; }
+    .empty-state h3 { font-size: 16px; color: var(--text-2); margin-bottom: 8px; }
+    .empty-state p { font-size: 13px; color: var(--text-3); max-width: 400px; line-height: 1.6; }
+    .empty-state code {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+    }
+
+    /* ---- Wizard Steps ---- */
+    .wizard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .wizard-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--accent); }
+    .wizard-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
+    .wizard-num {
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      font-size: 11px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .wizard-num.done { background: var(--green-dim); color: var(--green); }
+    .wizard-num.current { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent); }
+    .wizard-num.pending { background: var(--surface); color: var(--text-3); }
+    .wizard-text { font-size: 13px; }
+    .wizard-text.done { color: var(--text-3); text-decoration: line-through; }
+    .wizard-text.current { color: var(--text-1); font-weight: 600; }
+    .wizard-text.pending { color: var(--text-3); }
+
+    /* ---- Activity Feed ---- */
+    .feed { margin-bottom: 24px; }
+    .feed-item {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .feed-item:last-child { border-bottom: none; }
+    .feed-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .feed-content { flex: 1; }
+    .feed-text { font-size: 13px; }
+    .feed-time { font-size: 11px; color: var(--text-3); }
+
+    /* ---- Priority Indicators ---- */
+    .priority-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .priority-dot.urgent { background: var(--red); }
+    .priority-dot.high { background: var(--orange); }
+    .priority-dot.medium { background: var(--yellow); }
+    .priority-dot.low { background: var(--blue); }
+
+    /* ---- Progress Bar ---- */
+    .progress-bar {
+      height: 4px;
+      background: var(--surface);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ---- Section Divider ---- */
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 24px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ---- Pipeline/Kanban ---- */
+    .pipeline {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .pipeline-col {
+      min-width: 220px;
+      flex: 1;
+    }
+    .pipeline-header {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pipeline-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      transition: border-color 0.2s;
+    }
+    .pipeline-card:hover { border-color: var(--border-hover); }
+    .pipeline-card-title { font-weight: 600; margin-bottom: 4px; }
+    .pipeline-card-meta { color: var(--text-3); font-size: 11px; }
+
+    /* ---- Modules Grid ---- */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 8px;
+    }
+    .module-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .module-name { font-size: 13px; font-weight: 600; flex: 1; }
+    .module-toggle {
+      width: 32px; height: 18px;
+      border-radius: 9px;
+      position: relative;
+      cursor: default;
+    }
+    .module-toggle.on { background: var(--green-dim); }
+    .module-toggle.off { background: var(--surface-active); }
+    .module-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      transition: left 0.2s;
+    }
+    .module-toggle.on::after { left: 16px; background: var(--green); }
+    .module-toggle.off::after { left: 2px; background: var(--text-3); }
+
+    /* ---- Placeholder View ---- */
+    .placeholder-view {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .placeholder-view .placeholder-icon {
+      width: 64px; height: 64px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .placeholder-view .placeholder-icon svg { width: 28px; height: 28px; color: var(--text-3); }
+    .placeholder-view h3 { font-size: 18px; margin-bottom: 8px; }
+    .placeholder-view p { font-size: 13px; color: var(--text-3); max-width: 420px; line-height: 1.6; }
+    .placeholder-view .placeholder-badge {
+      margin-top: 16px;
+      padding: 6px 16px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ---- Score Badge ---- */
+    .score {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .score.high { background: var(--green-dim); color: var(--green); }
+    .score.mid { background: var(--yellow-dim); color: var(--yellow); }
+    .score.low { background: var(--red-dim); color: var(--red); }
+
+    /* ---- Importance ---- */
+    .importance {
+      font-size: 11px;
+      font-weight: 700;
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .importance.high { background: var(--red-dim); color: var(--red); }
+    .importance.mid { background: var(--yellow-dim); color: var(--yellow); }
+    .importance.low { background: var(--green-dim); color: var(--green); }
+
+    /* ---- Workflow Canvas (static illustration) ---- */
+    .workflow-canvas {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .workflow-nodes {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .workflow-node {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .workflow-arrow { color: var(--text-3); font-size: 18px; }
+
+    /* ---- Two Column Layout ---- */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* ---- Mobile ---- */
+    .mobile-sidebar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-2);
+      cursor: pointer;
+      padding: 4px;
+    }
+    .mobile-sidebar-toggle svg { width: 20px; height: 20px; }
+
+    @media (max-width: 768px) {
+      .app {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "topbar"
+          "main";
+      }
+      .sidebar {
+        position: fixed;
+        top: 0; left: 0;
+        width: 260px;
+        height: 100vh;
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.5);
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 99;
+      }
+      .sidebar-overlay.open { display: block; }
+      .mobile-sidebar-toggle { display: flex; }
+      .main { padding: 16px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .toggle-wrap { padding: 4px 10px; }
+      .toggle-label { font-size: 11px; }
+      .pipeline { flex-direction: column; }
+      .pipeline-col { min-width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Banner -->
+<div class="banner">
+  <strong>Interactive Demo</strong> of the BizBrain OS Command Center &mdash; works standalone with Claude Code
+  <span class="sep">|</span>
+  <a href="index.html">&larr; Back to Site</a>
+  <span class="sep">|</span>
+  <a href="demo.html">Simple Demo</a>
+</div>
+
+<!-- App Shell -->
+<div class="app" id="app">
+
+  <!-- TopBar -->
+  <div class="topbar">
+    <button class="mobile-sidebar-toggle" id="mobile-sidebar-toggle" aria-label="Open sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="topbar-brand">
+      <div class="topbar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+      <div>
+        <div class="topbar-name">Command Center</div>
+        <div class="topbar-path">~/business-brain</div>
+      </div>
+    </div>
+
+    <div class="topbar-center">
+      <div class="toggle-wrap" id="state-toggle" title="Toggle between Fresh Install and 6 Months In">
+        <span class="toggle-label fresh dim" id="label-fresh">Fresh Install</span>
+        <div class="toggle-track mature" id="toggle-track">
+          <div class="toggle-thumb mature" id="toggle-thumb"></div>
+        </div>
+        <span class="toggle-label mature" id="label-mature">6 Months In</span>
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <div class="topbar-status" id="topbar-status">
+        <span class="status-dot green" id="status-dot"></span>
+        <span id="status-text">All Systems Go</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Main</div>
+      <a class="sidebar-item active" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a class="sidebar-item" data-view="todos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        Todos
+        <span class="sidebar-badge" id="badge-todos">15</span>
+      </a>
+      <a class="sidebar-item" data-view="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+        Projects
+        <span class="sidebar-badge" id="badge-projects">6</span>
+      </a>
+      <a class="sidebar-item" data-view="entities">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Entities
+        <span class="sidebar-badge" id="badge-entities">42</span>
+      </a>
+      <a class="sidebar-item" data-view="communications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Communications
+        <span class="sidebar-badge" id="badge-comms">7</span>
+      </a>
+      <a class="sidebar-item" data-view="outreach">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Outreach Engine
+      </a>
+      <a class="sidebar-item" data-view="contracts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Contracts
+      </a>
+      <a class="sidebar-item" data-view="products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        Products
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Content</div>
+      <a class="sidebar-item" data-view="content-queue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Content Queue
+      </a>
+      <a class="sidebar-item" data-view="ideas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        Ideas &amp; Pillars
+      </a>
+      <a class="sidebar-item" data-view="calendar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Calendar
+      </a>
+      <a class="sidebar-item" data-view="build-log">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        Build Log
+      </a>
+      <a class="sidebar-item" data-view="autopilot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        Autopilot
+      </a>
+      <a class="sidebar-item" data-view="content-pipeline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Content Pipeline
+        <span class="sidebar-badge" id="badge-content">8</span>
+      </a>
+      <a class="sidebar-item" data-view="analytics">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Analytics
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Development</div>
+      <a class="sidebar-item" data-view="repositories">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        Repositories
+      </a>
+      <a class="sidebar-item" data-view="workflows">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Workflows
+      </a>
+      <a class="sidebar-item" data-view="claude-code">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Claude Code
+      </a>
+      <a class="sidebar-item" data-view="operations">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Operations
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">System</div>
+      <a class="sidebar-item" data-view="modules">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Modules
+        <span class="sidebar-badge" id="badge-modules">27</span>
+      </a>
+      <a class="sidebar-item" data-view="control-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m8.66-15l-5.2 3m-6.92 4l-5.2 3m14.14 0l-5.2-3m-6.92-4l-5.2-3"/></svg>
+        Control Panel
+      </a>
+      <a class="sidebar-item" data-view="ai-dialogue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8m-8 3h6"/></svg>
+        AI Dialogue
+      </a>
+      <a class="sidebar-item" data-view="connections">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+        Connections
+      </a>
+      <a class="sidebar-item" data-view="registries">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        Registries
+      </a>
+      <a class="sidebar-item" data-view="rules">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Rules
+      </a>
+      <a class="sidebar-item" data-view="files">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+        Files
+      </a>
+      <a class="sidebar-item" data-view="intake">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Intake
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Main Content Area -->
+  <main class="main" id="main-content">
+    <!-- Views are rendered by JavaScript -->
+  </main>
+
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const DATA = {
+  fresh: {
+    status: { dot: 'yellow', text: 'Setting up...' },
+    dashboard: {
+      stats: [
+        { label: 'Active Modules', value: '3', sub: 'of 27 available' },
+        { label: 'Entities', value: '0', sub: 'Add your first client' },
+        { label: 'Active Todos', value: '0', sub: 'Nothing yet' },
+        { label: 'Knowledge Files', value: '4', sub: 'Core system files' }
+      ],
+      wizard: {
+        title: 'Getting Started with BizBrain OS',
+        steps: [
+          { num: 1, text: 'Install BizBrain OS', status: 'done' },
+          { num: 2, text: 'Run voice interview (/interview)', status: 'current' },
+          { num: 3, text: 'Add your first client (/bb1 entity add-client)', status: 'pending' },
+          { num: 4, text: 'Enable modules (/bb1 modules)', status: 'pending' }
+        ]
+      },
+      notice: 'BizBrain OS works with Claude Code, Cursor, or any AI coding tool. No additional software required.',
+      feed: []
+    },
+    todos: [],
+    projects: [
+      { name: 'BizBrain OS', color: '#00d4ff', tech: ['Vanilla JS', 'Tauri v2', 'Rust'], health: 'green', phase: 'Setup', desc: 'Your BizBrain OS instance' }
+    ],
+    entities: { clients: [], partners: [], vendors: [] },
+    comms: { inbox: [], followups: [], alerts: [] },
+    content: [],
+    outreach: [],
+    modules: {
+      active: 3,
+      total: 27,
+      list: [
+        { name: 'Entity Watchdog', on: true, category: 'Core' },
+        { name: 'Todo System', on: true, category: 'Core' },
+        { name: 'Knowledge Base', on: true, category: 'Core' },
+        { name: 'Intake System', on: false, category: 'Core' },
+        { name: 'Session Archiver', on: false, category: 'Core' },
+        { name: 'Content Pipeline', on: false, category: 'Content' },
+        { name: 'Content Autopilot', on: false, category: 'Content' },
+        { name: 'Content Calendar', on: false, category: 'Content' },
+        { name: 'Social Campaigns', on: false, category: 'Content' },
+        { name: 'Ideas & Pillars', on: false, category: 'Content' },
+        { name: 'Outreach Engine', on: false, category: 'Comms' },
+        { name: 'Communications Hub', on: false, category: 'Comms' },
+        { name: 'Gmail Integration', on: false, category: 'Comms' },
+        { name: 'Slack Integration', on: false, category: 'Comms' },
+        { name: 'Voice Profiles', on: false, category: 'Comms' },
+        { name: 'Contract Manager', on: false, category: 'Business' },
+        { name: 'Time Tracking', on: false, category: 'Business' },
+        { name: 'Notion Sync', on: false, category: 'Business' },
+        { name: 'Approval Queue', on: false, category: 'Business' },
+        { name: 'GSD System', on: false, category: 'Dev' },
+        { name: 'MCP Manager', on: false, category: 'Dev' },
+        { name: 'Sentinel Monitor', on: false, category: 'Dev' },
+        { name: 'Workflow Engine', on: false, category: 'Dev' },
+        { name: 'Build Log', on: false, category: 'Dev' },
+        { name: 'Spec Writer', on: false, category: 'Dev' },
+        { name: 'Bug Crusher', on: false, category: 'Dev' },
+        { name: 'OpenClaw Integration', on: false, category: 'Optional' }
+      ]
+    }
+  },
+  mature: {
+    status: { dot: 'green', text: 'All Systems Go' },
+    dashboard: {
+      stats: [
+        { label: 'Active Modules', value: '24', sub: 'of 27 running' },
+        { label: 'Entities', value: '42', sub: '14 clients, 8 partners, 20 vendors' },
+        { label: 'Active Todos', value: '15', sub: '3 urgent, 5 high priority' },
+        { label: 'Knowledge Files', value: '186', sub: 'Compounding daily' }
+      ],
+      wizard: null,
+      notice: null,
+      feed: [
+        { color: 'var(--green)', text: 'Meridian CRM deployed to production', time: '12 min ago' },
+        { color: 'var(--accent)', text: 'New lead scored: DataFlow Inc (92/100)', time: '28 min ago' },
+        { color: 'var(--yellow)', text: 'Beacon AI needs attention — 2 failing tests', time: '1 hr ago' },
+        { color: 'var(--blue)', text: 'Content published: "AI Context Layers in 2026"', time: '2 hrs ago' },
+        { color: 'var(--green)', text: 'Acme Corp contract signed ($42,000)', time: '3 hrs ago' },
+        { color: 'var(--accent)', text: 'Entity watchdog: Updated CloudScale primary contact', time: '4 hrs ago' },
+        { color: 'var(--purple)', text: 'Weekly digest generated and sent to Slack', time: '5 hrs ago' },
+        { color: 'var(--green)', text: 'NovaPay Stripe integration verified — all webhooks active', time: '6 hrs ago' }
+      ],
+      extraStats: [
+        { label: 'Hours Today', value: '6.5', sub: 'Across 3 projects' },
+        { label: 'System Health', value: '98%', sub: 'All services connected' },
+        { label: 'Conversations', value: '847', sub: 'Archived & searchable' },
+        { label: 'Uptime', value: '99.9%', sub: 'Last 30 days' }
+      ]
+    },
+    todos: [
+      { title: 'Review Acme Corp proposal', priority: 'urgent', source: 'Client', project: 'Acme Corp', due: 'Today' },
+      { title: 'Fix Beacon AI failing tests', priority: 'urgent', source: 'Project', project: 'Beacon AI', due: 'Today' },
+      { title: 'Deploy Meridian CRM hotfix', priority: 'urgent', source: 'Project', project: 'Meridian CRM', due: 'Today' },
+      { title: 'Send NovaPay invoice', priority: 'high', source: 'Client', project: 'NovaPay', due: 'Tomorrow' },
+      { title: 'Update CloudScale API docs', priority: 'high', source: 'Client', project: 'CloudScale', due: 'Tomorrow' },
+      { title: 'Prepare Atlas Analytics demo', priority: 'high', source: 'Project', project: 'Atlas Analytics', due: 'Wed' },
+      { title: 'Review BlueHorizon partnership terms', priority: 'high', source: 'Partner', project: 'BlueHorizon', due: 'Wed' },
+      { title: 'Schedule TechVentures call', priority: 'high', source: 'Partner', project: 'TechVentures', due: 'Thu' },
+      { title: 'Content review: 3 drafts pending', priority: 'medium', source: 'Content', project: 'Pipeline', due: 'This week' },
+      { title: 'Cascade Docs MDX migration', priority: 'medium', source: 'Project', project: 'Cascade Docs', due: 'This week' },
+      { title: 'Update Vercel environment variables', priority: 'medium', source: 'Ops', project: 'Infrastructure', due: 'This week' },
+      { title: 'Audit AWS spending', priority: 'medium', source: 'Vendor', project: 'AWS', due: 'This week' },
+      { title: 'Refactor BizBrain OS intake system', priority: 'low', source: 'Project', project: 'BizBrain OS', due: 'Next week' },
+      { title: 'Write case study: Zenith Media', priority: 'low', source: 'Content', project: 'Marketing', due: 'Next week' },
+      { title: 'Explore Pinecone alternatives', priority: 'low', source: 'Research', project: 'Beacon AI', due: 'Next week' }
+    ],
+    projects: [
+      { name: 'BizBrain OS', color: '#00d4ff', tech: ['Vanilla JS', 'Tauri v2', 'Rust'], health: 'green', phase: 'Active', desc: 'Core platform — 24 modules running', commits: 342, issues: 3 },
+      { name: 'Meridian CRM', color: '#a855f7', tech: ['Next.js 14', 'Supabase', 'Clerk'], health: 'green', phase: 'Production', desc: 'Full-featured CRM for Acme Corp', commits: 287, issues: 1 },
+      { name: 'Atlas Analytics', color: '#f97316', tech: ['React 19', 'D3.js', 'PostgreSQL'], health: 'green', phase: 'Beta', desc: 'Business intelligence dashboard', commits: 198, issues: 4 },
+      { name: 'Beacon AI', color: '#eab308', tech: ['Python', 'FastAPI', 'LangChain'], health: 'yellow', phase: 'Development', desc: 'AI assistant with RAG — 2 failing tests', commits: 156, issues: 7 },
+      { name: 'NovaPay', color: '#22c55e', tech: ['Next.js 14', 'Stripe', 'Redis'], health: 'green', phase: 'Production', desc: 'Payment processing platform', commits: 234, issues: 0 },
+      { name: 'Cascade Docs', color: '#3b82f6', tech: ['Next.js', 'MDX', 'Contentlayer'], health: 'green', phase: 'Active', desc: 'Documentation platform for clients', commits: 127, issues: 2 }
+    ],
+    entities: {
+      clients: [
+        { name: 'Acme Corp', revenue: '$184K', contacts: 3, lastActive: '12 min ago', health: 'green' },
+        { name: 'DataFlow Inc', revenue: '$92K', contacts: 2, lastActive: '2 hrs ago', health: 'green' },
+        { name: 'CloudScale', revenue: '$76K', contacts: 4, lastActive: '1 day ago', health: 'green' },
+        { name: 'Zenith Media', revenue: '$63K', contacts: 2, lastActive: '3 days ago', health: 'yellow' },
+        { name: 'PrimeLogic', revenue: '$54K', contacts: 1, lastActive: '5 days ago', health: 'yellow' },
+        { name: 'NorthStar', revenue: '$48K', contacts: 3, lastActive: '1 week ago', health: 'yellow' },
+        { name: 'Vertex Labs', revenue: '$42K', contacts: 2, lastActive: '2 hrs ago', health: 'green' },
+        { name: 'SilverPeak AI', revenue: '$38K', contacts: 1, lastActive: '4 days ago', health: 'green' },
+        { name: 'Granite Systems', revenue: '$35K', contacts: 2, lastActive: '6 days ago', health: 'yellow' },
+        { name: 'Apex Digital', revenue: '$31K', contacts: 1, lastActive: '1 day ago', health: 'green' },
+        { name: 'Horizon Tech', revenue: '$28K', contacts: 2, lastActive: '3 days ago', health: 'green' },
+        { name: 'Quantum Works', revenue: '$24K', contacts: 1, lastActive: '5 days ago', health: 'green' },
+        { name: 'Blue Ridge Dev', revenue: '$18K', contacts: 1, lastActive: '1 week ago', health: 'yellow' },
+        { name: 'Coral Analytics', revenue: '$12K', contacts: 1, lastActive: '2 weeks ago', health: 'yellow' }
+      ],
+      partners: [
+        { name: 'TechVentures VC', type: 'Investor', contacts: 2, lastActive: '1 day ago', health: 'green' },
+        { name: 'BlueHorizon Capital', type: 'Investor', contacts: 3, lastActive: '3 days ago', health: 'green' },
+        { name: 'DevConnect Alliance', type: 'Strategic', contacts: 1, lastActive: '5 days ago', health: 'green' },
+        { name: 'CloudFirst Partners', type: 'Reseller', contacts: 2, lastActive: '1 week ago', health: 'yellow' },
+        { name: 'InnoScale Group', type: 'Strategic', contacts: 1, lastActive: '4 days ago', health: 'green' },
+        { name: 'NextWave Labs', type: 'Technology', contacts: 2, lastActive: '2 days ago', health: 'green' },
+        { name: 'Catalyst Ventures', type: 'Investor', contacts: 1, lastActive: '1 week ago', health: 'yellow' },
+        { name: 'Summit360', type: 'Strategic', contacts: 1, lastActive: '6 days ago', health: 'green' }
+      ],
+      vendors: [
+        { name: 'AWS', category: 'Cloud', spend: '$2,400/mo' },
+        { name: 'Vercel', category: 'Hosting', spend: '$240/mo' },
+        { name: 'Anthropic', category: 'AI', spend: '$890/mo' },
+        { name: 'OpenAI', category: 'AI', spend: '$320/mo' },
+        { name: 'Supabase', category: 'Database', spend: '$150/mo' },
+        { name: 'Stripe', category: 'Payments', spend: '$0 (usage)' },
+        { name: 'Clerk', category: 'Auth', spend: '$49/mo' },
+        { name: 'Resend', category: 'Email', spend: '$20/mo' },
+        { name: 'Slack', category: 'Comms', spend: '$78/mo' },
+        { name: 'Notion', category: 'Docs', spend: '$48/mo' },
+        { name: 'GitHub', category: 'Dev', spend: '$44/mo' },
+        { name: 'Sentry', category: 'Monitoring', spend: '$26/mo' },
+        { name: 'Algolia', category: 'Search', spend: '$0 (free)' },
+        { name: 'Redis Cloud', category: 'Cache', spend: '$30/mo' },
+        { name: 'Pinecone', category: 'Vector DB', spend: '$70/mo' },
+        { name: 'Figma', category: 'Design', spend: '$15/mo' },
+        { name: 'Linear', category: 'PM', spend: '$40/mo' },
+        { name: 'Cloudflare', category: 'CDN', spend: '$0 (free)' },
+        { name: 'Twilio', category: 'SMS', spend: '$12/mo' },
+        { name: 'PostHog', category: 'Analytics', spend: '$0 (free)' }
+      ]
+    },
+    comms: {
+      inbox: [
+        { from: 'Tony @ Acme Corp', subject: 'Re: Q1 Proposal Review', importance: 9, time: '10 min ago', entity: 'Acme Corp' },
+        { from: 'Sarah @ DataFlow', subject: 'API integration question', importance: 7, time: '25 min ago', entity: 'DataFlow Inc' },
+        { from: 'Mike @ TechVentures', subject: 'Board meeting follow-up', importance: 8, time: '1 hr ago', entity: 'TechVentures VC' },
+        { from: 'Lisa @ CloudScale', subject: 'New feature request', importance: 6, time: '2 hrs ago', entity: 'CloudScale' },
+        { from: 'Dev @ NorthStar', subject: 'Bug report: Dashboard crash', importance: 8, time: '3 hrs ago', entity: 'NorthStar' },
+        { from: 'Alex @ BlueHorizon', subject: 'Partnership terms draft', importance: 7, time: '4 hrs ago', entity: 'BlueHorizon Capital' },
+        { from: 'Julia @ Zenith', subject: 'Content approval needed', importance: 5, time: '5 hrs ago', entity: 'Zenith Media' }
+      ],
+      followups: [
+        { entity: 'PrimeLogic', subject: 'Waiting for contract sign-off', days: 3, priority: 'high' },
+        { entity: 'Granite Systems', subject: 'Demo scheduling', days: 5, priority: 'medium' },
+        { entity: 'Coral Analytics', subject: 'Onboarding checklist', days: 7, priority: 'low' }
+      ],
+      alerts: [
+        { text: 'Acme Corp contract expires in 14 days', type: 'warning' },
+        { text: 'NorthStar SLA breach: response time > 24h', type: 'error' }
+      ]
+    },
+    content: [
+      { title: 'AI Context Layers in 2026', status: 'published', score: 94, type: 'Blog', date: 'Feb 18' },
+      { title: 'Why Your AI Needs a Memory', status: 'approved', score: 91, type: 'Blog', date: 'Feb 20' },
+      { title: 'BizBrain OS vs. Traditional CRMs', status: 'approved', score: 87, type: 'Comparison', date: 'Feb 21' },
+      { title: 'Case Study: Acme Corp ROI', status: 'draft', score: 82, type: 'Case Study', date: 'Feb 22' },
+      { title: '5 Modules Every Agency Needs', status: 'draft', score: 78, type: 'Listicle', date: 'Feb 23' },
+      { title: 'OpenClaw + BizBrain Workflow', status: 'draft', score: 76, type: 'Tutorial', date: 'Feb 24' },
+      { title: 'Weekly Product Update #23', status: 'scheduled', score: 88, type: 'Newsletter', date: 'Feb 19' },
+      { title: 'Client Onboarding Automation', status: 'scheduled', score: 85, type: 'Guide', date: 'Feb 25' }
+    ],
+    outreach: [
+      { name: 'AI Agency Owners', contacts: 342, sent: 280, replied: 67, rate: '24%', status: 'active' },
+      { name: 'SaaS Founders Q1', contacts: 215, sent: 180, replied: 41, rate: '23%', status: 'active' },
+      { name: 'Dev Tool Reviewers', contacts: 128, sent: 95, replied: 28, rate: '29%', status: 'active' }
+    ],
+    modules: {
+      active: 24,
+      total: 27,
+      list: [
+        { name: 'Entity Watchdog', on: true, category: 'Core' },
+        { name: 'Todo System', on: true, category: 'Core' },
+        { name: 'Knowledge Base', on: true, category: 'Core' },
+        { name: 'Intake System', on: true, category: 'Core' },
+        { name: 'Session Archiver', on: true, category: 'Core' },
+        { name: 'Content Pipeline', on: true, category: 'Content' },
+        { name: 'Content Autopilot', on: true, category: 'Content' },
+        { name: 'Content Calendar', on: true, category: 'Content' },
+        { name: 'Social Campaigns', on: true, category: 'Content' },
+        { name: 'Ideas & Pillars', on: true, category: 'Content' },
+        { name: 'Outreach Engine', on: true, category: 'Comms' },
+        { name: 'Communications Hub', on: true, category: 'Comms' },
+        { name: 'Gmail Integration', on: true, category: 'Comms' },
+        { name: 'Slack Integration', on: true, category: 'Comms' },
+        { name: 'Voice Profiles', on: true, category: 'Comms' },
+        { name: 'Contract Manager', on: true, category: 'Business' },
+        { name: 'Time Tracking', on: true, category: 'Business' },
+        { name: 'Notion Sync', on: true, category: 'Business' },
+        { name: 'Approval Queue', on: true, category: 'Business' },
+        { name: 'GSD System', on: true, category: 'Dev' },
+        { name: 'MCP Manager', on: true, category: 'Dev' },
+        { name: 'Sentinel Monitor', on: true, category: 'Dev' },
+        { name: 'Workflow Engine', on: true, category: 'Dev' },
+        { name: 'Build Log', on: true, category: 'Dev' },
+        { name: 'Spec Writer', on: false, category: 'Dev' },
+        { name: 'Bug Crusher', on: false, category: 'Dev' },
+        { name: 'OpenClaw Integration', on: false, category: 'Optional' }
+      ]
+    }
+  }
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let demoState = 'mature'; // default to impressive state
+let activeView = 'dashboard';
+let activeSubTab = {};
+
+// ============================================================
+// DOM REFS
+// ============================================================
+const $ = id => document.getElementById(id);
+const main = $('main-content');
+const sidebar = $('sidebar');
+const statusDot = $('status-dot');
+const statusText = $('status-text');
+
+// ============================================================
+// TOGGLE
+// ============================================================
+$('state-toggle').addEventListener('click', () => {
+  demoState = demoState === 'fresh' ? 'mature' : 'fresh';
+  updateToggleUI();
+  updateBadges();
+  updateStatus();
+  // Fade transition
+  main.classList.add('fading');
+  setTimeout(() => {
+    renderView(activeView);
+    main.classList.remove('fading');
+  }, 150);
+});
+
+function updateToggleUI() {
+  const isMature = demoState === 'mature';
+  $('toggle-track').className = 'toggle-track' + (isMature ? ' mature' : '');
+  $('toggle-thumb').className = 'toggle-thumb' + (isMature ? ' mature' : '');
+  $('label-fresh').className = 'toggle-label fresh' + (isMature ? ' dim' : '');
+  $('label-mature').className = 'toggle-label mature' + (!isMature ? ' dim' : '');
+}
+
+function updateStatus() {
+  const s = DATA[demoState].status;
+  statusDot.className = 'status-dot ' + s.dot;
+  statusText.textContent = s.text;
+}
+
+function updateBadges() {
+  const d = DATA[demoState];
+  $('badge-todos').textContent = d.todos.length;
+  $('badge-projects').textContent = d.projects.length;
+  const ent = d.entities;
+  $('badge-entities').textContent = ent.clients.length + ent.partners.length + ent.vendors.length;
+  $('badge-comms').textContent = d.comms.inbox.length;
+  $('badge-content').textContent = d.content.length;
+  $('badge-modules').textContent = d.modules.total;
+}
+
+// ============================================================
+// SIDEBAR NAVIGATION
+// ============================================================
+sidebar.addEventListener('click', e => {
+  const item = e.target.closest('.sidebar-item');
+  if (!item) return;
+  const view = item.dataset.view;
+  if (!view) return;
+  // Update active state
+  sidebar.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  item.classList.add('active');
+  activeView = view;
+  renderView(view);
+  // Close mobile sidebar
+  sidebar.classList.remove('open');
+  $('sidebar-overlay').classList.remove('open');
+});
+
+// Mobile sidebar
+$('mobile-sidebar-toggle').addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  $('sidebar-overlay').classList.toggle('open');
+});
+$('sidebar-overlay').addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  $('sidebar-overlay').classList.remove('open');
+});
+
+// ============================================================
+// VIEW RENDERER
+// ============================================================
+function renderView(view) {
+  const d = DATA[demoState];
+  const renderers = {
+    dashboard: () => renderDashboard(d),
+    todos: () => renderTodos(d),
+    projects: () => renderProjects(d),
+    entities: () => renderEntities(d),
+    communications: () => renderComms(d),
+    outreach: () => renderOutreach(d),
+    'content-pipeline': () => renderContentPipeline(d),
+    autopilot: () => renderAutopilot(d),
+    modules: () => renderModules(d),
+    workflows: () => renderWorkflows(d)
+  };
+
+  const renderer = renderers[view];
+  if (renderer) {
+    main.innerHTML = '<div class="view active">' + renderer() + '</div>';
+  } else {
+    main.innerHTML = '<div class="view active">' + renderPlaceholder(view) + '</div>';
+  }
+}
+
+// ============================================================
+// TIER 1 VIEWS
+// ============================================================
+
+function renderDashboard(d) {
+  const dd = d.dashboard;
+  let html = '<div class="view-header"><div><div class="view-title">Dashboard</div><div class="view-subtitle">Overview of your BizBrain OS instance</div></div></div>';
+
+  // Stats
+  html += '<div class="stats-grid">';
+  dd.stats.forEach(s => {
+    html += `<div class="stat-card"><div class="stat-card-label">${s.label}</div><div class="stat-card-value">${s.value}</div><div class="stat-card-sub">${s.sub}</div></div>`;
+  });
+  html += '</div>';
+
+  // Extra stats (mature only)
+  if (dd.extraStats) {
+    html += '<div class="stats-grid">';
+    dd.extraStats.forEach(s => {
+      html += `<div class="stat-card"><div class="stat-card-label">${s.label}</div><div class="stat-card-value">${s.value}</div><div class="stat-card-sub">${s.sub}</div></div>`;
+    });
+    html += '</div>';
+  }
+
+  // Wizard (fresh only)
+  if (dd.wizard) {
+    html += '<div class="wizard"><div class="wizard-title">' + dd.wizard.title + '</div>';
+    dd.wizard.steps.forEach(s => {
+      html += `<div class="wizard-step"><div class="wizard-num ${s.status}">${s.status === 'done' ? '&#10003;' : s.num}</div><div class="wizard-text ${s.status}">${s.text}</div></div>`;
+    });
+    html += '</div>';
+  }
+
+  // Notice (fresh only)
+  if (dd.notice) {
+    html += `<div style="background:var(--accent-dim);border:1px solid rgba(0,212,255,0.15);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text-2);margin-bottom:24px"><span style="color:var(--accent);font-weight:700">Note:</span> ${dd.notice}</div>`;
+  }
+
+  // Activity Feed
+  if (dd.feed.length) {
+    html += '<div class="section-label">Recent Activity</div><div class="feed">';
+    dd.feed.forEach(f => {
+      html += `<div class="feed-item"><div class="feed-dot" style="background:${f.color}"></div><div class="feed-content"><div class="feed-text">${f.text}</div><div class="feed-time">${f.time}</div></div></div>`;
+    });
+    html += '</div>';
+  } else if (demoState === 'fresh') {
+    html += renderEmpty('No activity yet', 'Start by running the voice interview to teach BizBrain OS about your business.', '/interview');
+  }
+
+  return html;
+}
+
+function renderTodos(d) {
+  let html = '<div class="view-header"><div><div class="view-title">Todos</div><div class="view-subtitle">' + d.todos.length + ' active items</div></div>';
+  if (d.todos.length) {
+    html += '<div class="view-actions"><button class="btn-sm accent">+ Add Todo</button><button class="btn-sm">Filter</button></div>';
+  }
+  html += '</div>';
+
+  if (!d.todos.length) {
+    return html + renderEmpty('No todos yet', 'Run /intake to process files and extract action items, or add todos manually.', '/bb1 todo add "My first task"');
+  }
+
+  // Group by priority
+  const groups = { urgent: [], high: [], medium: [], low: [] };
+  d.todos.forEach(t => groups[t.priority].push(t));
+
+  ['urgent', 'high', 'medium', 'low'].forEach(p => {
+    if (!groups[p].length) return;
+    const label = p.charAt(0).toUpperCase() + p.slice(1);
+    const colors = { urgent: 'red', high: 'orange', medium: 'yellow', low: 'blue' };
+    html += `<div class="section-label">${label} (${groups[p].length})</div>`;
+    groups[p].forEach(t => {
+      html += `<div class="list-item"><div class="priority-dot ${p}"></div><div class="list-item-content"><div class="list-item-title">${t.title}</div><div class="list-item-sub">${t.project} &middot; ${t.due}</div></div><div class="list-item-right"><span class="tag ${colors[p]}">${t.source}</span></div></div>`;
+    });
+  });
+
+  return html;
+}
+
+function renderProjects(d) {
+  let html = '<div class="view-header"><div><div class="view-title">Projects</div><div class="view-subtitle">' + d.projects.length + ' project' + (d.projects.length !== 1 ? 's' : '') + '</div></div>';
+  html += '<div class="view-actions"><button class="btn-sm accent">+ New Project</button><button class="btn-sm green">Refresh All</button></div></div>';
+
+  if (d.projects.length <= 1 && demoState === 'fresh') {
+    html += `<div style="background:var(--accent-dim);border:1px solid rgba(0,212,255,0.15);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text-2);margin-bottom:20px"><span style="color:var(--accent);font-weight:700">Tip:</span> Add projects by pointing BizBrain OS at your code repos. Run <code style="background:var(--surface);padding:2px 6px;border-radius:4px;font-family:var(--mono);color:var(--accent)">/bb1 project add ~/Repos/my-app</code></div>`;
+  }
+
+  html += '<div class="cards-grid">';
+  d.projects.forEach(p => {
+    const dimColor = p.color + '18';
+    html += `<div class="card" style="border-left:3px solid ${p.color}">
+      <div class="card-header">
+        <div class="card-title" style="color:${p.color}">${p.name}</div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="health-dot ${p.health}"></span><span class="tag gray">${p.phase}</span></div>
+      </div>
+      <div class="card-desc">${p.desc}</div>
+      <div class="card-tags">${p.tech.map(t => `<span class="tag" style="background:${dimColor};color:${p.color}">${t}</span>`).join('')}</div>
+      ${p.commits ? `<div style="display:flex;gap:16px;margin-top:10px;font-size:11px;color:var(--text-3)"><span>${p.commits} commits</span><span>${p.issues} open issues</span></div>` : ''}
+    </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderEntities(d) {
+  const ent = d.entities;
+  const total = ent.clients.length + ent.partners.length + ent.vendors.length;
+  const tab = activeSubTab.entities || 'clients';
+
+  let html = '<div class="view-header"><div><div class="view-title">Entities</div><div class="view-subtitle">' + total + ' total across all categories</div></div>';
+  html += '<div class="view-actions"><button class="btn-sm accent">+ Add Entity</button></div></div>';
+
+  // Sub-tabs
+  html += '<div class="sub-tabs">';
+  html += `<button class="sub-tab ${tab === 'clients' ? 'active' : ''}" onclick="switchSubTab('entities','clients')">Clients <span class="tab-count">${ent.clients.length}</span></button>`;
+  html += `<button class="sub-tab ${tab === 'partners' ? 'active' : ''}" onclick="switchSubTab('entities','partners')">Partners <span class="tab-count">${ent.partners.length}</span></button>`;
+  html += `<button class="sub-tab ${tab === 'vendors' ? 'active' : ''}" onclick="switchSubTab('entities','vendors')">Vendors <span class="tab-count">${ent.vendors.length}</span></button>`;
+  html += '</div>';
+
+  if (tab === 'clients') {
+    if (!ent.clients.length) {
+      html += renderEmpty('No clients yet', 'Entity Watchdog automatically detects clients from your conversations, or add them manually.', '/bb1 entity add-client "Company Name"');
+    } else {
+      html += '<div class="cards-grid">';
+      ent.clients.forEach(c => {
+        html += `<div class="card"><div class="card-header"><div class="card-title">${c.name}</div><span class="health-dot ${c.health}"></span></div><div style="display:flex;gap:16px;font-size:12px;color:var(--text-3);margin-top:4px"><span>Revenue: <strong style="color:var(--green)">${c.revenue}</strong></span><span>${c.contacts} contacts</span></div><div style="font-size:11px;color:var(--text-3);margin-top:6px">Last active: ${c.lastActive}</div></div>`;
+      });
+      html += '</div>';
+    }
+  } else if (tab === 'partners') {
+    if (!ent.partners.length) {
+      html += renderEmpty('No partners yet', 'Track strategic partnerships, investors, and alliance partners.', '/bb1 entity add-partner "Partner Name"');
+    } else {
+      html += '<div class="cards-grid">';
+      ent.partners.forEach(p => {
+        html += `<div class="card"><div class="card-header"><div class="card-title">${p.name}</div><span class="health-dot ${p.health}"></span></div><div style="font-size:12px;color:var(--text-3);margin-top:4px"><span class="tag blue">${p.type}</span> &middot; ${p.contacts} contacts</div><div style="font-size:11px;color:var(--text-3);margin-top:6px">Last active: ${p.lastActive}</div></div>`;
+      });
+      html += '</div>';
+    }
+  } else if (tab === 'vendors') {
+    if (!ent.vendors.length) {
+      html += renderEmpty('No vendors tracked', 'Track your SaaS subscriptions, cloud providers, and service vendors.', '/bb1 entity add-vendor "Vendor Name"');
+    } else {
+      ent.vendors.forEach(v => {
+        html += `<div class="list-item"><div class="list-item-content"><div class="list-item-title">${v.name}</div><div class="list-item-sub">${v.category}</div></div><div class="list-item-right"><span style="font-size:12px;color:var(--text-2);font-family:var(--mono)">${v.spend}</span></div></div>`;
+      });
+    }
+  }
+
+  return html;
+}
+
+function renderComms(d) {
+  const c = d.comms;
+  const tab = activeSubTab.communications || 'inbox';
+
+  let html = '<div class="view-header"><div><div class="view-title">Communications Hub</div><div class="view-subtitle">Unified messaging across all channels</div></div></div>';
+
+  html += '<div class="sub-tabs">';
+  html += `<button class="sub-tab ${tab === 'inbox' ? 'active' : ''}" onclick="switchSubTab('communications','inbox')">Inbox <span class="tab-count">${c.inbox.length}</span></button>`;
+  html += `<button class="sub-tab ${tab === 'followups' ? 'active' : ''}" onclick="switchSubTab('communications','followups')">Follow-Ups <span class="tab-count">${c.followups.length}</span></button>`;
+  html += `<button class="sub-tab ${tab === 'alerts' ? 'active' : ''}" onclick="switchSubTab('communications','alerts')">Alerts <span class="tab-count">${c.alerts.length}</span></button>`;
+  html += '</div>';
+
+  if (tab === 'inbox') {
+    if (!c.inbox.length) {
+      html += renderEmpty('No messages yet', 'Connect your first communication channel to start receiving unified messages.', '/bb1 comms connect');
+    } else {
+      c.inbox.forEach(m => {
+        const impClass = m.importance >= 8 ? 'high' : m.importance >= 6 ? 'mid' : 'low';
+        html += `<div class="list-item"><div class="importance ${impClass}">${m.importance}</div><div class="list-item-content"><div class="list-item-title">${m.subject}</div><div class="list-item-sub">${m.from} &middot; ${m.time}</div></div><div class="list-item-right"><span class="tag accent">${m.entity}</span></div></div>`;
+      });
+    }
+  } else if (tab === 'followups') {
+    if (!c.followups.length) {
+      html += renderEmpty('No follow-ups pending', 'Follow-ups are automatically created when messages need a response.');
+    } else {
+      c.followups.forEach(f => {
+        const colors = { high: 'red', medium: 'yellow', low: 'blue' };
+        html += `<div class="list-item"><div class="list-item-content"><div class="list-item-title">${f.subject}</div><div class="list-item-sub">${f.entity} &middot; ${f.days} days waiting</div></div><div class="list-item-right"><span class="tag ${colors[f.priority]}">${f.priority}</span></div></div>`;
+      });
+    }
+  } else if (tab === 'alerts') {
+    if (!c.alerts.length) {
+      html += renderEmpty('No alerts', 'Alerts appear when SLAs are at risk or contracts are expiring.');
+    } else {
+      c.alerts.forEach(a => {
+        const color = a.type === 'error' ? 'red' : 'yellow';
+        html += `<div class="list-item" style="border-left:3px solid var(--${color})"><div class="list-item-content"><div class="list-item-title">${a.text}</div></div><div class="list-item-right"><span class="tag ${color}">${a.type}</span></div></div>`;
+      });
+    }
+  }
+
+  return html;
+}
+
+function renderContentPipeline(d) {
+  let html = '<div class="view-header"><div><div class="view-title">Content Pipeline</div><div class="view-subtitle">Draft, review, and publish content</div></div>';
+  if (d.content.length) {
+    html += '<div class="view-actions"><button class="btn-sm accent">+ New Draft</button><button class="btn-sm">Filter</button></div>';
+  }
+  html += '</div>';
+
+  if (!d.content.length) {
+    return html + renderEmpty('Content pipeline is empty', 'Set up RSS feeds, connect your blog, and start creating content that compounds.', '/bb1 content setup');
+  }
+
+  // Group by status
+  const groups = { draft: [], approved: [], scheduled: [], published: [] };
+  d.content.forEach(c => groups[c.status].push(c));
+
+  html += '<div class="pipeline">';
+  [
+    { key: 'draft', label: 'Drafts', bg: 'var(--yellow-dim)' },
+    { key: 'approved', label: 'Approved', bg: 'var(--blue-dim)' },
+    { key: 'scheduled', label: 'Scheduled', bg: 'var(--purple-dim)' },
+    { key: 'published', label: 'Published', bg: 'var(--green-dim)' }
+  ].forEach(col => {
+    html += `<div class="pipeline-col"><div class="pipeline-header" style="background:${col.bg}">${col.label} <span>${groups[col.key].length}</span></div>`;
+    groups[col.key].forEach(c => {
+      const scoreClass = c.score >= 90 ? 'high' : c.score >= 80 ? 'mid' : 'low';
+      html += `<div class="pipeline-card"><div class="pipeline-card-title">${c.title}</div><div class="pipeline-card-meta" style="display:flex;justify-content:space-between;margin-top:6px"><span class="tag gray">${c.type}</span><span class="score ${scoreClass}">${c.score}%</span></div><div class="pipeline-card-meta">${c.date}</div></div>`;
+    });
+    html += '</div>';
+  });
+  html += '</div>';
+
+  return html;
+}
+
+// ============================================================
+// TIER 2 VIEWS
+// ============================================================
+
+function renderOutreach(d) {
+  let html = '<div class="view-header"><div><div class="view-title">Outreach Engine</div><div class="view-subtitle">Manage campaigns and track engagement</div></div></div>';
+
+  if (!d.outreach.length) {
+    return html + renderEmpty('No campaigns yet', 'Create your first outreach campaign to start reaching potential clients.', '/bb1 outreach new "Campaign Name"');
+  }
+
+  html += '<div class="cards-grid">';
+  d.outreach.forEach(c => {
+    html += `<div class="card">
+      <div class="card-header"><div class="card-title">${c.name}</div><span class="tag green">${c.status}</span></div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px">
+        <div><div style="font-size:11px;color:var(--text-3)">Contacts</div><div style="font-size:18px;font-weight:700">${c.contacts}</div></div>
+        <div><div style="font-size:11px;color:var(--text-3)">Sent</div><div style="font-size:18px;font-weight:700">${c.sent}</div></div>
+        <div><div style="font-size:11px;color:var(--text-3)">Replied</div><div style="font-size:18px;font-weight:700;color:var(--green)">${c.replied}</div></div>
+        <div><div style="font-size:11px;color:var(--text-3)">Reply Rate</div><div style="font-size:18px;font-weight:700;color:var(--accent)">${c.rate}</div></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${Math.round(c.sent/c.contacts*100)}%;background:var(--accent)"></div></div>
+    </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderAutopilot(d) {
+  let html = '<div class="view-header"><div><div class="view-title">Content Autopilot</div><div class="view-subtitle">Automated content creation pipeline</div></div></div>';
+
+  if (demoState === 'fresh') {
+    return html + renderEmpty('Autopilot is not active', 'Enable the Content Autopilot module to automatically generate, score, and publish content.', '/bb1 modules enable content-autopilot');
+  }
+
+  // Pipeline visualization
+  const stages = [
+    { name: 'Harvest', desc: 'Scan sources for topics', count: 12, color: 'var(--blue)' },
+    { name: 'Score', desc: 'AI relevance scoring', count: 8, color: 'var(--yellow)' },
+    { name: 'Generate', desc: 'Draft content', count: 5, color: 'var(--purple)' },
+    { name: 'Review', desc: 'Quality check', count: 3, color: 'var(--orange)' },
+    { name: 'Publish', desc: 'Deploy to channels', count: 2, color: 'var(--green)' }
+  ];
+
+  html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;flex-wrap:wrap;justify-content:center">';
+  stages.forEach((s, i) => {
+    html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;text-align:center;min-width:140px;flex:1">
+      <div style="font-size:24px;font-weight:800;color:${s.color}">${s.count}</div>
+      <div style="font-size:13px;font-weight:700;margin-top:4px">${s.name}</div>
+      <div style="font-size:11px;color:var(--text-3)">${s.desc}</div>
+    </div>`;
+    if (i < stages.length - 1) html += '<div style="color:var(--text-3);font-size:20px;flex-shrink:0">&rarr;</div>';
+  });
+  html += '</div>';
+
+  html += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--text-2)"><span style="color:var(--green);font-weight:700">Active:</span> Autopilot is running. Next publish cycle in 4 hours. Last published: "AI Context Layers in 2026" (94% quality score).</div>';
+  return html;
+}
+
+function renderModules(d) {
+  const m = d.modules;
+  let html = '<div class="view-header"><div><div class="view-title">Modules</div><div class="view-subtitle">' + m.active + ' of ' + m.total + ' modules active</div></div></div>';
+
+  // Progress
+  html += `<div style="margin-bottom:24px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--text-3)">Module Activation</span><span style="color:var(--accent);font-weight:600">${Math.round(m.active/m.total*100)}%</span></div><div class="progress-bar" style="height:6px"><div class="progress-fill" style="width:${Math.round(m.active/m.total*100)}%;background:var(--accent)"></div></div></div>`;
+
+  // Group by category
+  const cats = {};
+  m.list.forEach(mod => {
+    if (!cats[mod.category]) cats[mod.category] = [];
+    cats[mod.category].push(mod);
+  });
+
+  Object.keys(cats).forEach(cat => {
+    html += `<div class="section-label">${cat}</div><div class="modules-grid">`;
+    cats[cat].forEach(mod => {
+      const isOptional = mod.category === 'Optional';
+      html += `<div class="module-item"><div class="module-name">${mod.name}</div>${isOptional ? '<span class="tag gray">Optional</span>' : ''}<div class="module-toggle ${mod.on ? 'on' : 'off'}"></div></div>`;
+    });
+    html += '</div>';
+  });
+
+  return html;
+}
+
+function renderWorkflows(d) {
+  let html = '<div class="view-header"><div><div class="view-title">Workflows</div><div class="view-subtitle">Node-based automation canvas</div></div></div>';
+
+  if (demoState === 'fresh') {
+    return html + renderEmpty('No workflows yet', 'Create automated workflows to connect your modules and streamline operations.', '/bb1 workflow new');
+  }
+
+  html += '<div class="workflow-canvas"><div style="font-size:13px;color:var(--text-3);margin-bottom:20px">Example: Client Onboarding Workflow</div><div class="workflow-nodes">';
+
+  const nodes = ['New Client Added', 'Create Folders', 'Send Welcome Email', 'Schedule Kickoff', 'Add to CRM', 'Start Time Tracking'];
+  nodes.forEach((n, i) => {
+    html += `<div class="workflow-node">${n}</div>`;
+    if (i < nodes.length - 1) html += '<div class="workflow-arrow">&rarr;</div>';
+  });
+
+  html += '</div><div style="margin-top:20px;font-size:12px;color:var(--text-3)">3 active workflows &middot; 847 total executions &middot; 99.2% success rate</div></div>';
+  return html;
+}
+
+// ============================================================
+// PLACEHOLDER VIEW (Tier 3)
+// ============================================================
+
+const placeholderInfo = {
+  contracts: { icon: 'file-text', title: 'Contract Manager', desc: 'Generate, track, and manage e-signatures for client contracts. Supports PDF generation and DocuSign integration.' },
+  products: { icon: 'package', title: 'Products & Services', desc: 'Manage your product catalog, pricing tiers, and service offerings with Stripe integration.' },
+  'content-queue': { icon: 'list', title: 'Content Queue', desc: 'Review and prioritize content items awaiting approval before entering the pipeline.' },
+  ideas: { icon: 'lightbulb', title: 'Ideas & Pillars', desc: 'Organize content ideas around core pillars. AI suggests topics based on your audience and trending themes.' },
+  calendar: { icon: 'calendar', title: 'Content Calendar', desc: 'Visual calendar view of all scheduled content across platforms — blog, social, email, and more.' },
+  'build-log': { icon: 'terminal', title: 'Build Log', desc: 'Chronological log of all development activity across projects — commits, deployments, and CI/CD runs.' },
+  analytics: { icon: 'bar-chart', title: 'Analytics', desc: 'Unified analytics dashboard combining content performance, outreach metrics, and business KPIs.' },
+  repositories: { icon: 'git-branch', title: 'Repositories', desc: 'View all connected Git repositories, their Claude Code configurations, and deployment status.' },
+  'claude-code': { icon: 'monitor', title: 'Claude Code', desc: 'Manage Claude Code configurations, CLAUDE.md files, slash commands, hooks, and agents per project.' },
+  operations: { icon: 'settings', title: 'Operations', desc: 'System operations including backups, snapshots, rollbacks, and configuration management.' },
+  'control-panel': { icon: 'sliders', title: 'Control Panel', desc: 'Fine-tune system behavior, notification preferences, and integration settings.' },
+  'ai-dialogue': { icon: 'message-circle', title: 'AI Dialogue', desc: 'Direct conversation interface with your BizBrain OS — ask questions, run commands, and explore your data.' },
+  connections: { icon: 'link', title: 'Connections', desc: 'Manage all external service connections. Claude Code: Connected. OpenClaw: Compatible (optional).' },
+  registries: { icon: 'database', title: 'Registries', desc: 'Centralized registries for projects, entities, MCP servers, API keys, and deployment configurations.' },
+  rules: { icon: 'shield', title: 'Rules', desc: 'Define business rules, SLA thresholds, notification triggers, and automated response policies.' },
+  files: { icon: 'file', title: 'File Browser', desc: 'Browse and search your BizBrain OS file structure — knowledge base, intake dumps, entity records, and more.' },
+  intake: { icon: 'download', title: 'Intake System', desc: 'Process incoming files, voice notes, emails, and documents. AI extracts entities, action items, and knowledge.' }
+};
+
+function renderPlaceholder(view) {
+  const info = placeholderInfo[view] || { title: view, desc: 'This view manages additional BizBrain OS functionality.' };
+  return `<div class="placeholder-view">
+    <div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+    <h3>${info.title}</h3>
+    <p>${info.desc}</p>
+    <div class="placeholder-badge">Available in BizBrain OS</div>
+  </div>`;
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+
+function renderEmpty(title, desc, cmd) {
+  return `<div class="empty-state">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+    <h3>${title}</h3>
+    <p>${desc}</p>
+    ${cmd ? `<code>${cmd}</code>` : ''}
+  </div>`;
+}
+
+function switchSubTab(view, tab) {
+  activeSubTab[view] = tab;
+  renderView(view);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+updateToggleUI();
+updateBadges();
+updateStatus();
+renderView('dashboard');
+</script>
+</body>
+</html>
