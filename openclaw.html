@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BizBrain OS + OpenClaw &mdash; The Perfect Combination</title>
+  <meta name="description" content="BizBrain OS is the context layer. OpenClaw is the action layer. Together they create an AI employee that knows your business and acts on it autonomously.">
+  <meta property="og:title" content="BizBrain OS + OpenClaw &mdash; The Perfect Combination">
+  <meta property="og:description" content="The brain and the hands. BizBrain OS provides the knowledge, OpenClaw provides the action.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/logo-full.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/logo-icon.png">
+  <link rel="apple-touch-icon" href="images/logo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Page-specific styles */
+    .oc-hero {
+      padding: 140px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .oc-hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(ellipse, rgba(239,68,68,0.08) 0%, rgba(0,212,255,0.08) 50%, transparent 70%);
+      pointer-events: none;
+    }
+    .oc-hero-title {
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+    .oc-hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .oc-plus {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .oc-plus-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+    .oc-plus-bizbrain { background: rgba(0,212,255,0.12); border: 2px solid rgba(0,212,255,0.3); color: #00d4ff; }
+    .oc-plus-openclaw { background: rgba(239,68,68,0.12); border: 2px solid rgba(239,68,68,0.3); color: #ef4444; }
+    .oc-plus-sign { font-size: 2rem; color: var(--text-tertiary); font-weight: 300; }
+
+    /* Metaphor section */
+    .metaphor-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+    .metaphor-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      text-align: center;
+    }
+    .metaphor-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .metaphor-card .metaphor-role {
+      font-size: 0.9rem;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+    .metaphor-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .metaphor-bizbrain { border-top: 3px solid #00d4ff; }
+    .metaphor-openclaw { border-top: 3px solid #ef4444; }
+    .metaphor-equals {
+      text-align: center;
+    }
+    .metaphor-equals-sign {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-tertiary);
+    }
+    .metaphor-result {
+      background: linear-gradient(135deg, rgba(0,212,255,0.06), rgba(239,68,68,0.06));
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .metaphor-result h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .metaphor-result p { color: var(--text-secondary); line-height: 1.7; }
+
+    /* Comparison table */
+    .compare-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 80px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .compare-table th,
+    .compare-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table thead th {
+      background: var(--bg-tertiary);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+    .compare-table thead th:first-child { width: 35%; }
+    .compare-table tbody td {
+      background: var(--bg-card);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .compare-table tbody tr:last-child td { border-bottom: none; }
+    .compare-table .col-bizbrain { color: #00d4ff; font-weight: 600; }
+    .compare-table .col-openclaw { color: #ef4444; font-weight: 600; }
+    .compare-table .col-combined { color: #22c55e; font-weight: 600; }
+    .compare-check { color: #22c55e; font-weight: 700; }
+    .compare-x { color: var(--text-muted); }
+
+    /* Use cases */
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+    .usecase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all 0.3s ease;
+    }
+    .usecase-card:hover {
+      border-color: rgba(0,212,255,0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .usecase-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-family: var(--font-heading);
+    }
+    .usecase-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .usecase-step {
+      display: flex;
+      gap: 10px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    .usecase-step-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .step-brain { background: rgba(0,212,255,0.15); color: #00d4ff; }
+    .step-claw { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+    /* Timeline */
+    .timeline-section { margin-bottom: 80px; }
+    .timeline {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #00d4ff, #ef4444);
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 56px;
+      margin-bottom: 40px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 12px;
+      top: 4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid;
+      background: var(--bg-primary);
+    }
+    .timeline-item h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .timeline-item p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .oc-cta {
+      text-align: center;
+      padding: 80px 0;
+      background: linear-gradient(180deg, transparent, rgba(0,212,255,0.03));
+    }
+    .oc-cta h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .oc-cta p {
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      font-size: 1.05rem;
+    }
+    .oc-cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .metaphor-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .metaphor-equals-sign { transform: rotate(90deg); }
+      .compare-table { font-size: 0.8rem; }
+      .compare-table th, .compare-table td { padding: 10px 12px; }
+      .usecase-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo-icon.png" alt="BizBrain OS" class="logo-icon" width="32" height="32">
+        <span class="logo-text">BizBrain<span class="logo-accent">OS</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html#features" class="nav-link">Features</a>
+        <a href="index.html#openclaw" class="nav-link">OpenClaw</a>
+        <a href="install.html" class="nav-link">Install Guide</a>
+        <a href="demo.html" class="nav-link">Demo</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="oc-hero">
+    <div class="container">
+      <div class="oc-plus">
+        <div class="oc-plus-logo oc-plus-bizbrain">
+          <img src="images/logo-icon-white.png" alt="BizBrain OS" width="36" height="36">
+        </div>
+        <span class="oc-plus-sign">+</span>
+        <div class="oc-plus-logo oc-plus-openclaw">
+          <span>OC</span>
+        </div>
+      </div>
+      <h1 class="oc-hero-title">
+        The <span style="color:#00d4ff">Brain</span> + The <span style="color:#ef4444">Hands</span><br>
+        = Your AI Employee
+      </h1>
+      <p class="oc-hero-sub">
+        BizBrain OS gives AI the deep, structured understanding of your business.
+        OpenClaw gives AI the ability to act autonomously on your behalf.
+        Together, they create something neither can do alone &mdash; an AI employee that knows everything and can do anything.
+      </p>
+    </div>
+  </section>
+
+  <!-- Brain + Hands Metaphor -->
+  <section class="section">
+    <div class="container">
+      <div class="metaphor-grid">
+        <div class="metaphor-card metaphor-bizbrain">
+          <div class="metaphor-role" style="color:#00d4ff">The Brain</div>
+          <h3 style="color:#00d4ff">BizBrain OS</h3>
+          <p>Structured context about your clients, projects, history, workflows, brand voice, and business relationships. Knows everything. Remembers everything. Compounds daily.</p>
+        </div>
+        <div class="metaphor-equals">
+          <div class="metaphor-equals-sign">+</div>
+        </div>
+        <div class="metaphor-card metaphor-openclaw">
+          <div class="metaphor-role" style="color:#ef4444">The Hands</div>
+          <h3 style="color:#ef4444">OpenClaw</h3>
+          <p>Autonomous AI agent that can browse the web, manage files, send messages, book flights, clear your inbox, and execute tasks across any platform. Does everything.</p>
+        </div>
+      </div>
+      <div class="metaphor-result">
+        <div class="metaphor-role" style="color:#22c55e;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:8px">The Result</div>
+        <h3>An AI Employee That Knows Your Business</h3>
+        <p>OpenClaw alone is powerful but generic &mdash; it doesn't know your clients, your preferences, or your history.<br>
+        BizBrain OS alone is knowledgeable but passive &mdash; it stores context but can't act on it.<br>
+        <strong>Together, they're unstoppable.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Comparison Table -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Side by Side</span>
+        <h2 class="section-title">Feature Comparison</h2>
+        <p class="section-desc">See exactly what each tool brings to the table &mdash; and why the combination is greater than the sum.</p>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th class="col-bizbrain">BizBrain OS</th>
+            <th class="col-openclaw">OpenClaw</th>
+            <th class="col-combined">Both Together</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Knows your clients &amp; their preferences</td>
+            <td><span class="compare-check">Yes</span></td>
+            <td><span class="compare-x">&mdash;</span></td>
+            <td><span class="compare-check">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Sends emails &amp; messages autonomously</td>
+            <td><span class="compare-x">&mdash;</span></td>
+            <td><span class="compare-check">Yes</span></td>
+            <td><span class="compare-check">Yes, in your voice</span></td>
+          </tr>
+          <tr>
+            <td>Remembers past decisions &amp; context</td>
+            <td><span class="compare-check">Yes</span></td>
+            <td><span class="compare-x">Session only</span></td>
+            <td><span class="compare-check">Persistent forever</span></td>
+          </tr>
+          <tr>
+            <td>Browses web &amp; executes commands</td>
+            <td><span class="compare-x">&mdash;</span></td>
+            <td><span class="compare-check">Yes</span></td>
+            <td><span class="compare-check">Yes, with context</span></td>
+          </tr>
+          <tr>
+            <td>Tracks time, projects, entities</td>
+            <td><span class="compare-check">27+ modules</span></td>
+            <td><span class="compare-x">&mdash;</span></td>
+            <td><span class="compare-check">Full suite</span></td>
+          </tr>
+          <tr>
+            <td>Drafts content in your brand voice</td>
+            <td><span class="compare-check">Knows your voice</span></td>
+            <td><span class="compare-x">Generic</span></td>
+            <td><span class="compare-check">Writes &amp; publishes in your voice</span></td>
+          </tr>
+          <tr>
+            <td>Books flights &amp; reservations</td>
+            <td><span class="compare-x">&mdash;</span></td>
+            <td><span class="compare-check">Yes</span></td>
+            <td><span class="compare-check">Yes, knowing your preferences</span></td>
+          </tr>
+          <tr>
+            <td>Manages WhatsApp, Slack, Telegram</td>
+            <td><span class="compare-x">&mdash;</span></td>
+            <td><span class="compare-check">Yes</span></td>
+            <td><span class="compare-check">Yes, with entity awareness</span></td>
+          </tr>
+          <tr>
+            <td>Onboards new team members</td>
+            <td><span class="compare-check">Knowledge base</span></td>
+            <td><span class="compare-x">&mdash;</span></td>
+            <td><span class="compare-check">Full context + guided actions</span></td>
+          </tr>
+          <tr>
+            <td>Compounds over time</td>
+            <td><span class="compare-check">Every day</span></td>
+            <td><span class="compare-x">&mdash;</span></td>
+            <td><span class="compare-check">Knowledge + capability grow together</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Real-World Use Cases -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Real Workflows</span>
+        <h2 class="section-title">What This Actually Looks Like</h2>
+        <p class="section-desc">Here's how the Brain + Hands combination transforms your daily operations.</p>
+      </div>
+      <div class="usecase-grid">
+        <div class="usecase-card">
+          <h4>Morning Briefing</h4>
+          <div class="usecase-flow">
+            <div class="usecase-step"><span class="usecase-step-icon step-brain">B</span><span>BizBrain knows your 3 active projects, deadlines, client preferences, and yesterday's progress</span></div>
+            <div class="usecase-step"><span class="usecase-step-icon step-claw">O</span><span>OpenClaw compiles a priority list, drafts status updates, and sends them to clients on Slack</span></div>
+          </div>
+        </div>
+        <div class="usecase-card">
+          <h4>Client Onboarding</h4>
+          <div class="usecase-flow">
+            <div class="usecase-step"><span class="usecase-step-icon step-brain">B</span><span>BizBrain knows your onboarding workflow, contract templates, and intake questionnaire</span></div>
+            <div class="usecase-step"><span class="usecase-step-icon step-claw">O</span><span>OpenClaw sends welcome email, creates project folder, schedules kickoff call, and generates the invoice</span></div>
+          </div>
+        </div>
+        <div class="usecase-card">
+          <h4>Content Creation</h4>
+          <div class="usecase-flow">
+            <div class="usecase-step"><span class="usecase-step-icon step-brain">B</span><span>BizBrain knows your brand voice, audience, past content performance, and client success stories</span></div>
+            <div class="usecase-step"><span class="usecase-step-icon step-claw">O</span><span>OpenClaw writes a blog post, creates social snippets, and publishes across LinkedIn, Twitter, and your site</span></div>
+          </div>
+        </div>
+        <div class="usecase-card">
+          <h4>Inbox Management</h4>
+          <div class="usecase-flow">
+            <div class="usecase-step"><span class="usecase-step-icon step-brain">B</span><span>BizBrain knows who's a VIP client, what projects are active, and your communication preferences</span></div>
+            <div class="usecase-step"><span class="usecase-step-icon step-claw">O</span><span>OpenClaw triages your inbox, drafts replies in your tone, flags urgent items, and archives noise</span></div>
+          </div>
+        </div>
+        <div class="usecase-card">
+          <h4>Travel Booking</h4>
+          <div class="usecase-flow">
+            <div class="usecase-step"><span class="usecase-step-icon step-brain">B</span><span>BizBrain knows your airline preference, seat choice, dietary restrictions, hotel loyalty program, and calendar</span></div>
+            <div class="usecase-step"><span class="usecase-step-icon step-claw">O</span><span>OpenClaw finds flights, books your preferred seat, reserves a hotel near the meeting location, and adds to calendar</span></div>
+          </div>
+        </div>
+        <div class="usecase-card">
+          <h4>Weekly Reporting</h4>
+          <div class="usecase-flow">
+            <div class="usecase-step"><span class="usecase-step-icon step-brain">B</span><span>BizBrain has tracked every hour, every commit, every client interaction, every invoice this week</span></div>
+            <div class="usecase-step"><span class="usecase-step-icon step-claw">O</span><span>OpenClaw generates client-ready reports, updates your dashboard, and sends summaries to stakeholders</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Journey Timeline -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">The Journey</span>
+        <h2 class="section-title">What Happens When You Combine Them</h2>
+      </div>
+      <div class="timeline-section">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color:#00d4ff"></div>
+            <h4>Day 1 &mdash; Install Both</h4>
+            <p>Set up BizBrain OS with <code>npx create-bizbrain</code>. Install OpenClaw from <a href="https://openclaw.ai" target="_blank" style="color:#ef4444">openclaw.ai</a>. Connect them through your CLAUDE.md.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color:#3b82f6"></div>
+            <h4>Week 1 &mdash; Context Builds</h4>
+            <p>BizBrain captures your clients, projects, and workflows. OpenClaw starts handling simple tasks with that context &mdash; drafting emails in the right tone, scheduling with the right priorities.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color:#8b5cf6"></div>
+            <h4>Month 1 &mdash; Patterns Emerge</h4>
+            <p>BizBrain knows your communication style, client preferences, and decision patterns. OpenClaw autonomously handles morning briefings, inbox triage, and status updates.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color:#ef4444"></div>
+            <h4>Month 6 &mdash; Full Autonomy</h4>
+            <p>Your AI employee knows everything about your business and acts on it independently. Client onboarding, content publishing, reporting, scheduling &mdash; all handled while you focus on high-value work.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color:#22c55e"></div>
+            <h4>Year 1 &mdash; Insurmountable Advantage</h4>
+            <p>15,000+ structured context records feed every action. Your AI employee is more knowledgeable about your business than most human employees. Competitors can't replicate what you've built.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="oc-cta">
+    <div class="container">
+      <h2>Ready to Build Your AI Employee?</h2>
+      <p>Start with BizBrain OS today. Add OpenClaw when you're ready for autonomous action.</p>
+      <div class="oc-cta-buttons">
+        <a href="install.html" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Install BizBrain OS
+        </a>
+        <a href="https://openclaw.ai" class="btn btn-secondary" target="_blank" rel="noopener" style="border-color:rgba(239,68,68,0.3);color:#ef4444">
+          Get OpenClaw
+        </a>
+        <a href="index.html" class="btn btn-secondary">
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding:40px 0;text-align:center;border-top:1px solid var(--border);color:var(--text-tertiary);font-size:0.85rem;">
+    <div class="container">
+      <p>&copy; 2025&ndash;2026 <a href="https://techintegrationlabs.com" style="color:var(--accent)" target="_blank">Tech Integration Labs</a>. BizBrain OS is open source under the MIT license.</p>
+      <p style="margin-top:8px"><a href="index.html" style="color:var(--text-secondary)">Home</a> &middot; <a href="demo.html" style="color:var(--text-secondary)">Demo</a> &middot; <a href="install.html" style="color:var(--text-secondary)">Install</a> &middot; <a href="about.html" style="color:var(--text-secondary)">About</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    (function() {
+      var toggle = document.getElementById('theme-toggle');
+      function getTheme() {
+        return localStorage.getItem('bizbrain-theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      }
+      document.documentElement.setAttribute('data-theme', getTheme());
+      if (toggle) {
+        toggle.addEventListener('click', function() {
+          var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', t);
+          localStorage.setItem('bizbrain-theme', t);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
