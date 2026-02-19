@@ -378,10 +378,22 @@ h1, h2, h3, h4, h5, h6 {
   0% { box-shadow: 0 0 0 rgba(0, 212, 255, 0); }
   100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.08); }
 }
+.hero-ai {
+  font-size: 1.35em;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+.hero-your {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 .hero-title {
   font-size: clamp(2.8rem, 6.5vw, 4.5rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.04em;
   margin-bottom: 24px;
 }
