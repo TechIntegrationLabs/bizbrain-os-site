@@ -44,6 +44,7 @@
   --shadow-glow: 0 0 40px rgba(0, 212, 255, 0.08), 0 0 80px rgba(0, 212, 255, 0.04);
 
   --font-heading: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hero: 'Space Grotesk', 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 
@@ -418,31 +419,68 @@ h1, h2, h3, h4, h5, h6 {
   0% { box-shadow: 0 0 0 rgba(0, 212, 255, 0); }
   100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.08); }
 }
+/* Hero title — Space Grotesk for that modern tech feel */
+.hero-title {
+  font-family: var(--font-hero);
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  margin-bottom: 28px;
+}
+/* Override animate-in so lines stagger independently */
+.hero-title.animate-in {
+  opacity: 1;
+  transform: none;
+}
+.hero-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+.hero-title.visible .hero-line {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hero-title.visible .hero-line:nth-child(1) { transition-delay: 0s; }
+.hero-title.visible .hero-line:nth-child(2) { transition-delay: 0.1s; }
+.hero-title.visible .hero-line:nth-child(3) { transition-delay: 0.2s; }
+.hero-title.visible .hero-line:nth-child(4) { transition-delay: 0.3s; }
+.hero-title.visible .hero-line:nth-child(5) { transition-delay: 0.45s; }
+
+/* "AI" — large with animated gradient shimmer */
 .hero-ai {
-  font-size: 1.35em;
-  background: var(--gradient-text);
+  font-size: 1.15em;
+  font-weight: 700;
+  background: linear-gradient(
+    90deg,
+    #00d4ff 0%,
+    #00e5ff 30%,
+    #ffffff 50%,
+    #00e5ff 70%,
+    #00d4ff 100%
+  );
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.02em;
+  animation: shimmer-text 4s ease-in-out infinite;
 }
+@keyframes shimmer-text {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: -100% 0; }
+}
+
+/* "your" — accent color to connect with user */
 .hero-your {
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.hero-title {
-  font-size: clamp(2.8rem, 6.5vw, 4.5rem);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.04em;
-  margin-bottom: 24px;
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
 }
 
 /* Typing animation line */
-.typing-line {
-  display: inline-flex;
-  align-items: baseline;
-  min-height: 1.15em;
+.hero-line--typing {
+  min-height: 1.1em;
 }
 .typing-text {
   display: inline-block;
@@ -2489,6 +2527,72 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: underline;
 }
 
+/* ---- Creator Spotlight ---- */
+.creator-spotlight {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+}
+.creator-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  transition: all 0.3s var(--ease-out-quart);
+  text-decoration: none;
+  color: inherit;
+}
+.creator-card:hover {
+  border-color: rgba(0, 212, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.creator-avatar img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--border-light);
+  object-fit: cover;
+}
+.creator-card:hover .creator-avatar img {
+  border-color: var(--accent);
+}
+.creator-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.creator-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.creator-name {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.creator-role {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.creator-arrow {
+  font-size: 1.5rem;
+  color: var(--text-tertiary);
+  transition: transform 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+.creator-card:hover .creator-arrow {
+  transform: translateX(4px);
+  color: var(--accent);
+}
+
 /* ---- Footer ---- */
 .footer {
   padding: 80px 0 40px;
@@ -2682,8 +2786,11 @@ h1, h2, h3, h4, h5, h6 {
   .nav-links .nav-link { font-size: 1.2rem; }
   .mobile-menu-toggle { display: flex; }
   .hero { padding: 130px 0 60px; min-height: auto; }
-  .hero-title { font-size: 2.4rem; }
+  .hero-title { font-size: clamp(2rem, 5.5vw, 2.8rem); }
   .hero-stats { gap: 24px; flex-wrap: wrap; }
+  .creator-card { padding: 20px 24px; }
+  .creator-name { font-size: 1.15rem; }
+  .creator-role { font-size: 0.78rem; }
   .stat-value { font-size: 1.3rem; }
   .section { padding: 80px 0; }
   .section-header { margin-bottom: 48px; }
@@ -2715,10 +2822,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 480px) {
-  .hero-title { font-size: 1.8rem; }
+  .hero-title { font-size: clamp(1.6rem, 8vw, 2rem); line-height: 1.12; }
   .hero-subtitle { font-size: 0.95rem; }
   .hero-actions { flex-direction: column; align-items: center; }
   .btn { width: 100%; justify-content: center; max-width: 280px; }
+  .creator-card { flex-direction: column; text-align: center; padding: 24px 20px; }
+  .creator-arrow { display: none; }
   .slider-labels span { font-size: 0.55rem; }
   .knowledge-counter { margin-bottom: 20px; }
   .counter-value { font-size: 2rem; }

@@ -261,11 +261,11 @@
   var cursorEl = document.getElementById('typing-cursor');
   if (typingEl) {
     var phrases = [
-      'Your Business',
-      'Your Clients',
-      'Your Workflows',
-      'Your History',
-      'Every Detail'
+      'business.',
+      'clients.',
+      'workflows.',
+      'history.',
+      'everything.'
     ];
     var phraseIdx = 0;
     var charIdx = 0;
