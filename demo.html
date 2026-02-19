@@ -466,9 +466,11 @@
     <div class="app-tabs" id="main-tabs">
       <button class="app-tab active" data-tab="dashboard">Dashboard</button>
       <button class="app-tab" data-tab="projects">Projects <span class="tab-count">6</span></button>
+      <button class="app-tab" data-tab="entities">Entities <span class="tab-count">42</span></button>
       <button class="app-tab" data-tab="services">Services <span class="tab-count">8</span></button>
       <button class="app-tab" data-tab="mcp">MCP Servers <span class="tab-count">12</span></button>
       <button class="app-tab" data-tab="claude">Claude Code</button>
+      <button class="app-tab" data-tab="terminal">Terminal</button>
       <button class="app-tab" data-tab="secrets">Secrets <span class="tab-count">24</span></button>
       <button class="app-tab" data-tab="settings">Settings</button>
     </div>
@@ -775,6 +777,29 @@
     { icon: '&#x1F4B3;', bg: 'var(--green-dim)', text: '<strong>Stripe</strong> &mdash; 2,847 transactions processed today', time: '15m ago' },
   ];
 
+  var ENTITIES = [
+    { name: 'Acme Corp', type: 'Client', status: 'active', color: '#22c55e', contacts: 3, lastActive: '2h ago', revenue: '$48K', deals: 2 },
+    { name: 'DataFlow Inc', type: 'Client', status: 'active', color: '#22c55e', contacts: 2, lastActive: '1d ago', revenue: '$124K', deals: 4 },
+    { name: 'CloudScale', type: 'Client', status: 'active', color: '#22c55e', contacts: 1, lastActive: '3h ago', revenue: '$28K', deals: 1 },
+    { name: 'Zenith Media', type: 'Client', status: 'active', color: '#22c55e', contacts: 2, lastActive: '5h ago', revenue: '$18K', deals: 1 },
+    { name: 'PrimeLogic', type: 'Client', status: 'active', color: '#22c55e', contacts: 1, lastActive: '2d ago', revenue: '$36K', deals: 2 },
+    { name: 'NorthStar', type: 'Client', status: 'inactive', color: '#eab308', contacts: 1, lastActive: '2w ago', revenue: '$12K', deals: 0 },
+    { name: 'TechVentures VC', type: 'Partner', status: 'active', color: '#a855f7', contacts: 2, lastActive: '1d ago', revenue: '--', deals: 0 },
+    { name: 'BlueHorizon Capital', type: 'Partner', status: 'active', color: '#a855f7', contacts: 1, lastActive: '4d ago', revenue: '--', deals: 0 },
+    { name: 'AWS', type: 'Vendor', status: 'active', color: '#3b82f6', contacts: 0, lastActive: '1h ago', revenue: '--', deals: 0 },
+    { name: 'Vercel', type: 'Vendor', status: 'active', color: '#3b82f6', contacts: 0, lastActive: '3h ago', revenue: '--', deals: 0 },
+    { name: 'Anthropic', type: 'Vendor', status: 'active', color: '#3b82f6', contacts: 0, lastActive: '15m ago', revenue: '--', deals: 0 },
+    { name: 'OpenAI', type: 'Vendor', status: 'active', color: '#3b82f6', contacts: 0, lastActive: '2h ago', revenue: '--', deals: 0 }
+  ];
+
+  var TERMINAL_HISTORY = [
+    { prompt: '/status', output: '<span style="color:var(--green)">All systems operational</span>\n  Projects: 6 (5 healthy, 1 needs attention)\n  Services: 8 connected\n  MCP: 5/12 active\n  Secrets: 24 managed\n  Uptime: 99.8%' },
+    { prompt: '/todo', output: '  <span style="color:var(--accent)">Open Tasks (12)</span>\n  <span style="color:var(--yellow)">!</span> Follow up with Acme on Q2 proposal     <span style="color:var(--text-3)">due: tomorrow</span>\n  <span style="color:var(--yellow)">!</span> Review Beacon AI memory leak PR          <span style="color:var(--text-3)">due: today</span>\n  <span style="color:var(--text-3)">&#x2022;</span> Update NovaPay webhook documentation       <span style="color:var(--text-3)">due: Fri</span>\n  <span style="color:var(--text-3)">&#x2022;</span> Prepare Atlas Analytics demo for investor  <span style="color:var(--text-3)">due: Mon</span>\n  <span style="color:var(--text-3)">&#x2022;</span> Write monthly client newsletter             <span style="color:var(--text-3)">due: Mon</span>\n  <span style="color:var(--text-3)">...</span> +7 more' },
+    { prompt: '/client Acme', output: '  <span style="color:var(--accent)">Acme Corp</span> &mdash; Client (Active)\n  Revenue: $48K | Deals: 2 open | Contacts: 3\n  Last contact: 2 hours ago\n  \n  <span style="font-weight:600">Recent History:</span>\n  2h ago   Call with Sarah K. re: Q2 expansion\n  1d ago   Sent revised proposal ($24K scope)\n  3d ago   Demo of new analytics dashboard\n  1w ago   Signed NDA for Phase 2 work' },
+    { prompt: '/inbox', output: '  <span style="color:var(--accent)">Processing 3 files from _inbox/...</span>\n  <span style="color:var(--green)">&#10003;</span> invoice-acme-feb.pdf &rarr; Clients/Acme Corp/invoices/\n  <span style="color:var(--green)">&#10003;</span> meeting-notes-2026-02.md &rarr; extracted 4 action items\n  <span style="color:var(--green)">&#10003;</span> competitor-analysis.pdf &rarr; Knowledge/research/\n  <span style="color:var(--green)">Done.</span> 3 files processed, 4 action items created.' },
+    { prompt: '/sync', output: '  <span style="color:var(--accent)">Syncing all sources...</span>\n  <span style="color:var(--green)">&#10003;</span> Git: 3 repos pushed\n  <span style="color:var(--green)">&#10003;</span> Notion: 12 pages synced\n  <span style="color:var(--green)">&#10003;</span> Slack: 8 channels scanned, 2 action items\n  <span style="color:var(--green)">&#10003;</span> Timesheets: 6.5 hrs logged today\n  <span style="color:var(--green)">All synced.</span>' }
+  ];
+
   // ========== RENDERING ==========
 
   var content = document.getElementById('app-content');
@@ -796,12 +821,13 @@
 
   function renderDashboard() {
     var activeCount = MCP_SERVERS.filter(function(s){return s.active;}).length;
-    return '<div class="pg-head"><div><div class="pg-title">Dashboard</div><div class="pg-sub">Overview of your business operations</div></div></div>' +
+    var clientCount = ENTITIES.filter(function(e){return e.type==='Client'}).length;
+    return '<div class="pg-head"><div><div class="pg-title">Dashboard</div><div class="pg-sub">Overview of your business operations</div></div><div class="pg-actions"><button class="btn btn-sm" style="color:var(--accent);font-family:var(--mono)" onclick="switchTab(\'terminal\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg> Open Terminal</button></div></div>' +
       '<div class="stats">' +
         '<div class="stat-card"><div class="stat-label">Projects</div><div class="stat-value">' + PROJECTS.length + '</div><div class="stat-sub">' + PROJECTS.filter(function(p){return p.status==='green'}).length + ' healthy &bull; ' + PROJECTS.filter(function(p){return p.status!=='green'}).length + ' need attention</div></div>' +
-        '<div class="stat-card"><div class="stat-label">Services</div><div class="stat-value">' + SERVICES.length + '</div><div class="stat-sub">' + SERVICES.filter(function(s){return s.status==='green'}).length + ' connected</div></div>' +
-        '<div class="stat-card"><div class="stat-label">MCP Servers</div><div class="stat-value">' + activeCount + ' / ' + MCP_SERVERS.length + '</div><div class="stat-sub">Active servers</div></div>' +
-        '<div class="stat-card"><div class="stat-label">Secrets</div><div class="stat-value">' + SECRETS.length + '</div><div class="stat-sub">Environment variables managed</div></div>' +
+        '<div class="stat-card"><div class="stat-label">Entities</div><div class="stat-value">' + ENTITIES.length + '</div><div class="stat-sub">' + clientCount + ' clients &bull; $266K revenue</div></div>' +
+        '<div class="stat-card"><div class="stat-label">MCP Servers</div><div class="stat-value">' + activeCount + ' / ' + MCP_SERVERS.length + '</div><div class="stat-sub">' + MCP_SERVERS.reduce(function(a,s){return a+(s.active?s.tools:0)},0) + ' tools active</div></div>' +
+        '<div class="stat-card"><div class="stat-label">Today</div><div class="stat-value" style="font-size:22px">6.5 hrs</div><div class="stat-sub">logged &bull; 8 tasks done</div></div>' +
       '</div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">' +
         '<div><div class="sec-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Recent Activity</div>' +
@@ -927,6 +953,56 @@
       '</div>';
   }
 
+  function renderEntities() {
+    var clients = ENTITIES.filter(function(e){return e.type==='Client'});
+    var partners = ENTITIES.filter(function(e){return e.type==='Partner'});
+    var vendors = ENTITIES.filter(function(e){return e.type==='Vendor'});
+    var activeCount = ENTITIES.filter(function(e){return e.status==='active'}).length;
+
+    function entityRows(list) {
+      return list.map(function(e) {
+        return '<div class="list-row" style="padding:12px 16px;cursor:pointer"><span class="dot" style="background:'+e.color+';box-shadow:0 0 4px '+e.color+'40"></span><span style="font-weight:600;font-size:13px;flex:1">'+e.name+'</span><span class="tag" style="background:'+e.color+'18;color:'+e.color+'">'+e.type+'</span>'+(e.revenue!=='--'?'<span style="font-weight:600;font-size:13px;color:var(--green);min-width:60px;text-align:right">'+e.revenue+'</span>':'')+'<span class="text-xs text-muted" style="min-width:60px;text-align:right">'+e.lastActive+'</span></div>';
+      }).join('');
+    }
+
+    return '<div class="pg-head"><div><div class="pg-title">Entities</div><div class="pg-sub">Clients, partners, and vendors tracked by Entity Watchdog</div></div><div class="pg-actions"><button class="btn btn-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Entity</button></div></div>' +
+      '<div class="stats">' +
+        '<div class="stat-card"><div class="stat-label">Total Entities</div><div class="stat-value">' + ENTITIES.length + '</div><div class="stat-sub">' + activeCount + ' active</div></div>' +
+        '<div class="stat-card" style="border-top:3px solid #22c55e"><div class="stat-label">Clients</div><div class="stat-value" style="color:#22c55e">' + clients.length + '</div><div class="stat-sub">$266K total revenue</div></div>' +
+        '<div class="stat-card" style="border-top:3px solid #a855f7"><div class="stat-label">Partners</div><div class="stat-value" style="color:#a855f7">' + partners.length + '</div><div class="stat-sub">Strategic relationships</div></div>' +
+        '<div class="stat-card" style="border-top:3px solid #3b82f6"><div class="stat-label">Vendors</div><div class="stat-value" style="color:#3b82f6">' + vendors.length + '</div><div class="stat-sub">Service providers</div></div>' +
+      '</div>' +
+      '<div class="sec-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Clients (' + clients.length + ')</div>' +
+      '<div class="card" style="padding:0;overflow:hidden">' + entityRows(clients) + '</div>' +
+      '<div class="sec-head mt-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Partners (' + partners.length + ')</div>' +
+      '<div class="card" style="padding:0;overflow:hidden">' + entityRows(partners) + '</div>' +
+      '<div class="sec-head mt-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg> Vendors (' + vendors.length + ')</div>' +
+      '<div class="card" style="padding:0;overflow:hidden">' + entityRows(vendors) + '</div>';
+  }
+
+  function renderTerminal() {
+    var historyHtml = TERMINAL_HISTORY.map(function(t) {
+      return '<div style="margin-bottom:16px"><div><span style="color:var(--accent);font-weight:600">~/business-brain</span> <span style="color:var(--green)">$</span> <span style="color:var(--text-1);font-weight:500">' + t.prompt + '</span></div><div style="white-space:pre-wrap;color:var(--text-2);margin-top:4px;padding-left:2px">' + t.output + '</div></div>';
+    }).join('');
+
+    return '<div class="pg-head"><div><div class="pg-title">Terminal</div><div class="pg-sub">Slash commands and Brain interaction</div></div></div>' +
+      '<div class="card" style="background:rgba(0,0,0,0.4);border-color:rgba(0,212,255,0.12);font-family:var(--mono);font-size:12px;line-height:1.7;max-width:100%;overflow:hidden">' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)"><span style="color:var(--accent);font-weight:700">BizBrain OS Terminal</span><span style="color:var(--text-3);font-size:11px">v1.2.0</span><span style="margin-left:auto;color:var(--green);font-size:11px">&#x25CF; Connected to Brain</span></div>' +
+        historyHtml +
+        '<div style="display:flex;align-items:center;gap:8px;padding-top:8px;border-top:1px solid var(--border)"><span style="color:var(--accent);font-weight:600">~/business-brain</span> <span style="color:var(--green)">$</span> <span style="color:var(--text-3);animation:pulse 1.2s infinite">&#x2588;</span></div>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:20px">' +
+        '<div class="card clickable" style="text-align:center;padding:14px"><div style="font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600">/status</div><div class="text-xs text-muted" style="margin-top:4px">System overview</div></div>' +
+        '<div class="card clickable" style="text-align:center;padding:14px"><div style="font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600">/todo</div><div class="text-xs text-muted" style="margin-top:4px">Task management</div></div>' +
+        '<div class="card clickable" style="text-align:center;padding:14px"><div style="font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600">/client &lt;name&gt;</div><div class="text-xs text-muted" style="margin-top:4px">Client lookup</div></div>' +
+        '<div class="card clickable" style="text-align:center;padding:14px"><div style="font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600">/inbox</div><div class="text-xs text-muted" style="margin-top:4px">Process files</div></div>' +
+        '<div class="card clickable" style="text-align:center;padding:14px"><div style="font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600">/sync</div><div class="text-xs text-muted" style="margin-top:4px">Sync all sources</div></div>' +
+        '<div class="card clickable" style="text-align:center;padding:14px"><div style="font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600">/find &lt;query&gt;</div><div class="text-xs text-muted" style="margin-top:4px">Search everything</div></div>' +
+        '<div class="card clickable" style="text-align:center;padding:14px"><div style="font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600">/hours</div><div class="text-xs text-muted" style="margin-top:4px">Time tracking</div></div>' +
+        '<div class="card clickable" style="text-align:center;padding:14px"><div style="font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600">/deploy</div><div class="text-xs text-muted" style="margin-top:4px">Deploy project</div></div>' +
+      '</div>';
+  }
+
   // ========== PROJECT DETAIL ==========
 
   function renderProjectDetail(project) {
@@ -996,9 +1072,11 @@
   var panes = {
     dashboard: renderDashboard,
     projects: renderProjects,
+    entities: renderEntities,
     services: renderServices,
     mcp: renderMCP,
     claude: renderClaude,
+    terminal: renderTerminal,
     secrets: renderSecrets,
     settings: renderSettings
   };
