@@ -248,26 +248,83 @@
         <li><span class="check">&#10003;</span> Generates a personalized setup prompt for Claude Code</li>
       </ul>
 
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 24px 0;">
-        <a href="https://github.com/TechIntegrationLabs/create-bizbrain/releases/latest/download/bizbrain-setup.exe" class="btn btn-primary" style="justify-content:center;">
-          &#x1F5A5; Windows (.exe)
-        </a>
-        <a href="https://github.com/TechIntegrationLabs/create-bizbrain/releases/latest/download/bizbrain-setup-macos" class="btn btn-secondary" style="justify-content:center;">
-          &#x1F34E; macOS
-        </a>
-        <a href="https://github.com/TechIntegrationLabs/create-bizbrain/releases/latest/download/bizbrain-setup-linux" class="btn btn-secondary" style="justify-content:center;">
-          &#x1F427; Linux
-        </a>
+      <div class="os-tabs" id="installer-os-tabs">
+        <button class="os-tab active" data-os="install-win">Windows</button>
+        <button class="os-tab" data-os="install-mac">Mac</button>
+        <button class="os-tab" data-os="install-linux">Linux</button>
       </div>
 
-      <div class="callout callout-info">
+      <!-- WINDOWS -->
+      <div class="os-content active" data-os="install-win">
+        <div style="text-align: center; margin: 24px 0;">
+          <a href="https://github.com/TechIntegrationLabs/create-bizbrain/releases/latest/download/bizbrain-setup.exe" class="btn btn-primary btn-primary-lg" style="padding: 18px 40px; font-size: 17px;">
+            &#x1F5A5; Download for Windows
+          </a>
+        </div>
+        <h3>How to run it</h3>
+        <ol style="color: var(--text-secondary); font-size: 15px; line-height: 2; padding-left: 20px;">
+          <li>Click the download button above</li>
+          <li>Open your <strong>Downloads</strong> folder</li>
+          <li>Double-click <strong>bizbrain-setup.exe</strong></li>
+          <li>If Windows SmartScreen appears, click <strong>"More info"</strong> then <strong>"Run anyway"</strong></li>
+          <li>Follow the on-screen prompts &mdash; the installer does the rest</li>
+        </ol>
+      </div>
+
+      <!-- MAC -->
+      <div class="os-content" data-os="install-mac">
+        <h3>Easiest: paste one line into Terminal</h3>
+        <p>Open <strong>Terminal</strong> (search "Terminal" in Spotlight or find it in Applications &rarr; Utilities) and paste this:</p>
+        <div class="terminal">
+          <div class="terminal-bar"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span><span class="terminal-label">Terminal</span></div>
+          <pre><span class="cmd" id="mac-install-cmd">curl -fsSL https://bizbrain-os.com/install.sh | bash</span></pre>
+        </div>
+        <p style="margin-top: 8px;"><button onclick="navigator.clipboard.writeText('curl -fsSL https://bizbrain-os.com/install.sh | bash')" style="background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;">Copy to clipboard</button></p>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 12px;">This automatically downloads the right version for your Mac, handles permissions, and starts the installer. Nothing is installed without your knowledge.</p>
+
+        <div class="callout callout-info" style="margin-top: 20px;">
+          <strong>What does this command do?</strong>
+          It downloads a small script from bizbrain-os.com that fetches the installer, makes it runnable, and launches it. You can <a href="install.sh" target="_blank" style="color: var(--accent);">read the script first</a> if you'd like &mdash; it's short and simple.
+        </div>
+
+        <details style="margin-top: 16px; color: var(--text-secondary); font-size: 14px;">
+          <summary style="cursor: pointer; color: var(--text-primary); font-weight: 500;">Alternative: manual download</summary>
+          <div style="padding-top: 12px;">
+            <p><a href="https://github.com/TechIntegrationLabs/create-bizbrain/releases/latest/download/bizbrain-setup-macos" class="btn btn-secondary" style="margin: 8px 0;">&#x1F34E; Download for Mac</a></p>
+            <p>After downloading, open Terminal and run:</p>
+            <div class="terminal">
+              <div class="terminal-bar"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span><span class="terminal-label">Terminal</span></div>
+              <pre><span class="cmd">cd ~/Downloads && chmod +x bizbrain-setup-macos && ./bizbrain-setup-macos</span></pre>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- LINUX -->
+      <div class="os-content" data-os="install-linux">
+        <h3>Paste one line into your terminal</h3>
+        <div class="terminal">
+          <div class="terminal-bar"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span><span class="terminal-label">Terminal</span></div>
+          <pre><span class="cmd">curl -fsSL https://bizbrain-os.com/install.sh | bash</span></pre>
+        </div>
+        <p style="margin-top: 8px;"><button onclick="navigator.clipboard.writeText('curl -fsSL https://bizbrain-os.com/install.sh | bash')" style="background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;">Copy to clipboard</button></p>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 12px;">Downloads the right binary for your system, makes it executable, and starts the installer.</p>
+
+        <details style="margin-top: 16px; color: var(--text-secondary); font-size: 14px;">
+          <summary style="cursor: pointer; color: var(--text-primary); font-weight: 500;">Alternative: manual download</summary>
+          <div style="padding-top: 12px;">
+            <p><a href="https://github.com/TechIntegrationLabs/create-bizbrain/releases/latest/download/bizbrain-setup-linux" class="btn btn-secondary" style="margin: 8px 0;">&#x1F427; Download for Linux</a></p>
+            <div class="terminal">
+              <div class="terminal-bar"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span><span class="terminal-label">Terminal</span></div>
+              <pre><span class="cmd">cd ~/Downloads && chmod +x bizbrain-setup-linux && ./bizbrain-setup-linux</span></pre>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="callout callout-info" style="margin-top: 20px;">
         <strong>What happens when you run it?</strong>
         The installer walks you through a friendly 5-minute setup: checks for prerequisites (installs any missing ones), asks about your business, downloads BizBrain OS, imports any files you want, and generates a personalized start page with a ready-to-paste Claude Code prompt.
-      </div>
-
-      <div class="callout callout-warning">
-        <strong>macOS/Linux users:</strong>
-        After downloading, you may need to make it executable: <code>chmod +x bizbrain-setup-macos</code> then <code>./bizbrain-setup-macos</code>
       </div>
     </div>
   </section>
@@ -504,15 +561,28 @@ document.querySelectorAll('.os-tabs').forEach(tabGroup => {
   });
 });
 
-// Auto-detect OS
+// Auto-detect OS and select the right tab in all tab groups
 (function() {
-  var isWin = navigator.platform && navigator.platform.indexOf('Win') > -1;
-  if (isWin) {
-    document.querySelectorAll('.os-tabs').forEach(tabGroup => {
-      var winTab = tabGroup.querySelector('.os-tab[data-os="win"]');
-      if (winTab) winTab.click();
-    });
+  var ua = navigator.userAgent || '';
+  var platform = navigator.platform || '';
+  var osKey = 'mac'; // default
+
+  if (platform.indexOf('Win') > -1) {
+    osKey = 'win';
+  } else if (platform.indexOf('Linux') > -1 && ua.indexOf('Android') === -1) {
+    osKey = 'linux';
   }
+
+  document.querySelectorAll('.os-tabs').forEach(tabGroup => {
+    // Try exact OS match first, then prefixed variants (e.g., "install-win")
+    var tab = tabGroup.querySelector('.os-tab[data-os="' + osKey + '"]')
+           || tabGroup.querySelector('.os-tab[data-os$="-' + osKey + '"]');
+    // For the installer tabs: win -> install-win, mac -> install-mac, linux -> install-linux
+    if (!tab) {
+      tab = tabGroup.querySelector('.os-tab[data-os="install-' + osKey + '"]');
+    }
+    if (tab) tab.click();
+  });
 })();
   </script>
 </body>
